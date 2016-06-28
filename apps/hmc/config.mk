@@ -74,11 +74,11 @@ CSRCS = \
        sam0/utils/stdio/read.c                            \
        sam0/utils/stdio/write.c                           \
        sam0/utils/syscalls/gcc/syscalls.c                 \
-       thirdparty/qtouch/devspecific/sam0/samd/common/BitBangSPI_Master.c \
-       thirdparty/qtouch/devspecific/sam0/samd/examples/example_mutlcap/main.c \
-       thirdparty/qtouch/devspecific/sam0/samd/examples/example_mutlcap/qtouch/touch.c \
+       thirdparty/qtouch/devspecific/sam0/samd/common/BitBangSPI_Master.c   \
        thirdparty/qtouch/qdebug/QDebugTransport.c         \
-       thirdparty/qtouch/qdebug/QDebug_samd.c
+       thirdparty/qtouch/qdebug/QDebug_samd.c             \
+       apps/hmc/qtouch/touch.c                            \
+       apps/hmc/main.c
 
 # List of assembler source files.
 ASSRCS = 
@@ -119,12 +119,10 @@ INC_PATH = \
        thirdparty/CMSIS/Lib/GCC                           \
        thirdparty/qtouch/devspecific/sam0/samd            \
        thirdparty/qtouch/devspecific/sam0/samd/common     \
-       thirdparty/qtouch/devspecific/sam0/samd/examples/example_mutlcap \
-       thirdparty/qtouch/devspecific/sam0/samd/examples/example_mutlcap/qtouch \
-       thirdparty/qtouch/devspecific/sam0/samd/examples/example_mutlcap/samd21_xplained_pro \
        thirdparty/qtouch/devspecific/sam0/samd/include    \
-       thirdparty/qtouch/qdebug \
-       thirdparty/qtouch/devspecific/sam0/samd/examples/example_mutlcap/samd21_xplained_pro/gcc
+       thirdparty/qtouch/qdebug                           \
+       apps/hmc/qtouch                                    \
+       apps/hmc
 
 # Additional search paths for libraries.
 LIB_PATH =  \
