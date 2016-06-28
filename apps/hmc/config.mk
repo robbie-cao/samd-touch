@@ -79,6 +79,7 @@ CSRCS = \
        thirdparty/qtouch/qdebug/QDebug_samd.c             \
        apps/hmc/qtouch/touch.c                            \
        apps/hmc/hal_if_usart.c                            \
+       apps/hmc/log.c                                     \
        apps/hmc/main.c
 
 # List of assembler source files.
@@ -180,6 +181,7 @@ CPPFLAGS = \
        -D TC_ASYNC=true                                   \
        -D USART_CALLBACK_MODE=true                        \
        -D _QTOUCH_                                        \
+       -D __SAMD__                                        \
        -D __SAMD21J18A__
 
 # Extra flags to use when linking
