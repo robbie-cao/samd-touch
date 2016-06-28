@@ -8,6 +8,11 @@
 #include "hal_if_uart.h"
 #endif
 
+#if defined __SAMD__
+#include "hal_if_usart.h"
+#endif
+
+
 #define DEBUG_UART      0
 
 
@@ -59,10 +64,28 @@ int logPrintf(const char *fmt, ...)
     return nr_of_chars;        /* According to ANSI */
 }
 
-void Log_Init(void)
+#elif defined __SAMD__
+
+static uint8_t sBuf[LOG_BUFFER_SIZE];
+
+int logPrintf(const char *fmt, ...)
 {
+    va_list args;
+    int nr_of_chars;
+
+    va_start(args, fmt);
+    memset(sBuf, 0, sizeof(sBuf));
+    nr_of_chars = vsnprintf((char *)sBuf, LOG_BUFFER_SIZE - 1, fmt, args);
+    hal_if_usart_send(sBuf, strlen((char *)sBuf));
+    va_end(args);
+
+    return nr_of_chars;        /* According to ANSI */
 }
 
 #endif /* STM32F4 */
+
+void Log_Init(void)
+{
+}
 
 /* vim: set ts=4 sw=4 tw=0 list : */

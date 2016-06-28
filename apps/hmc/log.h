@@ -16,14 +16,12 @@
 #endif
 
 /* Exported types ------------------------------------------------------------*/
-void Log_Init(void);
 
 /* Exported constants --------------------------------------------------------*/
 /* User can use this section to tailor USARTx/UARTx instance used and associated
  *    resources */
 /* Definition for USARTx clock resources */
 
-#define LOG_BUFFER_SIZE                  128
 #define USARTx                           USART2
 #define USARTx_BANDRATE                  115200
 #define USARTx_CLK_ENABLE()              __HAL_RCC_USART2_CLK_ENABLE();
@@ -64,6 +62,8 @@ void Log_Init(void);
 /* Exported macro ------------------------------------------------------------*/
 #define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
 #endif /* STM32F4 */
+
+#define LOG_BUFFER_SIZE                  128
 
 /**
  * Log Level:
@@ -138,7 +138,7 @@ void Log_Init(void);
 #else
 #if defined TI_CC2541
 #define LOG(fmt, arg...)                 logPrintf(fmt, ##arg)
-#elif defined TI_CC3200 || defined STM32F4
+#elif defined TI_CC3200 || defined STM32F4 || defined __SAMD__
 #define LOG(fmt, ...)                   logPrintf(fmt, ##__VA_ARGS__)
 #else
 #warn "LOG not support!"
@@ -149,7 +149,7 @@ void Log_Init(void);
 #ifdef LOG_LEVEL_VERBOSE
 #if defined TI_CC2541
 #define LOGV(tag, fmt, arg...)          logPrintf(LOG_LEVEL_SYMBOL_VERBOSE ## "\t" ## tag ## "\t" fmt, ## arg)
-#elif defined TI_CC3200 || defined STM32F4
+#elif defined TI_CC3200 || defined STM32F4 || defined __SAMD__
 #define LOGV(tag, fmt, ...)             logPrintf(LOG_LEVEL_SYMBOL_VERBOSE "\t" tag "\t" fmt, ## __VA_ARGS__)
 #else
 #warn "LOG not support!"
@@ -162,7 +162,7 @@ void Log_Init(void);
 #ifdef LOG_LEVEL_INFO
 #if defined TI_CC2541
 #define LOGI(tag, fmt, arg...)          logPrintf(LOG_LEVEL_SYMBOL_INFO    ## "\t" ## tag ## "\t" fmt, ## arg)
-#elif defined TI_CC3200 || defined STM32F4
+#elif defined TI_CC3200 || defined STM32F4 || defined __SAMD__
 #define LOGI(tag, fmt, ...)             logPrintf(LOG_LEVEL_SYMBOL_INFO    "\t" tag "\t" fmt, ## __VA_ARGS__)
 #else
 #warn "LOG not support!"
@@ -175,7 +175,7 @@ void Log_Init(void);
 #ifdef LOG_LEVEL_DEBUG
 #if defined TI_CC2541
 #define LOGD(tag, fmt, arg...)          logPrintf(LOG_LEVEL_SYMBOL_DEBUG   ## "\t" ## tag ## "\t" fmt, ## arg)
-#elif defined TI_CC3200 || defined STM32F4
+#elif defined TI_CC3200 || defined STM32F4 || defined __SAMD__
 #define LOGD(tag, fmt, ...)             logPrintf(LOG_LEVEL_SYMBOL_DEBUG   "\t" tag "\t" fmt, ## __VA_ARGS__)
 #else
 #warn "LOG not support!"
@@ -188,7 +188,7 @@ void Log_Init(void);
 #ifdef LOG_LEVEL_WARN
 #if defined TI_CC2541
 #define LOGW(tag, fmt, arg...)          logPrintf(LOG_LEVEL_SYMBOL_WARN    ## "\t" ## tag ## "\t" fmt, ## arg)
-#elif defined TI_CC3200 || defined STM32F4
+#elif defined TI_CC3200 || defined STM32F4 || defined __SAMD__
 #define LOGW(tag, fmt, ...)             logPrintf(LOG_LEVEL_SYMBOL_WARN    "\t" tag "\t" fmt, ## __VA_ARGS__)
 #else
 #warn "LOG not support!"
@@ -201,7 +201,7 @@ void Log_Init(void);
 #ifdef LOG_LEVEL_ERROR
 #if defined TI_CC2541
 #define LOGE(tag, fmt, arg...)          logPrintf(LOG_LEVEL_SYMBOL_ERROR   ## "\t" ## tag ## "\t" fmt, ## arg)
-#elif defined TI_CC3200 || defined STM32F4
+#elif defined TI_CC3200 || defined STM32F4 || defined __SAMD__
 #define LOGE(tag, fmt, ...)             logPrintf(LOG_LEVEL_SYMBOL_ERROR   "\t" tag "\t" fmt, ## __VA_ARGS__)
 #else
 #warn "LOG not support!"
@@ -236,6 +236,8 @@ void Log_Init(void);
 #ifndef logPrintf
 int logPrintf(const char *format, ...);
 #endif
+
+void Log_Init(void);
 
 #endif /* __LOG_H__ */
 
