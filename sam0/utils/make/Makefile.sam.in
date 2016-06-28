@@ -95,6 +95,9 @@ ifdef OS
   ifeq ($(strip $(OS)), Linux)
     os_type     := Linux
   endif
+  ifeq ($(strip $(OS)), Darwin)
+	os_type     := Darwin
+  endif
   ifeq ($(strip $(OS)), Windows)
     os_type     := windows32_64
   endif
@@ -111,12 +114,16 @@ else
 ifeq ($(os_type),windows32_64)
 os              ?= Windows
 else
+ifeq ($(os_type),Darwin)
+os              ?= Mac
+else
 ifeq ($(os_type),)
 os              := Windows
 else
 # Default to Linux style operating system. Both Cygwin and mingw are fully
 # compatible (for this Makefile) with Linux.
 os              := Linux
+endif
 endif
 endif
 endif
@@ -143,7 +150,11 @@ RM              := rm
 ifeq ($(os),Windows)
 RMDIR           := rmdir /S /Q
 else
+ifeq ($(os),Mac)
+RMDIR           := rmdir -p
+else
 RMDIR           := rmdir -p --ignore-fail-on-non-empty
+endif
 endif
 
 # On Windows, we need to override the shell to force the use of cmd.exe
