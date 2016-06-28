@@ -278,6 +278,13 @@ function m_usage()
 # Wrapper of flash script
 #
 
+function fa()
+{
+    local T=$(gettop)
+
+    sh $T/fam.sh $@
+}
+
 function fs()
 {
     local T=$(gettop)
