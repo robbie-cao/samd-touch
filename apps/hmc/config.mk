@@ -78,6 +78,7 @@ CSRCS = \
        thirdparty/qtouch/qdebug/QDebugTransport.c         \
        thirdparty/qtouch/qdebug/QDebug_samd.c             \
        apps/hmc/qtouch/touch.c                            \
+       apps/hmc/hal_if_usart.c                            \
        apps/hmc/main.c
 
 # List of assembler source files.
