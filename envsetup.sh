@@ -53,18 +53,21 @@ if [ "$(uname)" = "Darwin" ]; then
     alias st-info=$ROOT_PATH/Tools/st-info-mac
     alias st-term=$ROOT_PATH/Tools/st-term-mac
     alias st-util=$ROOT_PATH/Tools/st-util-mac
+    alias edbg=$ROOT_PATH/tools/edbg-mac
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
     # Linux
     alias st-flash=$ROOT_PATH/Tools/st-flash-linux
     alias st-info=$ROOT_PATH/Tools/st-info-linux
     alias st-term=$ROOT_PATH/Tools/st-term-linux
     alias st-util=$ROOT_PATH/Tools/st-util-linux
+    alias edbg=$ROOT_PATH/tools/edbg-linux
 elif [ "$(expr substr $(uname -s) 1 6)" = "CYGWIN" ]; then
     # Cygwin
     alias st-flash=$ROOT_PATH/Tools/st-flash-cygwin
     alias st-info=$ROOT_PATH/Tools/st-info-cygwin
     alias st-term=$ROOT_PATH/Tools/st-term-cygwin
     alias st-util=$ROOT_PATH/Tools/st-util-cygwin
+    alias edbg=$ROOT_PATH/tools/edbg-cygwin
 else
     echo "Platform not support!"
     exit 1
