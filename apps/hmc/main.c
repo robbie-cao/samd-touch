@@ -61,6 +61,9 @@
 
 #include <asf.h>
 
+#include "hal_if_usart.h"
+#include "log.h"
+
 /* Macros */
 
 /**
@@ -381,6 +384,8 @@ int main(void)
 	 */
 	system_init();
 
+    hal_if_usart_init();
+
 	/**
 	 * Enable global interrupts.
 	 */
@@ -405,6 +410,8 @@ int main(void)
 	 * Configure port pins
 	 */
 	configure_port_pins();
+
+    LOG("Hello~\r\n");
 
 	/**
 	 * Turn off all extension board LEDs
