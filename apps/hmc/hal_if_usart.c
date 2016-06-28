@@ -62,6 +62,11 @@ void configure_usart(void)
 //! [setup_enable]
 }
 
+uint8_t hal_if_usart_send(uint8_t *data, uint16_t len)
+{
+    return usart_write_buffer_wait(&usart_instance, data, len);
+}
+
 void configure_usart_callbacks(void)
 {
 //! [setup_register_callbacks]

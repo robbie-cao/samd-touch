@@ -131,6 +131,8 @@
 #include <asf.h>
 #include <conf_clocks.h>
 
+uint8_t hal_if_usart_send(uint8_t *data, uint16_t len);
+
 void hal_if_usart_init(void);
 
 #endif
