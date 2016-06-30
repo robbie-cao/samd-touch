@@ -56,6 +56,9 @@
 #include "touch.h"
 #include "touch_api_SAMD.h"
 
+#include "hal_if_usart.h"
+#include "log.h"
+
 /**
  * Macros
  */
@@ -69,7 +72,7 @@
 *
 */
 
-#define POWER_OPT_ENABLE
+//#define POWER_OPT_ENABLE
 
 
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
@@ -506,6 +509,13 @@ int main(void)
 	 */
 	system_init();
 
+    hal_if_usart_init();
+
+    /**
+     * Enable global interrupts.
+     */
+    system_interrupt_enable_global();
+
 	/**
 	 * Initialize delay service.
 	 */
@@ -541,6 +551,8 @@ int main(void)
 
 	/* Calibration */
 	qts_start();
+
+    LOG("Hello QT6~\r\n");
 
 	/* Appl maintains this flag,
 	* marked as 1 initially to start measurement cycle.
