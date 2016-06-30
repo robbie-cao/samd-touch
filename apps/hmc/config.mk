@@ -77,9 +77,9 @@ CSRCS = \
        thirdparty/qtouch/devspecific/sam0/samd/common/BitBangSPI_Master.c   \
        thirdparty/qtouch/qdebug/QDebugTransport.c         \
        thirdparty/qtouch/qdebug/QDebug_samd.c             \
+       mua/hal_if_usart.c                                 \
+       mua/log.c                                          \
        apps/hmc/qtouch/touch.c                            \
-       apps/hmc/hal_if_usart.c                            \
-       apps/hmc/log.c                                     \
        apps/hmc/main.c
 
 # List of assembler source files.
@@ -123,6 +123,7 @@ INC_PATH = \
        thirdparty/qtouch/devspecific/sam0/samd/common     \
        thirdparty/qtouch/devspecific/sam0/samd/include    \
        thirdparty/qtouch/qdebug                           \
+       mua                                                \
        apps/hmc/qtouch                                    \
        apps/hmc
 
