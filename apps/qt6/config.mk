@@ -136,7 +136,7 @@ LIB_PATH =  \
 # List of libraries to use during linking.
 LIBS =  \
        arm_cortexM0l_math                                 \
-       QTouch/libsamd21_surface_gcc
+       samd21_surface_gcc
 
 # Path relative to top level directory pointing to a linker script.
 LINKER_SCRIPT_FLASH = sam0/utils/linker_scripts/samd21/gcc/samd21j18a_flash.ld
