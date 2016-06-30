@@ -58,7 +58,7 @@
 /**
  * Enable Mutual Capacitance method.
  */
-#define DEF_TOUCH_MUTLCAP               (1u)
+#define DEF_TOUCH_MUTLCAP               (1)
 /*----------------------------------------------------------------------------
  *                   PTC module clock and interrupt level configuration.
  *
@@ -75,7 +75,7 @@
  * information.
  * Select the generic clock generator for surface measurements
  */
-#define GCLK_GEN_SRC_PTC                        1u
+#define GCLK_GEN_SRC_PTC                        1
 /**
  * PTC Module interrupt level.
  * The Nested Vectored Interrupt Controller (NVIC) in the SAMD supports
@@ -519,7 +519,7 @@ SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LIN
 
 #define DEF_TOUCH_QDEBUG_ENABLE_MUTLCAP
 #define DEF_TOUCH_QDEBUG_ENABLE_SURFACE
-#define DEF_TOUCH_QDEBUG_ENABLE 1u
+#define DEF_TOUCH_QDEBUG_ENABLE     0
 
 #define  INTERFACE    SPI2W
 

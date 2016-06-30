@@ -186,31 +186,31 @@ void QDebug_SendData(uint16_t qt_lib_flags)
 
 	/* Test if measure_sensors has reported change in key states or
 	 * rotor/slider positions */
-	if ((qt_lib_flags & TOUCH_BURST_AGAIN) && 
-	
+	if ((qt_lib_flags & TOUCH_BURST_AGAIN) &&
+
 	(qt_lib_flags & (!(TOUCH_RESOLVE_CAL)))
 	)
 	{
-		//qgLibraryChanges |= (1 << SUBS_SURF_STATUS); 
+		//qgLibraryChanges |= (1 << SUBS_SURF_STATUS);
 	}
 
 	/* Test if measure_sensors has reported change in at least one channel
 	 * reference */
 	if (qt_lib_flags & TOUCH_CHANNEL_REF_CHANGE) {
-		//qgLibraryChanges |= (1 << SUBS_REF); 
+		//qgLibraryChanges |= (1 << SUBS_REF);
 	}
 
 	delivery = qgSubsAllways | qgSubsOnce |
 			(qgLibraryChanges & qgSubsChange);
-	
+
 	if (delivery & (1 << SUBS_SURF_CONFIG)) {
 		Transmit_QT_Surf_Config();
 	}
-	
+
 	if (delivery & (1 << SUBS_SURF_CHANNEL_INFO)) {
 		Transmit_QT_Surf_Channel_Info();
 	}
-	
+
 	if (delivery & (1 << SUBS_SIGN_ON)) {
 		Transmit_Sign_On();
 	}
@@ -392,7 +392,7 @@ void Set_Channel_Config(void)
 		while (1) {
 		}
 	}
-	
+
 #endif
 
 }
@@ -438,21 +438,21 @@ void Transmit_QT_Surf_Status(void)
 	/*! \QT surface Touch PRop packet ID
 	*/
 	PutChar(QT_SURF_STATUS);
-	/*! \No of touches detected 
+	/*! \No of touches detected
 	* or no of touches currently	active
 	*/
 	PutChar(QT_SURF_NUM_TOUCHES);
-	
+
 	/*! \Properties of the active touch
 	* Touch ID
 	* X pos
 	* y pos
 	* Area of the touch
 	*/
-	
+
 	for(uint8_t i = 0; i< QT_SURF_MAX_NO_OF_TCH; i++)
 	{
-		
+
 		if(SURF_TCH_GET_STATE(i) != 255)
 		{
 			/*! \Touch ID
@@ -465,24 +465,24 @@ void Transmit_QT_Surf_Status(void)
 			*/
 			PutInt(SURF_TCH_GET_X_POSITION(i));
 			/*! \Y position of the touch
-			*/			
-			PutInt(SURF_TCH_GET_Y_POSITION(i));			
+			*/
+			PutInt(SURF_TCH_GET_Y_POSITION(i));
 			/*! \Area of the touch
 			* or the number of nodes active in that touch
 			*/
 			PutChar(SURF_TCH_GET_AREA(i));
-			
+
 		}
 		else
 		{
 			/*! \Touch is Invalid,
 			* So No touch Property info is sent
-			*/			
+			*/
 		}
-		
+
 	}
 		Send_Message();
-		
+
 		}
 /*! \brief Transmits the QT Surf Channel Info
 */
@@ -495,51 +495,51 @@ void Transmit_QT_Surf_Channel_Info(void)
 	/*! \Number of sensors in the QT Surface.
 	*/
 	PutInt(QDEBUG_NUM_SENSORS);
-	
-	
-	
+
+
+
 	/*! \Sensor ID of the first Sleep sensor.
 	*/
 	PutInt(SURF_SLEEP_SENSOR_ID_START);
 	/*! \Sensor ID of the last Sleep sensor.
 	*/
 	PutInt(SURF_SLEEP_SENSOR_ID_END);
-	
-	
-	
-	
-	
+
+
+
+
+
 	/*! \Sensor ID of the first Segment sensor.
 	*/
 	PutInt(SURF_SEGMENT_SENSOR_ID_START);
 	/*! \Sensor ID of the last Segment sensor.
 	*/
 	PutInt(SURF_SEGMENT_SENSOR_ID_END);
-	
-	
-	
-	
-	
+
+
+
+
+
 	/*! \Sensor ID of the first Row Col Sensor.
 	*/
 	PutInt(SURF_ROW_COL_SENSOR_ID_START);
 	/*! \Sensor ID of the last Row Col sensor.
 	*/
 	PutInt(SURF_ROW_COL_SENSOR_ID_END);
-	
-	
-	
-	
+
+
+
+
 	/*! \Sensor ID of the first Individual sensor.
 	*/
 	PutInt(SURF_IND_SENSOR_ID_START);
 	/*! \Sensor ID of the last Individual sensor.
 	*/
 	PutInt(SURF_IND_SENSOR_ID_END);
-	
-	
-	
-	
+
+
+
+
 	/*! \X and Y mask information of the sleep channels
 	*/
 	for(uint8_t num=0;num<DEF_SURF_NUM_SLEEP_CHANNELS;num++)
@@ -550,7 +550,7 @@ void Transmit_QT_Surf_Channel_Info(void)
 		/*! \Y mask of the sleep channel
 		*/
 		PutInt(mutlcap_xy_nodes[(2* SURF_SLEEP_SENSOR_ID_END) + 2 * num + 1 ]);
-		
+
 	}
 
 
@@ -565,13 +565,13 @@ void Transmit_QT_Surf_Channel_Info(void)
 		/*! \Y mask of the segment
 		*/
 		PutInt(mutlcap_xy_nodes[(2* SURF_SEGMENT_SENSOR_ID_END) + 2 * num + 1]);
-		
+
 	}
-	
-	
-		
+
+
+
 	Send_Message();
-	
+
 }
 /*! \brief Transmits the QT surface Configuration packet to QTouch Studio.
  */
@@ -592,18 +592,18 @@ void Transmit_QT_Surf_Config(void)
 	*For eg if no of x/y lines used for columns are 10,then no of columns are 10
 	*/
 	PutChar(QT_SURF_NUM_COLS);
-	/*! Range of X positions 
+	/*! Range of X positions
 	*For eg if x varies from 0-319,then Range = 320
 	*/
 	PutInt(QT_SURF_X_RANGE);
-	/*! Range of Y positions 
+	/*! Range of Y positions
 	*For eg if y varies from 0-319,then Range = 320
 	*/
 	PutInt(QT_SURF_Y_RANGE);
-	
-	
+
+
 	Send_Message();
-	
+
 }
 
 /*! \brief Transmits the sign on packet to QTouch Studio.
@@ -646,8 +646,8 @@ void Transmit_Global_Config(void)
 	touch_config_t *p_touch_config = &touch_config;
 	touch_mutlcap_config_t *p_mutlcap_config
 		= p_touch_config->p_mutlcap_config;
-	
-	
+
+
 	//To be removed.
 	#if 0
 	touch_ret_t touch_ret = TOUCH_SUCCESS;
@@ -661,7 +661,7 @@ void Transmit_Global_Config(void)
 		}
 	}
 	#endif
-	
+
 
 	PutChar(QT_GLOBAL_CONFIG);
 	PutChar(QDBEUG_GLOBAL_PARAM_RECAL_THRESHOLD);
@@ -708,7 +708,7 @@ void Transmit_Global_Config(void)
 void Transmit_Sensor_Config(void)
 {
 	uint8_t c;
-	
+
 	PutChar(QT_SENSOR_CONFIG);
 
 	PutChar(1);             /* 1 = KRS */
@@ -732,32 +732,32 @@ void Transmit_Signals(void)
 	PutChar(QT_SIGNALS);
 	length_of_mask=((QDEBUG_NUM_CHANNELS+31)/32);
 	PutChar(length_of_mask);
-		
-		
+
+
 	for (c = 0; c < length_of_mask; c++)
 	{
 			temp_output = (uint16_t)(((uint32_t)QT_SURF_CHANNEL_BURST_MASK(c) & 0xFFFF0000u)>>16);
 			PutInt(temp_output);
 			temp_output = (uint16_t)(((uint32_t)QT_SURF_CHANNEL_BURST_MASK(c)& 0x0000FFFFu));
 			PutInt(temp_output);
-			
+
 
 	}
 	for (c = 0; c < QDEBUG_NUM_CHANNELS; c++) {
 		if(((QT_SURF_CHANNEL_BURST_MASK(c >> 5)) & ((uint32_t)1 << (c%32))) != 0u)
 		{
-			
+
 			PutInt(*p_signals);
 		}
 		else
 		{
 			//do nothing
-		
+
 
 		}
-		
+
 		p_signals++;
-		
+
 
 	}
 	Send_Message();
@@ -774,22 +774,22 @@ void Transmit_Ref(void)
 	PutChar(QT_REFERENCES);
 	length_of_mask=((QDEBUG_NUM_CHANNELS+31)/32);
 	PutChar(length_of_mask);
-	
-	
+
+
 	for (c = 0; c < length_of_mask; c++)
 	{
 		temp_output = (uint16_t)(((uint32_t)QT_SURF_CHANNEL_BURST_MASK(c) & 0xFFFF0000u)>>16);
 		PutInt(temp_output);
 		temp_output = (uint16_t)(((uint32_t)QT_SURF_CHANNEL_BURST_MASK(c)& 0x0000FFFFu));
 		PutInt(temp_output);
-		
+
 
 	}
 
 	for (c = 0; c < QDEBUG_NUM_CHANNELS; c++) {
 		if(((QT_SURF_CHANNEL_BURST_MASK(c >> 5)) & ((uint32_t)1 << (c%32))) != 0u)
 		{
-			
+
 			PutInt(*p_references);
 		}
 		else
@@ -798,7 +798,7 @@ void Transmit_Ref(void)
 			//PutInt(*p_references);//do nothing
 
 		}
-		
+
 		p_references++;
 	}
 	Send_Message();
@@ -816,15 +816,15 @@ void Transmit_Delta(void)
 	PutChar(QT_DELTAS);
 	length_of_mask=((QDEBUG_NUM_CHANNELS+31)/32);
 	PutChar(length_of_mask);
-		
-		
+
+
 	for (c = 0; c < length_of_mask; c++)
 	{
 		temp_output = (uint16_t)(((uint32_t)QT_SURF_CHANNEL_BURST_MASK(c) & 0xFFFF0000u)>>16);
 		PutInt(temp_output);
 		temp_output = (uint16_t)(((uint32_t)QT_SURF_CHANNEL_BURST_MASK(c)& 0x0000FFFFu));
 		PutInt(temp_output);
-			
+
 
 	}
 	for (c = 0; c < QDEBUG_NUM_SENSORS; c++) {
@@ -836,11 +836,11 @@ void Transmit_Delta(void)
 						}
 					}
 					PutInt(delta);
-					
+
 				}
 				else
 				{
-				
+
 					//PutInt(0);
 					//do nothing
 

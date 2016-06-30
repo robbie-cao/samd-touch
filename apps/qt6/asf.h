@@ -71,14 +71,18 @@
 // From module: Part identification macros
 #include <parts.h>
 
-// From module: QTouch Library for SAMD20/D21
-#include <touch_api_SAMD.h>
-
 // From module: RTC - Real Time Counter in Count Mode (Callback APIs)
 #include <rtc_count.h>
 #include <rtc_count_interrupt.h>
 #include <rtc_tamper.h>
 
+// From module: SAM D20/D21 - Touch Surface
+#include <BitBangSPI_Master.h>
+#include <QDebugTransport.h>
+#include <QDebug_samd.h>
+
+// From module: SAM D21 - Config Clock
+#include <QDebugSettings.h>
 // From module: SERCOM Callback API
 #include <sercom.h>
 #include <sercom_interrupt.h>
