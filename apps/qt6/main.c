@@ -64,13 +64,13 @@
  */
 
 /* Configure Power Saving Options
-*  And LOw POwer scan interval
-*
-*/
+ *  And LOw POwer scan interval
+ *
+ */
 /*
-* TO enable the Power optimization routines.
-*
-*/
+ * TO enable the Power optimization routines.
+ *
+ */
 
 //#define POWER_OPT_ENABLE
 
@@ -190,7 +190,7 @@ void disable_cache(void);
  *
  */
 
- /*! \brief Initialize the Touch Surface Library
+/*! \brief Initialize the Touch Surface Library
  *
  */
 extern void qts_init_surface(void);
@@ -228,24 +228,25 @@ void init_evsys_config(void);
  */
 void rtc_compare_callback(void)
 {
-		rtc_count_clear_compare_match(&rtc_instance,RTC_COUNT_COMPARE_0);
-		rtc_time.current_time_ms += rtc_timer_msec;
-			#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
-					if((surface_op_mode == LOW_POWER_MODE)	&& low_power_drift_pending==1)
-					{	touch_time.time_to_measure_touch = 1u;
-						qts_process_done=1;
-						rtc_time.current_time_ms=0;
-						touch_time.current_time_ms = touch_time.current_time_ms + surface_timer_msec;
-				surface_op_mode=DRIFT_MODE;
-			}
-			#endif
-		if (rtc_time.current_time_ms >=surface_timer_msec )
-		{
+    rtc_count_clear_compare_match(&rtc_instance,RTC_COUNT_COMPARE_0);
+    rtc_time.current_time_ms += rtc_timer_msec;
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+    if((surface_op_mode == LOW_POWER_MODE) && low_power_drift_pending==1)
+    {
+        touch_time.time_to_measure_touch = 1u;
+        qts_process_done=1;
+        rtc_time.current_time_ms=0;
+        touch_time.current_time_ms = touch_time.current_time_ms + surface_timer_msec;
+        surface_op_mode=DRIFT_MODE;
+    }
+#endif
+    if (rtc_time.current_time_ms >=surface_timer_msec )
+    {
 
-			touch_time.time_to_measure_touch = 1u;
-			rtc_time.current_time_ms=0;
-			touch_time.current_time_ms = touch_time.current_time_ms + surface_timer_msec;
-		}
+        touch_time.time_to_measure_touch = 1u;
+        rtc_time.current_time_ms=0;
+        touch_time.current_time_ms = touch_time.current_time_ms + surface_timer_msec;
+    }
 
 
 }
@@ -255,11 +256,11 @@ void rtc_compare_callback(void)
  */
 void configure_rtc_callbacks(void)
 {
-	/* register callback */
-	rtc_count_register_callback(&rtc_instance,
-			rtc_compare_callback, RTC_COUNT_CALLBACK_COMPARE_0);
-	/* Enable callback */
-	rtc_count_enable_callback(&rtc_instance,RTC_COUNT_CALLBACK_COMPARE_0);
+    /* register callback */
+    rtc_count_register_callback(&rtc_instance,
+            rtc_compare_callback, RTC_COUNT_CALLBACK_COMPARE_0);
+    /* Enable callback */
+    rtc_count_enable_callback(&rtc_instance,RTC_COUNT_CALLBACK_COMPARE_0);
 }
 
 /*! \brief Configure the RTC timer count after which interrupts comes
@@ -267,43 +268,43 @@ void configure_rtc_callbacks(void)
  */
 void configure_rtc_count(void)
 {
-	//! [init_conf]
-	struct rtc_count_config config_rtc_count;
-        typedef enum rtc_count_prescaler rtc_count_prescaler_t;
+    //! [init_conf]
+    struct rtc_count_config config_rtc_count;
+    typedef enum rtc_count_prescaler rtc_count_prescaler_t;
 
 #if DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1
-        struct rtc_count_events config_rtc_event
-	 = { .generate_event_on_periodic[DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY] = true };
+    struct rtc_count_events config_rtc_event
+        = { .generate_event_on_periodic[DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY] = true };
 #endif
 
-	rtc_count_get_config_defaults(&config_rtc_count);
-	volatile uint16_t temp;
-	//! [set_config]
-	config_rtc_count.prescaler           = (rtc_count_prescaler_t)RTC_MODE0_CTRL_PRESCALER_DIV2;
-	config_rtc_count.mode                = RTC_COUNT_MODE_32BIT;
-	#ifdef FEATURE_RTC_CONTINUOUSLY_UPDATED
-	config_rtc_count.continuously_update = true;
-	#endif
-	config_rtc_count.clear_on_match =true;
-	//! [init_rtc]
-	rtc_count_init(&rtc_instance,RTC,&config_rtc_count);
+    rtc_count_get_config_defaults(&config_rtc_count);
+    volatile uint16_t temp;
+    //! [set_config]
+    config_rtc_count.prescaler           = (rtc_count_prescaler_t)RTC_MODE0_CTRL_PRESCALER_DIV2;
+    config_rtc_count.mode                = RTC_COUNT_MODE_32BIT;
+#ifdef FEATURE_RTC_CONTINUOUSLY_UPDATED
+    config_rtc_count.continuously_update = true;
+#endif
+    config_rtc_count.clear_on_match =true;
+    //! [init_rtc]
+    rtc_count_init(&rtc_instance,RTC,&config_rtc_count);
 
 #if DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1
-	/* Enable RTC events */
-	config_rtc_event.generate_event_on_periodic[DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY] = true;
+    /* Enable RTC events */
+    config_rtc_event.generate_event_on_periodic[DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY] = true;
 
-	rtc_count_enable_events(&rtc_instance, &config_rtc_event);
+    rtc_count_enable_events(&rtc_instance, &config_rtc_event);
 #endif
 
 
-	/*Set timer period */
+    /*Set timer period */
 
-	temp = TIME_PERIOD_1MSEC * rtc_timer_msec;
-	rtc_count_set_compare(&rtc_instance,temp,RTC_COUNT_COMPARE_0);
+    temp = TIME_PERIOD_1MSEC * rtc_timer_msec;
+    rtc_count_set_compare(&rtc_instance,temp,RTC_COUNT_COMPARE_0);
 
-	//! [enable]
-	rtc_count_enable(&rtc_instance);
-	//! [enable]
+    //! [enable]
+    rtc_count_enable(&rtc_instance);
+    //! [enable]
 }
 
 /*! \brief Initialize timer
@@ -311,11 +312,11 @@ void configure_rtc_count(void)
  */
 void timer_init(void)
 {
-	/* Configure and enable RTC */
-	configure_rtc_count();
+    /* Configure and enable RTC */
+    configure_rtc_count();
 
-	/* Configure and enable callback */
-	configure_rtc_callbacks();
+    /* Configure and enable callback */
+    configure_rtc_callbacks();
 
 }
 
@@ -326,7 +327,7 @@ void timer_init(void)
 
 void turn_off_bod33(void)
 {
-	SYSCTRL->BOD33.reg = 0;
+    SYSCTRL->BOD33.reg = 0;
 }
 
 /*
@@ -341,71 +342,71 @@ void turn_off_bod33(void)
 void configure_power_manager(void)
 {
 
-	system_apb_clock_clear_mask(
-			SYSTEM_CLOCK_APB_APBA,
-				(PM_APBAMASK_WDT  /*Watch dog timer*/
-				| PM_APBAMASK_PAC0  /*Peripheral access controller for restricting register access on peripherals*/
-				| PM_APBAMASK_EIC  /*external interrupt controller*/
-				/*| PM_APBAMASK_GCLK*/  /* used by surface should not be disabled*/
-				/* These clocks should remain enabled on this bus
-				| PM_APBAMASK_SYSCTRL \
-				| PM_APBAMASK_PM \
-				| PM_APBAMASK_RTC \
-				*/
-				));
+    system_apb_clock_clear_mask(
+            SYSTEM_CLOCK_APB_APBA,
+            (PM_APBAMASK_WDT  /*Watch dog timer*/
+             | PM_APBAMASK_PAC0  /*Peripheral access controller for restricting register access on peripherals*/
+             | PM_APBAMASK_EIC  /*external interrupt controller*/
+             /*| PM_APBAMASK_GCLK*/  /* used by surface should not be disabled*/
+             /* These clocks should remain enabled on this bus
+                | PM_APBAMASK_SYSCTRL \
+                | PM_APBAMASK_PM \
+                | PM_APBAMASK_RTC \
+                */
+            ));
 
 
 
-	system_apb_clock_clear_mask(
-			SYSTEM_CLOCK_APB_APBB,
-				(PM_APBBMASK_PAC1
-				/* this clock is used in this project
-				| PM_APBBMASK_PORT */
+    system_apb_clock_clear_mask(
+            SYSTEM_CLOCK_APB_APBB,
+            (PM_APBBMASK_PAC1
+             /* this clock is used in this project
+                | PM_APBBMASK_PORT */
 
-				/*| PM_APBBMASK_DSU*/   /*used for device identification, debugging etc*/
-				| PM_APBBMASK_NVMCTRL
-				/* These clocks should remain enabled on this bus
-				*/
-				));
-
-
+             /*| PM_APBBMASK_DSU*/   /*used for device identification, debugging etc*/
+             | PM_APBBMASK_NVMCTRL
+             /* These clocks should remain enabled on this bus
+             */
+            ));
 
 
-	system_apb_clock_clear_mask(
-			SYSTEM_CLOCK_APB_APBC,
-				(PM_APBCMASK_ADC \
-				| PM_APBCMASK_PAC2 \
-				| PM_APBCMASK_DAC \
-				| PM_APBCMASK_AC \
-				| PM_APBCMASK_TC7 \
-				| PM_APBCMASK_TC6 \
-				| PM_APBCMASK_TC5 \
-				| PM_APBCMASK_TC4 \
-				| PM_APBCMASK_TC3
-				#if (SAMD20)
-				| PM_APBCMASK_TC2
-				| PM_APBCMASK_TC1
-				| PM_APBCMASK_TC0
-				#elif (SAMD21)
-				| PM_APBCMASK_TCC2
-				| PM_APBCMASK_TCC1
-				| PM_APBCMASK_TCC0
-				#endif
-				| PM_APBCMASK_SERCOM5 \
-				| PM_APBCMASK_SERCOM4 \
-				| PM_APBCMASK_SERCOM3 \
-				| PM_APBCMASK_SERCOM2 \
-				| PM_APBCMASK_SERCOM1 \
-				| PM_APBCMASK_SERCOM0
-				#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==0)
-				| PM_APBCMASK_EVSYS
-				#endif
-				));
 
 
-	system_apb_clock_set_divider(
-			SYSTEM_CLOCK_APB_APBA,
-			SYSTEM_MAIN_CLOCK_DIV_4);
+    system_apb_clock_clear_mask(
+            SYSTEM_CLOCK_APB_APBC,
+            (PM_APBCMASK_ADC \
+             | PM_APBCMASK_PAC2 \
+             | PM_APBCMASK_DAC \
+             | PM_APBCMASK_AC \
+             | PM_APBCMASK_TC7 \
+             | PM_APBCMASK_TC6 \
+             | PM_APBCMASK_TC5 \
+             | PM_APBCMASK_TC4 \
+             | PM_APBCMASK_TC3
+#if (SAMD20)
+             | PM_APBCMASK_TC2
+             | PM_APBCMASK_TC1
+             | PM_APBCMASK_TC0
+#elif (SAMD21)
+             | PM_APBCMASK_TCC2
+             | PM_APBCMASK_TCC1
+             | PM_APBCMASK_TCC0
+#endif
+             | PM_APBCMASK_SERCOM5 \
+             | PM_APBCMASK_SERCOM4 \
+             | PM_APBCMASK_SERCOM3 \
+             | PM_APBCMASK_SERCOM2 \
+             | PM_APBCMASK_SERCOM1 \
+             | PM_APBCMASK_SERCOM0
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==0)
+             | PM_APBCMASK_EVSYS
+#endif
+             ));
+
+
+    system_apb_clock_set_divider(
+            SYSTEM_CLOCK_APB_APBA,
+            SYSTEM_MAIN_CLOCK_DIV_4);
 
 
 }
@@ -416,9 +417,9 @@ void configure_power_manager(void)
  */
 void disable_cache(void)
 {
-	NVMCTRL->CTRLB.bit.CACHEDIS = 1;
-	//Readmode settings : 0-3
-	NVMCTRL->CTRLB.bit.READMODE = 0;
+    NVMCTRL->CTRLB.bit.CACHEDIS = 1;
+    //Readmode settings : 0-3
+    NVMCTRL->CTRLB.bit.READMODE = 0;
 
 }
 
@@ -431,83 +432,83 @@ void disable_cache(void)
  */
 void config_timer_evsys(void)
 {
-	PM_APBCMASK_Type evsys_enable_mask;
-	evsys_enable_mask.reg = (1u << PM_APBCMASK_EVSYS_Pos);
-	PM->APBCMASK.reg |= evsys_enable_mask.reg;
-		enum status_code status_ret=STATUS_OK;
-		status_ret=events_attach_user(&events, EVENT_USER);
+    PM_APBCMASK_Type evsys_enable_mask;
+    evsys_enable_mask.reg = (1u << PM_APBCMASK_EVSYS_Pos);
+    PM->APBCMASK.reg |= evsys_enable_mask.reg;
+    enum status_code status_ret=STATUS_OK;
+    status_ret=events_attach_user(&events, EVENT_USER);
 
-		if(status_ret!=STATUS_OK)
-	{
-			while(1)
-			{}
-	}
+    if(status_ret!=STATUS_OK)
+    {
+        while(1)
+        {}
+    }
 
-	touch_time.time_to_measure_touch = 1;
+    touch_time.time_to_measure_touch = 1;
 
 
 }
 /*! \brief Software Reset the Event System.
- */
+*/
 void reset_evsys(void)
 {
-enum status_code status_ret=STATUS_OK;
-status_ret=events_detach_user(&events, EVENT_USER);
+    enum status_code status_ret=STATUS_OK;
+    status_ret=events_detach_user(&events, EVENT_USER);
 
-if(status_ret!=STATUS_OK)
-{
-	while(1)
-	{}
-}
+    if(status_ret!=STATUS_OK)
+    {
+        while(1)
+        {}
+    }
 
 }
 
 void init_evsys_config(void)
 {
- 		PM_APBCMASK_Type evsys_enable_mask;
+    PM_APBCMASK_Type evsys_enable_mask;
 
-		evsys_enable_mask.reg = (1u << PM_APBCMASK_EVSYS_Pos);
+    evsys_enable_mask.reg = (1u << PM_APBCMASK_EVSYS_Pos);
 
-		PM->APBCMASK.reg |= evsys_enable_mask.reg;
+    PM->APBCMASK.reg |= evsys_enable_mask.reg;
 
 
-		enum status_code status_ret=STATUS_OK;
+    enum status_code status_ret=STATUS_OK;
 
-		/* Get default event channel configuration */
-		events_get_config_defaults(&events_conf);
+    /* Get default event channel configuration */
+    events_get_config_defaults(&events_conf);
 
-		events_conf.path           = EVENTS_PATH_ASYNCHRONOUS;
-		events_conf.generator      = 4+DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY;
+    events_conf.path           = EVENTS_PATH_ASYNCHRONOUS;
+    events_conf.generator      = 4+DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY;
 
-		status_ret=events_allocate(&events, &events_conf);
+    status_ret=events_allocate(&events, &events_conf);
 
-		if(status_ret!=STATUS_OK)
-		{
-			while(1)
-			{}
-		}
+    if(status_ret!=STATUS_OK)
+    {
+        while(1)
+        {}
+    }
 
 }
 
 #endif
 /*! \brief Set timer period.Called from Qdebug .
- */
+*/
 void set_timer_period(uint16_t time )
 {
-		rtc_count_set_compare(&rtc_instance,time,RTC_COUNT_COMPARE_0);
+    rtc_count_set_compare(&rtc_instance,time,RTC_COUNT_COMPARE_0);
 
-		//! [enable]
-		rtc_count_enable(&rtc_instance);
+    //! [enable]
+    rtc_count_enable(&rtc_instance);
 }
 
 int main(void)
 {
 
-	/**
-	 * Initialize and configure system and generic clocks.
-	 * Use conf_clocks.h to configure system and generic clocks.
-	 */
-	system_init();
+    /**
+     * Initialize and configure system and generic clocks.
+     * Use conf_clocks.h to configure system and generic clocks.
+     */
+    system_init();
 
     hal_if_usart_init();
 
@@ -516,75 +517,75 @@ int main(void)
      */
     system_interrupt_enable_global();
 
-	/**
-	 * Initialize delay service.
-	 */
-	delay_init();
+    /**
+     * Initialize delay service.
+     */
+    delay_init();
 
-	/* initialize timer */
-	timer_init();
+    /* initialize timer */
+    timer_init();
 
-	/* Setup and enable generic clock source for PTC module. */
-	surface_configure_ptc_clock();
+    /* Setup and enable generic clock source for PTC module. */
+    surface_configure_ptc_clock();
 
-	touch_time.measurement_period_ms = DEF_TOUCH_MEASUREMENT_PERIOD_MS;
+    touch_time.measurement_period_ms = DEF_TOUCH_MEASUREMENT_PERIOD_MS;
 
 
-	/* Initialize touchpad input parameters */
-	qts_init_surface();
+    /* Initialize touchpad input parameters */
+    qts_init_surface();
 
-	qts_sensors_config();
+    qts_sensors_config();
 
-	/*initialize event system*/
-	#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
-	init_evsys_config();
-	#endif
+    /*initialize event system*/
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+    init_evsys_config();
+#endif
 
-	/* Configure System Sleep mode to STANDBY. */
+    /* Configure System Sleep mode to STANDBY. */
 
-	system_set_sleepmode(SYSTEM_SLEEPMODE_STANDBY);
-	#ifdef POWER_OPT_ENABLE
-	turn_off_bod33();
-	configure_power_manager();
+    system_set_sleepmode(SYSTEM_SLEEPMODE_STANDBY);
+#ifdef POWER_OPT_ENABLE
+    turn_off_bod33();
+    configure_power_manager();
 
-	#endif
+#endif
 
-	/* Calibration */
-	qts_start();
+    /* Calibration */
+    qts_start();
 
     LOG("Hello QT6~\r\n");
 
-	/* Appl maintains this flag,
-	* marked as 1 initially to start measurement cycle.
-	*/
-	qts_process_done = 1u;
+    /* Appl maintains this flag,
+     * marked as 1 initially to start measurement cycle.
+     */
+    qts_process_done = 1u;
 
-	/* Appl maintains this flag,
-	* marked as 1 initially to start measurement cycle.
-	*/
-	touch_time.time_to_measure_touch = 1u;
+    /* Appl maintains this flag,
+     * marked as 1 initially to start measurement cycle.
+     */
+    touch_time.time_to_measure_touch = 1u;
 
-	while (1)
-	{
-		/**
-		 * Start touch surface process
-		 */
+    while (1)
+    {
+        /**
+         * Start touch surface process
+         */
 
 #if DEF_SURF_LOW_POWER_SENSOR_ENABLE==1
-				qts_process_lp();
+        qts_process_lp();
 #else
-if (qts_process_done==1)
-	{
-				qts_normal_process();
-	}
+        if (qts_process_done==1)
+        {
+            qts_normal_process();
+        }
 #endif
-if ((p_mutlcap_measure_data->measurement_done_touch == 1u)) {
-	p_mutlcap_measure_data->measurement_done_touch = 0u;
+        if ((p_mutlcap_measure_data->measurement_done_touch == 1u)) {
+            p_mutlcap_measure_data->measurement_done_touch = 0u;
 
- }
+        }
 
-		system_sleep();
+        system_sleep();
 
-	} //end of while
+    } //end of while
 }//main
 
