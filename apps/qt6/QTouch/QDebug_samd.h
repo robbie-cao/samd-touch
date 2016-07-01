@@ -59,7 +59,7 @@ extern "C"
 
 /*============================ INCLUDES ======================================*/
 #include "touch.h"
-#include "touch_api_samd.h"
+#include "touch_api_SAMD.h"
 #include "surf_api.h"
 #include "surface.h"
 /* ! compile file only when QDebug is enabled. */
@@ -201,7 +201,7 @@ extern "C"
 
 //SENSOR_CONFIG
 #define QDBEUG_SENSOR_CONFIG_DETECT_THRESHOLD(x)	(sensor_detect_threshold[x])
-#define SENSOR_TYPE_AKS_POS_HYST(x)					(0x00000) 
+#define SENSOR_TYPE_AKS_POS_HYST(x)					(0x00000)
 #define QDEBUG_SENSOR_FROM_CHANNEL(x)				(x)
 #define QDEBUG_SENSOR_TO_CHANNEL(x)					(x)
 

@@ -74,9 +74,6 @@ CSRCS = \
        sam0/utils/stdio/read.c                            \
        sam0/utils/stdio/write.c                           \
        sam0/utils/syscalls/gcc/syscalls.c                 \
-       thirdparty/qtouch/devspecific/sam0/samd/common/BitBangSPI_Master.c   \
-       thirdparty/qtouch/qdebug/QDebugTransport.c         \
-       thirdparty/qtouch/qdebug/QDebug_samd.c             \
        mua/hal_if_usart.c                                 \
        mua/log.c                                          \
        apps/qt6/QTouch/BitBangSPI_Master.c                \
@@ -124,6 +121,7 @@ INC_PATH = \
        sam0/utils/stdio/stdio_serial                      \
        thirdparty/CMSIS/Include                           \
        thirdparty/CMSIS/Lib/GCC                           \
+	   thirdparty/qtouch/devspecific/sam0/saml/include    \
        mua                                                \
        apps/qt6/QTouch                                    \
        apps/qt6
