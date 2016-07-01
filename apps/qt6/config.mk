@@ -121,7 +121,6 @@ INC_PATH = \
        sam0/utils/stdio/stdio_serial                      \
        thirdparty/CMSIS/Include                           \
        thirdparty/CMSIS/Lib/GCC                           \
-	   thirdparty/qtouch/devspecific/sam0/saml/include    \
        mua                                                \
        apps/qt6/QTouch                                    \
        apps/qt6
