@@ -53,6 +53,8 @@
 #include "surf_api.h"
 #include "touch_api_SAMD.h"
 
+#include "log.h"
+
 
 /*----------------------------------------------------------------------------
  *                                   macros

@@ -69,6 +69,8 @@
 #warning "No Debug Interface is selected in QDebugSettings.h"
 #endif
 
+#include "log.h"
+
 /*============================ GLOBAL VARIABLES ==============================*/
 /* ! These must somehow be updated from the library. */
 uint8_t qgRefschanged;
@@ -186,18 +188,18 @@ void QDebug_SendData(uint16_t qt_lib_flags)
 
 	/* Test if measure_sensors has reported change in key states or
 	 * rotor/slider positions */
-	if ((qt_lib_flags & TOUCH_BURST_AGAIN) &&
-
-	(qt_lib_flags & (!(TOUCH_RESOLVE_CAL)))
-	)
+    if ((qt_lib_flags & TOUCH_BURST_AGAIN) &&
+            (qt_lib_flags & (!(TOUCH_RESOLVE_CAL)))
+       )
 	{
-		//qgLibraryChanges |= (1 << SUBS_SURF_STATUS);
+		qgLibraryChanges |= (1 << SUBS_SURF_STATUS);
 	}
+    qgLibraryChanges |= (1 << SUBS_SURF_STATUS);
 
 	/* Test if measure_sensors has reported change in at least one channel
 	 * reference */
 	if (qt_lib_flags & TOUCH_CHANNEL_REF_CHANGE) {
-		//qgLibraryChanges |= (1 << SUBS_REF);
+		qgLibraryChanges |= (1 << SUBS_REF);
 	}
 
 	delivery = qgSubsAllways | qgSubsOnce |
@@ -240,7 +242,7 @@ void QDebug_SendData(uint16_t qt_lib_flags)
 		Transmit_Delta();
 	}
 
-	if (delivery & (1 << SUBS_SURF_STATUS)) {
+	if (1 || delivery & (1 << SUBS_SURF_STATUS)) {
 		Transmit_QT_Surf_Status();
 	}
 
@@ -471,6 +473,14 @@ void Transmit_QT_Surf_Status(void)
 			* or the number of nodes active in that touch
 			*/
 			PutChar(SURF_TCH_GET_AREA(i));
+
+            LOG("%d, %d, X - %03d, Y - %03d, %d\r\n",
+                    (SURF_TCH_GET_ID(i)),
+                    (SURF_TCH_GET_STATE(i)),
+                    (SURF_TCH_GET_X_POSITION(i)),
+                    (SURF_TCH_GET_Y_POSITION(i)),
+                    (SURF_TCH_GET_AREA(i))
+                    );
 
 		}
 		else

@@ -72,6 +72,8 @@
 #warning "No Debug Interface is selected in QDebugSettings.h"
 #endif
 
+#include "log.h"
+
 /*============================ GLOBAL VARIABLES ==============================*/
 
 uint8_t TX_Buffer[TX_BUFFER_SIZE];
@@ -110,6 +112,7 @@ void Init_Buffers(void)
 void PutChar(uint8_t data)
 {
 	TX_Buffer[TX_index++] = data;
+    //LOG("%02x\r\n", data);
 }
 
 /*! \brief Puts two bytes in the Transmit Buffer.
@@ -162,6 +165,13 @@ void Send_Message(void)
 	SERIAL_Send_Message();
 #elif defined(QDEBUG_SPI_BB)
 	BitBangSPI_Send_Message();
+#endif
+
+#if 0
+    for (i = 0; i <= TX_index; i++) {
+        LOG("%02x", TX_Buffer[i]);
+    }
+    LOG("\r\n");
 #endif
 
 	/* Ready for next message */
