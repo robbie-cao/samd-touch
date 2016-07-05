@@ -87,7 +87,7 @@
 /* ! @} */
 /**
  * Maximum Number of Touches, that should detected by the Touch Surface Library.
- * For Eg,if DEF_SURF_MAX_TCH is configured as 1u,
+ * For Eg, if DEF_SURF_MAX_TCH is configured as 1u,
  * then at the most information about 1 touch will be reported.
  * For Eg,if DEF_SURF_MAX_TCH is configured as 2u,
  * then at the most information about 2 touches will be reported.

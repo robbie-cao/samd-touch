@@ -170,7 +170,7 @@
  * power consumption.  Refer filter_level_t in touch_api_SAMD.h
  * Range: FILTER_LEVEL_1 (one sample) to FILTER_LEVEL_64 ( 64 samples).
  */
-#define  DEF_MUTLCAP_FILTER_LEVEL       FILTER_LEVEL_8      // Filter level
+#define DEF_MUTLCAP_FILTER_LEVEL        FILTER_LEVEL_8      // Filter level
 
 /**
  * Mutual Cap auto oversample setting.
@@ -185,7 +185,7 @@
  * Range: AUTO_OS_DISABLE (oversample disabled) to AUTO_OS_128 (128
  * oversamples).
  */
-#define  DEF_MUTLCAP_AUTO_OS            0                   // Automatic OverSampling
+#define DEF_MUTLCAP_AUTO_OS             0                   // Automatic OverSampling
 
 /**
  * Mutual Cap gain per touch channel.
@@ -197,55 +197,55 @@
  * Range:GAIN_1 (no scaling) to GAIN_32 (scale-up by 32)
  */
 #define DEF_MUTLCAP_GAIN_PER_NODE       \
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,GAIN_4,\
-    GAIN_4,GAIN_4,GAIN_4,GAIN_4
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4 , \
+    GAIN_4 , GAIN_4 , GAIN_4 , GAIN_4
 
 
 #define DEF_MUTLCAP_DETECT_THRESHOLD    \
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,SURF_IND_SEN_DT,\
-    SURF_SLEEP_CHANNELS_DT,SURF_SLEEP_CHANNELS_DT,SURF_SLEEP_CHANNELS_DT,SURF_SLEEP_CHANNELS_DT,\
-    SURF_SEGMENTS_DT,SURF_SEGMENTS_DT,SURF_SEGMENTS_DT,SURF_SEGMENTS_DT,SURF_SEGMENTS_DT,SURF_SEGMENTS_DT,SURF_SEGMENTS_DT,SURF_SEGMENTS_DT,\
-    SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,SURF_ROW_LINE_DT,\
-    SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT,SURF_COL_LINE_DT
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , SURF_IND_SEN_DT , \
+    SURF_SLEEP_CHANNELS_DT , SURF_SLEEP_CHANNELS_DT , SURF_SLEEP_CHANNELS_DT , SURF_SLEEP_CHANNELS_DT , \
+    SURF_SEGMENTS_DT , SURF_SEGMENTS_DT , SURF_SEGMENTS_DT , SURF_SEGMENTS_DT , SURF_SEGMENTS_DT , SURF_SEGMENTS_DT , SURF_SEGMENTS_DT , SURF_SEGMENTS_DT , \
+    SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , SURF_ROW_LINE_DT , \
+    SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT , SURF_COL_LINE_DT
 
 
 /* ! @} */
@@ -347,7 +347,7 @@
  * PRSC_DIV_SEL_8   sets PTC Clock to 500KHz
  * Default : The same prescaler used for normal measurement  ie DEF_MUTLCAP_CLK_PRESCALE.
  */
-#define DEF_MUTLCAP_CC_CAL_CLK_PRESCALE     DEF_MUTLCAP_CLK_PRESCALE
+#define DEF_MUTLCAP_CC_CAL_CLK_PRESCALE         DEF_MUTLCAP_CLK_PRESCALE
 /**
  * PTC series resistor setting for calibration.  For Mutual cap mode, this series
  * resistor is switched internally on the Y-pin.
@@ -358,7 +358,7 @@
  * RSEL_VAL_100 sets internal series resistor to 100Kohms.
  * Default : The same resistor value  used for normal measurement  ie DEF_MUTLCAP_SENSE_RESISTOR.
  */
-#define   DEF_MUTLCAP_CC_CAL_SENSE_RESISTOR     DEF_MUTLCAP_SENSE_RESISTOR
+#define DEF_MUTLCAP_CC_CAL_SENSE_RESISTOR       DEF_MUTLCAP_SENSE_RESISTOR
 /**
  * Mutual Cap calibration seq count 1 setting.
  * calibration sequence count 1 setting allows users to configure the total
@@ -368,7 +368,7 @@
  *
  * Range:5 to 255
  */
-#define   DEF_MUTLCAP_CAL_SEQ1_COUNT	10
+#define DEF_MUTLCAP_CAL_SEQ1_COUNT	    10
 /**
  * Mutual Cap calibration seq count 2 setting.
  * calibration sequence count 2 setting allows users to configure the number of
@@ -378,7 +378,7 @@
  *
  * Range:4 to 254
  */
-#define   DEF_MUTLCAP_CAL_SEQ2_COUNT	5
+#define DEF_MUTLCAP_CAL_SEQ2_COUNT	    5
 /* ! @} */
 /*----------------------------------------------------------------------------
  *                   Mutual Cap method sensor global parameters.
@@ -424,13 +424,13 @@
  * If configured as 1, noise measurement will be enabled
  * If configured as 0, noise measurement will be disabled
  */
-#define   DEF_MUTLCAP_NOISE_MEAS_ENABLE         (0u)
+#define DEF_MUTLCAP_NOISE_MEAS_ENABLE           (0u)
 
 /**
  * Defines the stability limit of signals for noise calculation
  * Range: 1 to 1000
  */
-#define   DEF_MUTLCAP_NOISE_MEAS_SIGNAL_STABILITY_LIMIT       10u
+#define DEF_MUTLCAP_NOISE_MEAS_SIGNAL_STABILITY_LIMIT   10u
 
 /**
  * Noise limit
@@ -439,7 +439,7 @@
  * system trigger Lockout functionality
  * Range: 1 to 255
  */
-#define   DEF_MUTLCAP_NOISE_LIMIT               12u
+#define DEF_MUTLCAP_NOISE_LIMIT                 12u
 
 /**
  * Noise buffer count
@@ -449,7 +449,7 @@
  * if N = 4 then set  DEF_NM_BUFFER_CNT  5u ->> (N + 1).
  * Default : 5u
  */
-#define   DEF_MUTLCAP_NOISE_MEAS_BUFFER_CNT     (5u)
+#define DEF_MUTLCAP_NOISE_MEAS_BUFFER_CNT       (5u)
 
 /**
  * Mutual cap method : noisy Sensor lockout settings.
@@ -458,7 +458,7 @@
  * 2u : No lockout
  * Range : 0 to 2
  */
-#define   DEF_MUTLCAP_LOCKOUT_SEL               0
+#define DEF_MUTLCAP_LOCKOUT_SEL                 0
 
 /**
  * Mutual cap Lockout count down
@@ -467,7 +467,7 @@
  * declared as stable
  * Range: 1 to 255
  */
-#define   DEF_MUTLCAP_LOCKOUT_CNTDOWN           10
+#define DEF_MUTLCAP_LOCKOUT_CNTDOWN             10
 /*! \name Mutual Cap Filter Callback functions.
  */
 /**
@@ -495,14 +495,14 @@
  * If configured as 1, Freq auto tune will be enabled
  * If configured as 0, Freq auto tune will be disabled
  */
-#define   DEF_MUTLCAP_FREQ_AUTO_TUNE_ENABLE     (0u)
+#define DEF_MUTLCAP_FREQ_AUTO_TUNE_ENABLE       (0u)
 
 /**
  * Defines the stability limit of signals for Freq auto tune calculation
  * Range: 1 to 1000
  * Note : this applies only for FREQ_MODE_HOP
  */
-#define   DEF_MUTLCAP_FREQ_AUTO_TUNE_SIGNAL_STABILITY_LIMIT       10u
+#define DEF_MUTLCAP_FREQ_AUTO_TUNE_SIGNAL_STABILITY_LIMIT           10u
 
 /**
  * Frequency Auto tune-in count
@@ -512,7 +512,7 @@
  * Range: 1 to 255
  * Note : this applies only for FREQ_MODE_HOP
  */
-#define   DEF_MUTLCAP_FREQ_AUTO_TUNE_IN_CNT     12
+#define DEF_MUTLCAP_FREQ_AUTO_TUNE_IN_CNT       12
 
 /* ! @} */
 /*----------------------------------------------------------------------------
@@ -569,7 +569,7 @@ This is to enable the Quick Re burst feature
  * Mutual Cap Sensor detect integration (DI) limit.
  * Range: 0u to 255u.
  */
-#define  DEF_MUTLCAP_DI             0u
+#define DEF_MUTLCAP_DI              0u
 
 /**
  * Mutual Cap Sensor towards touch drift rate.
@@ -585,7 +585,7 @@ This is to enable the Quick Re burst feature
  * Default value: 5u = 1 second.
  * Range: 1u to 127u.
  */
-#define  DEF_MUTLCAP_ATCH_DRIFT_RATE        5u
+#define DEF_MUTLCAP_ATCH_DRIFT_RATE         5u
 /**
  * Mutual Cap Sensor measurement interval.
  * Specify period in milliseconds.  Example, DEF_TOUCH_MEASUREMENT_PERIOD_MS
