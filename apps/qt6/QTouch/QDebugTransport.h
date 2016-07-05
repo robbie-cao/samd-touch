@@ -67,22 +67,22 @@ extern "C"
 
 #if DEF_TOUCH_QDEBUG_ENABLE == 1
 
-#define MESSAGE_START   0x1B
+#define MESSAGE_START       0x1B
 
 #ifdef DEF_TOUCH_QDEBUG_ENABLE_MUTLCAP
-#define TX_BUFFER_SIZE (DEF_MUTLCAP_NUM_CHANNELS * 4) + 10
-#define RX_BUFFER_SIZE (DEF_MUTLCAP_NUM_CHANNELS * 4) + 10
+#define TX_BUFFER_SIZE      ((DEF_MUTLCAP_NUM_CHANNELS * 4) + 10)
+#define RX_BUFFER_SIZE      ((DEF_MUTLCAP_NUM_CHANNELS * 4) + 10)
 #else
-#define TX_BUFFER_SIZE (DEF_SELFCAP_NUM_CHANNELS * 4) + 10
-#define RX_BUFFER_SIZE (DEF_SELFCAP_NUM_CHANNELS * 4) + 10
+#define TX_BUFFER_SIZE      ((DEF_SELFCAP_NUM_CHANNELS * 4) + 10)
+#define RX_BUFFER_SIZE      ((DEF_SELFCAP_NUM_CHANNELS * 4) + 10)
 #endif
 
 #define STATE_IDLE          0
-#define STATE_LENGTH1   1
-#define STATE_LENGTH2   2
+#define STATE_LENGTH1       1
+#define STATE_LENGTH2       2
 #define STATE_DATA          3
 
-#define INT(a, b)       ((a << 8) | b)
+#define INT(a, b)           (((a) << 8) | (b))
 
 /*============================ GLOBAL VARIABLES ==============================*/
 /* ! TX Buffer globals */

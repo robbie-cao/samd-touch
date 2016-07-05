@@ -142,17 +142,17 @@ extern "C"
 #define SURF_TCH_GET_STATE(x)                   surf_status.ptr_surf_tch_status[x].int_tch_state
 #define SURF_TCH_GET_ID(x)                      surf_status.ptr_surf_tch_status[x].tch_id
 
-#define SURF_SLEEP_SENSOR_ID_START              ( DEF_SURF_NUM_IND_SENSORS )
-#define SURF_SLEEP_SENSOR_ID_END                ( DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS - 1u )
+#define SURF_SLEEP_SENSOR_ID_START              (DEF_SURF_NUM_IND_SENSORS)
+#define SURF_SLEEP_SENSOR_ID_END                (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS - 1u)
 
-#define SURF_SEGMENT_SENSOR_ID_START            ( DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS )
-#define SURF_SEGMENT_SENSOR_ID_END              ( DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS - 1u )
+#define SURF_SEGMENT_SENSOR_ID_START            (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS)
+#define SURF_SEGMENT_SENSOR_ID_END              (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS - 1u)
 
-#define SURF_ROW_COL_SENSOR_ID_START            ( DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS)
-#define SURF_ROW_COL_SENSOR_ID_END              ( DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS + DEF_SURF_NUM_ROWS_COLS - 1u )
+#define SURF_ROW_COL_SENSOR_ID_START            (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS)
+#define SURF_ROW_COL_SENSOR_ID_END              (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS + DEF_SURF_NUM_ROWS_COLS - 1u)
 
 #define SURF_IND_SENSOR_ID_START                (0u)
-#define SURF_IND_SENSOR_ID_END                  (DEF_SURF_NUM_IND_SENSORS - 1u )
+#define SURF_IND_SENSOR_ID_END                  (DEF_SURF_NUM_IND_SENSORS - 1u)
 
 
 /* ! @} */
@@ -163,41 +163,31 @@ extern "C"
  */
 #ifdef DEF_TOUCH_QDEBUG_ENABLE_MUTLCAP
 
-#define QDEBUG_SENSOR_STATES_PTR               p_mutlcap_measure_data->           \
-    p_sensor_states
-#define QDEBUG_SENSOR_PTR                      p_mutlcap_measure_data->           \
-    p_sensors
-#define QDEBUG_SIGNALS_PTR                     p_mutlcap_measure_data->           \
-    p_channel_signals
-#define QDEBUG_REFERENCES_PTR                  p_mutlcap_measure_data->           \
-    p_channel_references
-#define QDEBUG_SENSOR_RS_VALUES                p_mutlcap_measure_data->           \
-    p_rotor_slider_values
-#define QDEBUG_LIBINFO                         qt_surf_libver_info
-#define QDEBUG_NUM_SENSOR_STATE_BYTES          ((DEF_MUTLCAP_NUM_CHANNELS +       \
-            7u) / 8u)
-#define QDEBUG_GET_DELTA_FUNC(x, y)            touch_mutlcap_sensor_get_delta(    \
-        x, y)
-#define QDEBUG_GET_LIBINFO_FUNC(x)             surf_library_get_version_info(x)
-#define QDEBUG_GET_GLOBAL_PARAM_FUNC(x)        touch_mutlcap_get_global_param(x)
-#define QDEBUG_UPDATE_GLOBAL_PARAM_FUNC(x)     touch_mutlcap_update_global_param( \
-        x)
-#define QDEBUG_GET_SENSOR_CONFIG_FUNC(x, y)    touch_mutlcap_sensor_get_config(   \
-        x, y)
-#define QDEBUG_UPDATE_SENSOR_CONFIG_FUNC(x,                                       \
-        y)  touch_mutlcap_sensor_update_config(x, y)
-#define QDEBUG_NUM_SENSORS                     DEF_MUTLCAP_NUM_SENSORS
-#define QDEBUG_NUM_CHANNELS                    DEF_MUTLCAP_NUM_CHANNELS
-#define QDEBUG_NUM_ROTORS_SLIDERS              DEF_MUTLCAP_NUM_ROTORS_SLIDERS
+#define QDEBUG_SENSOR_STATES_PTR                    p_mutlcap_measure_data->p_sensor_states
+#define QDEBUG_SENSOR_PTR                           p_mutlcap_measure_data->p_sensors
+#define QDEBUG_SIGNALS_PTR                          p_mutlcap_measure_data->p_channel_signals
+#define QDEBUG_REFERENCES_PTR                       p_mutlcap_measure_data->p_channel_references
+#define QDEBUG_SENSOR_RS_VALUES                     p_mutlcap_measure_data->p_rotor_slider_values
+#define QDEBUG_LIBINFO                              qt_surf_libver_info
+#define QDEBUG_NUM_SENSOR_STATE_BYTES               ((DEF_MUTLCAP_NUM_CHANNELS + 7u) / 8u)
+#define QDEBUG_GET_DELTA_FUNC(x, y)                 touch_mutlcap_sensor_get_delta(x, y)
+#define QDEBUG_GET_LIBINFO_FUNC(x)                  surf_library_get_version_info(x)
+#define QDEBUG_GET_GLOBAL_PARAM_FUNC(x)             touch_mutlcap_get_global_param(x)
+#define QDEBUG_UPDATE_GLOBAL_PARAM_FUNC(x)          touch_mutlcap_update_global_param(x)
+#define QDEBUG_GET_SENSOR_CONFIG_FUNC(x, y)         touch_mutlcap_sensor_get_config(x, y)
+#define QDEBUG_UPDATE_SENSOR_CONFIG_FUNC(x, y)      touch_mutlcap_sensor_update_config(x, y)
+#define QDEBUG_NUM_SENSORS                          DEF_MUTLCAP_NUM_SENSORS
+#define QDEBUG_NUM_CHANNELS                         DEF_MUTLCAP_NUM_CHANNELS
+#define QDEBUG_NUM_ROTORS_SLIDERS                   DEF_MUTLCAP_NUM_ROTORS_SLIDERS
 
-    //GLOBAL_PARAMS
-#define QDBEUG_GLOBAL_PARAM_RECAL_THRESHOLD    p_mutlcap_config->global_param.recal_threshold
-#define QDBEUG_GLOBAL_PARAM_DI                 p_mutlcap_config->global_param.di
-#define QDEBUG_GLOBAL_PARAM_DRIFT_HOLD_TIME    p_mutlcap_config->global_param.drift_hold_time
-#define QDEBUG_GLOBAL_PARAM_MAX_ON_DURATION    p_mutlcap_config->global_param.max_on_duration
-#define QDEBUG_GLOBAL_PARAM_TCH_DRIFT_RATE     p_mutlcap_config->global_param.tch_drift_rate
-#define QDEBUG_GLOBAL_PARAM_ATCH_DRIFT_RATE    p_mutlcap_config->global_param.atch_drift_rate
-#define QDEBUG_GLOBAL_PARAM_ATCH_RECAL_DELAY   p_mutlcap_config->global_param.atch_recal_delay
+// GLOBAL_PARAMS
+#define QDBEUG_GLOBAL_PARAM_RECAL_THRESHOLD         p_mutlcap_config->global_param.recal_threshold
+#define QDBEUG_GLOBAL_PARAM_DI                      p_mutlcap_config->global_param.di
+#define QDEBUG_GLOBAL_PARAM_DRIFT_HOLD_TIME         p_mutlcap_config->global_param.drift_hold_time
+#define QDEBUG_GLOBAL_PARAM_MAX_ON_DURATION         p_mutlcap_config->global_param.max_on_duration
+#define QDEBUG_GLOBAL_PARAM_TCH_DRIFT_RATE          p_mutlcap_config->global_param.tch_drift_rate
+#define QDEBUG_GLOBAL_PARAM_ATCH_DRIFT_RATE         p_mutlcap_config->global_param.atch_drift_rate
+#define QDEBUG_GLOBAL_PARAM_ATCH_RECAL_DELAY        p_mutlcap_config->global_param.atch_recal_delay
 
     //SENSOR_CONFIG
 #define QDBEUG_SENSOR_CONFIG_DETECT_THRESHOLD(x)    (sensor_detect_threshold[x])
@@ -211,32 +201,22 @@ extern "C"
 #endif
 
 #ifdef DEF_TOUCH_QDEBUG_ENABLE_SELFCAP
-#define QDEBUG_SENSOR_STATES_PTR               p_selfcap_measure_data->           \
-    p_sensor_states
-#define QDEBUG_SENSOR_PTR                      p_selfcap_measure_data->           \
-    p_sensors
-#define QDEBUG_SIGNALS_PTR                     p_selfcap_measure_data->           \
-    p_channel_signals
-#define QDEBUG_REFERENCES_PTR                  p_selfcap_measure_data->           \
-    p_channel_references
-#define QDEBUG_SENSOR_RS_VALUES                p_selfcap_measure_data->           \
-    p_rotor_slider_values
-#define QDEBUG_LIBINFO                         qt_touch_libver_info
-#define QDEBUG_NUM_SENSOR_STATE_BYTES          ((DEF_SELFCAP_NUM_CHANNELS +       \
-            7u) / 8u)
-#define QDEBUG_GET_DELTA_FUNC(x, y)             touch_selfcap_sensor_get_delta(   \
-        x, y)
-#define QDEBUG_GET_LIBINFO_FUNC(x)             touch_library_get_version_info(x)
-#define QDEBUG_GET_GLOBAL_PARAM_FUNC(x)        touch_selfcap_get_global_param(x)
-#define QDEBUG_UPDATE_GLOBAL_PARAM_FUNC(x)     touch_selfcap_update_global_param( \
-        x)
-#define QDEBUG_GET_SENSOR_CONFIG_FUNC(x, y)    touch_selfcap_sensor_get_config(   \
-        x, y)
-#define QDEBUG_UPDATE_SENSOR_CONFIG_FUNC(x,                                       \
-        y)  touch_selfcap_sensor_update_config(x, y)
-#define QDEBUG_NUM_SENSORS                     DEF_SELFCAP_NUM_SENSORS
-#define QDEBUG_NUM_CHANNELS                    DEF_SELFCAP_NUM_CHANNELS
-#define QDEBUG_NUM_ROTORS_SLIDERS              DEF_SELFCAP_NUM_ROTORS_SLIDERS
+#define QDEBUG_SENSOR_STATES_PTR                    p_selfcap_measure_data->p_sensor_states
+#define QDEBUG_SENSOR_PTR                           p_selfcap_measure_data->p_sensors
+#define QDEBUG_SIGNALS_PTR                          p_selfcap_measure_data->p_channel_signals
+#define QDEBUG_REFERENCES_PTR                       p_selfcap_measure_data->p_channel_references
+#define QDEBUG_SENSOR_RS_VALUES                     p_selfcap_measure_data->p_rotor_slider_values
+#define QDEBUG_LIBINFO                              qt_touch_libver_info
+#define QDEBUG_NUM_SENSOR_STATE_BYTES               ((DEF_SELFCAP_NUM_CHANNELS + 7u) / 8u)
+#define QDEBUG_GET_DELTA_FUNC(x, y)                 touch_selfcap_sensor_get_delta(x, y)
+#define QDEBUG_GET_LIBINFO_FUNC(x)                  touch_library_get_version_info(x)
+#define QDEBUG_GET_GLOBAL_PARAM_FUNC(x)             touch_selfcap_get_global_param(x)
+#define QDEBUG_UPDATE_GLOBAL_PARAM_FUNC(x)          touch_selfcap_update_global_param(x)
+#define QDEBUG_GET_SENSOR_CONFIG_FUNC(x, y)         touch_selfcap_sensor_get_config(x, y)
+#define QDEBUG_UPDATE_SENSOR_CONFIG_FUNC(x, y)      touch_selfcap_sensor_update_config(x, y)
+#define QDEBUG_NUM_SENSORS                          DEF_SELFCAP_NUM_SENSORS
+#define QDEBUG_NUM_CHANNELS                         DEF_SELFCAP_NUM_CHANNELS
+#define QDEBUG_NUM_ROTORS_SLIDERS                   DEF_SELFCAP_NUM_ROTORS_SLIDERS
 #endif
 
 
@@ -268,8 +248,7 @@ void QDebug_SendData(uint16_t qt_lib_flags);
  * \note  This function can be used directly in main to set data subscription
  * if 1way SPI interface is used.
  */
-void QDebug_SetSubscriptions(uint16_t once, uint16_t change,
-        uint16_t allways);
+void QDebug_SetSubscriptions(uint16_t once, uint16_t change, uint16_t allways);
 
 /* ! @} */
 

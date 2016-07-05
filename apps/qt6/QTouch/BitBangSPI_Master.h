@@ -58,11 +58,11 @@ void BitBangSPI_Send_Message(void);
 
 /*============================ MACROS ========================================*/
 
-#define JOIN( x, y ) x ## y
-#define JOIN1(x, y, z) x ## y ## z
+#define JOIN(x, y)              x##y
+#define JOIN1(x, y, z)          x##y##z
 
-#define REG( REGISTER, SIDE ) JOIN( REGISTER, SIDE )
-#define CONCAT( A, B, C ) JOIN1( A, B, C )
+#define REG(REGISTER, SIDE)     JOIN(REGISTER, SIDE)
+#define CONCAT(A, B, C)         JOIN1(A, B, C)
 
 /* The definitions below should not clash with the SNS/SNSK port pins */
 
