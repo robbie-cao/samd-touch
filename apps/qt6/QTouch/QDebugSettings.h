@@ -59,15 +59,14 @@ extern "C"
  */
 /* ! @{ */
 
-#define         QT8 \
-	0xF001
-#define         QT16                                                    0xF002
-#define         QM64                                                    0xF003
-#define         UC3L_EK_REV2                            				0xF005
-#define         SAMD20_XPLAINED_PRO_SELFCAP_EXT 						0xF010
-#define         SAMD20_XPLAINED_PRO_MUTLCAP_EXT 						0xF011
-#define 		SAMD20_XPLAINED_PRO_TOUCH_SURFACE_QT6					0xF020
-#define 		SAMD20_XPLAINED_PRO_TOUCH_SURFACE_QT2					0xF021
+#define QT8                                                     0xF001
+#define QT16                                                    0xF002
+#define QM64                                                    0xF003
+#define UC3L_EK_REV2                                            0xF005
+#define SAMD20_XPLAINED_PRO_SELFCAP_EXT                         0xF010
+#define SAMD20_XPLAINED_PRO_MUTLCAP_EXT                         0xF011
+#define SAMD20_XPLAINED_PRO_TOUCH_SURFACE_QT6                   0xF020
+#define SAMD20_XPLAINED_PRO_TOUCH_SURFACE_QT2                   0xF021
 
 
 /* ! @} */

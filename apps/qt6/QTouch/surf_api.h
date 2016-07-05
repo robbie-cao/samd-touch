@@ -68,18 +68,18 @@ To get the area for the particular touch id.
 
 /* Below MACROS should not be modified */
 /* Size of one Touch ID structure */
-#define SURF_ID_SIZE							(8u)
-#define SURF_PAD_BYTE_SIZE						(90u)	
-#define	SURF_DELTA_SUM_SIZE						(2)
-#define SURF_QTS_TCH_PROP_SIZE					(38)
-#define SURF_QTS_GRP_TCH_INFO_SIZE				(10)
-#define SURF_NODE_PROP_SIZE						(2)
-#define SURF_QTS_GRP_PROP_SIZE					(10)
-#define SURF_SEG_SIZE							(4)
-#define SURF_NUM_BM_BA_VAR						(5)
-#define SURF_GRP_TCH_INFO_SIZE					(10)
-#define SURF_GLOBAL_GRP_TCH_INFO_SIZE			(31)
-#define SURF_SORTING_GRP_PROP_SIZE				(16)
+#define SURF_ID_SIZE                    (8u)
+#define SURF_PAD_BYTE_SIZE              (90u)
+#define SURF_DELTA_SUM_SIZE             (2)
+#define SURF_QTS_TCH_PROP_SIZE          (38)
+#define SURF_QTS_GRP_TCH_INFO_SIZE      (10)
+#define SURF_NODE_PROP_SIZE             (2)
+#define SURF_QTS_GRP_PROP_SIZE          (10)
+#define SURF_SEG_SIZE                   (4)
+#define SURF_NUM_BM_BA_VAR              (5)
+#define SURF_GRP_TCH_INFO_SIZE          (10)
+#define SURF_GLOBAL_GRP_TCH_INFO_SIZE   (31)
+#define SURF_SORTING_GRP_PROP_SIZE      (16)
 /**
  * Macros for Lump Channel Configuration
  */
@@ -108,25 +108,25 @@ To get the area for the particular touch id.
 #define LUMP_X(...)      _LUMP_OF_L2(NUM_ARGS(__VA_ARGS__), __VA_ARGS__)
 #define LUMP_Y(...)      _LUMP_OF_L2(NUM_ARGS(__VA_ARGS__), __VA_ARGS__)
 
-#define SURF_MAX_NUM_GRP				(5) 
-#define SURF_BM_IND						((DEF_SURF_NUM_CHANNELS%32 == 0?(DEF_SURF_NUM_CHANNELS/32):((DEF_SURF_NUM_CHANNELS/32)+1)))
-#define SIZE_OF_UINT32					(4)
+#define SURF_MAX_NUM_GRP                (5)
+#define SURF_BM_IND                     ((DEF_SURF_NUM_CHANNELS%32 == 0?(DEF_SURF_NUM_CHANNELS/32):((DEF_SURF_NUM_CHANNELS/32)+1)))
+#define SIZE_OF_UINT32                  (4)
 
 /**
  * Touch Data block size.
  */
-#define PRIV_SURF_DATA_BLK_SIZE    ((SURF_DELTA_SUM_SIZE * DEF_SURF_NUM_XLINES) +\
-									(SURF_DELTA_SUM_SIZE * DEF_SURF_NUM_YLINES) +\
-									((SURF_QTS_TCH_PROP_SIZE + SURF_QTS_GRP_TCH_INFO_SIZE)* DEF_SURF_MAX_TCH ) +\
-									(SURF_NODE_PROP_SIZE * DEF_SURF_NUM_IND_SENSORS) +\
-									(SURF_QTS_GRP_PROP_SIZE * SURF_MAX_NUM_GRP ) +\
-									(DEF_SURF_NUM_IND_SENSORS) +\
-									(SIZE_OF_UINT32 * SURF_BM_IND * SURF_NUM_BM_BA_VAR) +\
-									(4 * SURF_BM_IND * SURF_NUM_BM_BA_VAR) +\
-									(2 * SURF_MAX_NUM_GRP * SURF_GRP_TCH_INFO_SIZE) +\
-                                                                        ( SURF_MAX_NUM_GRP * SURF_GLOBAL_GRP_TCH_INFO_SIZE) +\
-									( (SURF_MAX_NUM_GRP * SURF_SORTING_GRP_PROP_SIZE) + (SIZE_OF_UINT32*SURF_MAX_NUM_GRP)) +\
-																(SURF_PAD_BYTE_SIZE))
+#define PRIV_SURF_DATA_BLK_SIZE    ((SURF_DELTA_SUM_SIZE * DEF_SURF_NUM_XLINES) +                                           \
+                                    (SURF_DELTA_SUM_SIZE * DEF_SURF_NUM_YLINES) +                                           \
+                                    ((SURF_QTS_TCH_PROP_SIZE + SURF_QTS_GRP_TCH_INFO_SIZE)* DEF_SURF_MAX_TCH ) +            \
+                                    (SURF_NODE_PROP_SIZE * DEF_SURF_NUM_IND_SENSORS) +                                      \
+                                    (SURF_QTS_GRP_PROP_SIZE * SURF_MAX_NUM_GRP ) +                                          \
+                                    (DEF_SURF_NUM_IND_SENSORS) +                                                            \
+                                    (SIZE_OF_UINT32 * SURF_BM_IND * SURF_NUM_BM_BA_VAR) +                                   \
+                                    (4 * SURF_BM_IND * SURF_NUM_BM_BA_VAR) +                                                \
+                                    (2 * SURF_MAX_NUM_GRP * SURF_GRP_TCH_INFO_SIZE) +                                       \
+                                    (SURF_MAX_NUM_GRP * SURF_GLOBAL_GRP_TCH_INFO_SIZE) +                                    \
+                                    ((SURF_MAX_NUM_GRP * SURF_SORTING_GRP_PROP_SIZE) + (SIZE_OF_UINT32*SURF_MAX_NUM_GRP)) + \
+                                    (SURF_PAD_BYTE_SIZE))
 
 /*----------------------------------------------------------------------------
                             type definitions
@@ -157,20 +157,20 @@ surf_ret_t;
 *  ----------------------------------------------------------------------------*/
 typedef struct tag_surf_seg_size_t
 {
-	uint8_t row_beg;
-	uint8_t row_end;
-	uint8_t col_beg;
-	uint8_t col_end;
-	
+   uint8_t row_beg;
+   uint8_t row_end;
+   uint8_t col_beg;
+   uint8_t col_end;
+
 }
 surf_seg_size_t;
 
 ////////////////////////////Touch Surface Status Information End////////////////////
 
 typedef struct tag_surf_global_param_t {
-	uint8_t tch_drift_period;
+   uint8_t tch_drift_period;
         uint8_t atch_drift_period;
-	uint8_t (*surf_complete_callback)( uint16_t );
+   uint8_t (*surf_complete_callback)( uint16_t );
 
 }
 surf_global_param_t;
@@ -178,9 +178,9 @@ surf_global_param_t;
 
 //////Touch Config Information //////////
 typedef struct tag_surf_tch_config_t {
-	uint8_t num_touches;
-	uint8_t tch_di;
-	uint8_t tch_MOD;
+   uint8_t num_touches;
+   uint8_t tch_di;
+   uint8_t tch_MOD;
 
 }
 surf_tch_config_t;
@@ -197,51 +197,51 @@ typedef struct tag_surf_pos_prop_t {
 surf_pos_prop_t;
 
 typedef struct tag_surf_tch_status_t {
-	uint8_t tch_id;
-	uint8_t int_tch_state;
-	uint8_t area;
-	uint16_t x_position;
-	uint16_t y_position;
+   uint8_t tch_id;
+   uint8_t int_tch_state;
+   uint8_t area;
+   uint16_t x_position;
+   uint16_t y_position;
 }
 surf_tch_status_t;
 
 typedef struct tag_surf_status_t {
-	uint8_t		    num_active_touches;
-	uint8_t             surf_tch_state;//each bit mask represent ON/OFF for each touch
-	surf_tch_status_t  *ptr_surf_tch_status;//index is touch id.
-	uint32_t           *ptr_surf_cyc_burst_mask;
-	
+   uint8_t             num_active_touches;
+   uint8_t             surf_tch_state;//each bit mask represent ON/OFF for each touch
+   surf_tch_status_t  *ptr_surf_tch_status;//index is touch id.
+   uint32_t           *ptr_surf_cyc_burst_mask;
+
 }
 surf_status_t;
 
 typedef struct tag_surf_hw_config_t {
-	uint16_t num_total_channels;
-	uint8_t  num_x_lines;
-	uint8_t  num_y_lines;
-	uint8_t  num_sleep_channels;
+   uint16_t num_total_channels;
+   uint8_t  num_x_lines;
+   uint8_t  num_y_lines;
+   uint8_t  num_sleep_channels;
 }
 surf_hw_config_t;
 
 /* ! Touch Surface Input Configuration type. */
 typedef struct tag_surf_config_t {
-	surf_hw_config_t surf_hw_config;
-	surf_pos_prop_t surf_pos_prop;
-	surf_global_param_t surf_global_param;
-	surf_tch_config_t surf_tch_config;//num_touches,di,mod
-	surf_seg_size_t *ptr_surf_seg_size;	
-	uint8_t *ptr_surf_data_block;
-	uint16_t surf_data_block_size;
+   surf_hw_config_t surf_hw_config;
+   surf_pos_prop_t surf_pos_prop;
+   surf_global_param_t surf_global_param;
+   surf_tch_config_t surf_tch_config;//num_touches,di,mod
+   surf_seg_size_t *ptr_surf_seg_size;
+   uint8_t *ptr_surf_data_block;
+   uint16_t surf_data_block_size;
 }
 surf_config_t;
 
 /* ! Surface library version information type. */
 typedef struct tag_surf_libver_info_t {
-	/* ! Chip ID */
-	uint32_t chip_id;
-	/* ! Product ID */
-	uint8_t product_id;
-	/* ! Touch Library version. */
-	uint16_t fw_version;
+   /* ! Chip ID */
+   uint32_t chip_id;
+   /* ! Product ID */
+   uint8_t product_id;
+   /* ! Touch Library version. */
+   uint16_t fw_version;
 }
 surf_libver_info_t;
 
@@ -254,8 +254,8 @@ surf_libver_info_t;
 /*! \brief This API can be used to initialize the different parameters of the touch surface
  *
  *  \param ptr_surf_config:Pointer to the surface config structure
- *		   ptr_surf_status:Pointer to the surface status structure
- *		   ptr_touch_config:Pointer to the touch configuration structure
+ *         ptr_surf_status:Pointer to the surface status structure
+ *         ptr_touch_config:Pointer to the touch configuration structure
  *  \return surf_ret_t: Surface Library Error status.
  */
 surf_ret_t surf_init(surf_config_t *ptr_surf_config, surf_status_t *ptr_surf_status,touch_config_t *ptr_touch_config);
@@ -270,7 +270,7 @@ surf_ret_t surf_init(surf_config_t *ptr_surf_config, surf_status_t *ptr_surf_sta
 surf_ret_t surf_calibrate_all(void);
 
 
-/*! \brief This API can be used to measure the touch surface 
+/*! \brief This API can be used to measure the touch surface
  *
  *  \param surf_current_time_t: Current time in ms passed from the application
  *
@@ -278,7 +278,7 @@ surf_ret_t surf_calibrate_all(void);
  */
 surf_ret_t surf_measure(surf_current_time_t current_time_ms);
 
-/*! \brief This API can be used to get the surface library version information 
+/*! \brief This API can be used to get the surface library version information
  *
  *  \param surf_libver_info_t: Pointer to the surface library version information.
  *
@@ -286,7 +286,7 @@ surf_ret_t surf_measure(surf_current_time_t current_time_ms);
  */
 surf_ret_t surf_library_get_version_info( surf_libver_info_t *ptr_surf_libver_info );
 
-/*! \brief This API can be used to start the low power measurement. 
+/*! \brief This API can be used to start the low power measurement.
  *
  *  \param none:
  *
@@ -295,7 +295,7 @@ surf_ret_t surf_library_get_version_info( surf_libver_info_t *ptr_surf_libver_in
 
 surf_ret_t surf_low_power_start(void);
 
-/*! \brief This API can be used to stop the low power measurement. 
+/*! \brief This API can be used to stop the low power measurement.
  *
  *  \param none:
  *

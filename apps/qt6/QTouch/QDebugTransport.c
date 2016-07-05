@@ -93,16 +93,16 @@ uint8_t SequenceH = 0;
 void Init_Buffers(void)
 {
 #ifdef __DEBUG__
-	for (int i = 0; i < sizeof(TX_Buffer); i++) {
-		RX_Buffer[i] = 0;
-		RX_Buffer[i] = 0;
-	}
+    for (int i = 0; i < sizeof(TX_Buffer); i++) {
+        RX_Buffer[i] = 0;
+        RX_Buffer[i] = 0;
+    }
 #endif
 
-	TX_Buffer[0] = MESSAGE_START;
-	TX_index = 4;           /* Start to add data after MSG_START, MSG_SIZEH,
-	                         * MSG_SIZEL, and Sequence number */
-	RX_index = 0;
+    TX_Buffer[0] = MESSAGE_START;
+    TX_index = 4;           /* Start to add data after MSG_START, MSG_SIZEH,
+                             * MSG_SIZEL, and Sequence number */
+    RX_index = 0;
 }
 
 /*! \brief Puts one byte in the Transmit Buffer.
@@ -111,7 +111,7 @@ void Init_Buffers(void)
  */
 void PutChar(uint8_t data)
 {
-	TX_Buffer[TX_index++] = data;
+    TX_Buffer[TX_index++] = data;
     //LOG("%02x\r\n", data);
 }
 
@@ -121,8 +121,8 @@ void PutChar(uint8_t data)
  */
 void PutInt(uint16_t data)
 {
-	TX_Buffer[TX_index++] = data >> 8;
-	TX_Buffer[TX_index++] = data;
+    TX_Buffer[TX_index++] = data >> 8;
+    TX_Buffer[TX_index++] = data;
 }
 
 /*! \brief Get one byte from the Receive Buffer.
@@ -131,7 +131,7 @@ void PutInt(uint16_t data)
  */
 uint8_t GetChar(void)
 {
-	return RX_Buffer[RX_index++];
+    return RX_Buffer[RX_index++];
 }
 
 /*! \brief Send the content of the TX_Buffer to the USB Bridge using the
@@ -140,31 +140,31 @@ uint8_t GetChar(void)
  */
 void Send_Message(void)
 {
-	uint8_t checksum = 0;
-	uint16_t i;
+    uint8_t checksum = 0;
+    uint16_t i;
 
-	SequenceL = (SequenceL + 1) & 0x0F; /* inc and wrap */
+    SequenceL = (SequenceL + 1) & 0x0F; /* inc and wrap */
 
-	/* Store length field */
-	TX_Buffer[1] = (uint8_t)(TX_index >> 8);
-	TX_Buffer[2] = (uint8_t)(TX_index & 0xFF);
+    /* Store length field */
+    TX_Buffer[1] = (uint8_t)(TX_index >> 8);
+    TX_Buffer[2] = (uint8_t)(TX_index & 0xFF);
 
-	/* Store Sequence Number */
-	TX_Buffer[3] = (SequenceH << 4) + SequenceL;
+    /* Store Sequence Number */
+    TX_Buffer[3] = (SequenceH << 4) + SequenceL;
 
-	/* Calculate checksum */
-	for (i = 1; i < TX_index; i++) {
-		checksum ^= TX_Buffer[i];
-	}
-	TX_Buffer[TX_index] = checksum;
+    /* Calculate checksum */
+    for (i = 1; i < TX_index; i++) {
+        checksum ^= TX_Buffer[i];
+    }
+    TX_Buffer[TX_index] = checksum;
 
-	/* Send data using selected interface */
+    /* Send data using selected interface */
 #if (defined QDEBUG_SPI)
-	SPI_Send_Message();
+    SPI_Send_Message();
 #elif (defined QDEBUG_SERIAL)
-	SERIAL_Send_Message();
+    SERIAL_Send_Message();
 #elif defined(QDEBUG_SPI_BB)
-	BitBangSPI_Send_Message();
+    BitBangSPI_Send_Message();
 #endif
 
 #if 0
@@ -174,8 +174,8 @@ void Send_Message(void)
     LOG("\r\n");
 #endif
 
-	/* Ready for next message */
-	TX_index = 4;
+    /* Ready for next message */
+    TX_index = 4;
 }
 
 /*! \brief Executes a master read transmission if TWI is selected as interface.
@@ -188,16 +188,16 @@ void Send_Message(void)
 uint8_t Receive_Message(void)
 {
 #if (defined QDEBUG_SERIAL)
-	SERIAL_Retrieve_Message();
+    SERIAL_Retrieve_Message();
 #endif
-	/* Check for token */
-	if (RX_Buffer[0] != 0x1B) {
-		return 0;
-	}
+    /* Check for token */
+    if (RX_Buffer[0] != 0x1B) {
+        return 0;
+    }
 
-	/* Yes, we have received a valid frame! */
-	RX_index = 4;           /* Next GetChar() will get the command id */
-	return 1;
+    /* Yes, we have received a valid frame! */
+    RX_index = 4;           /* Next GetChar() will get the command id */
+    return 1;
 }
 
 /*! \brief Handles the incoming bytes from the interface selected in
@@ -209,72 +209,72 @@ uint8_t Receive_Message(void)
  */
 uint8_t RxHandler(uint8_t c)
 {
-	static uint16_t length = 0;
-	static uint16_t received = 0;
-	static uint8_t state = STATE_IDLE;
-	uint8_t nextstate;
-	uint8_t checksum;
-	uint16_t i;
+    static uint16_t length = 0;
+    static uint16_t received = 0;
+    static uint8_t state = STATE_IDLE;
+    uint8_t nextstate;
+    uint8_t checksum;
+    uint16_t i;
 
-	switch (state) {
-	case STATE_IDLE:
-		if (c == 0x1B) {
-			nextstate = STATE_LENGTH1;
-		} else {
-			nextstate = STATE_IDLE;
-		}
+    switch (state) {
+        case STATE_IDLE:
+            if (c == 0x1B) {
+                nextstate = STATE_LENGTH1;
+            } else {
+                nextstate = STATE_IDLE;
+            }
 
-		break;
+            break;
 
-	case STATE_LENGTH1:
-		RX_Buffer[1] = c;
-		length = c << 8;
-		nextstate = STATE_LENGTH2;
-		break;
+        case STATE_LENGTH1:
+            RX_Buffer[1] = c;
+            length = c << 8;
+            nextstate = STATE_LENGTH2;
+            break;
 
-	case STATE_LENGTH2:
-		RX_Buffer[2] = c;
-		length |= c;
-		if ((length < 4) || (length > 270)) {
-			/* Illegal length, discard it */
-			nextstate = STATE_IDLE;
-		} else {
-			received = 3;
-			nextstate = STATE_DATA;
-		}
+        case STATE_LENGTH2:
+            RX_Buffer[2] = c;
+            length |= c;
+            if ((length < 4) || (length > 270)) {
+                /* Illegal length, discard it */
+                nextstate = STATE_IDLE;
+            } else {
+                received = 3;
+                nextstate = STATE_DATA;
+            }
 
-		break;
+            break;
 
-	case STATE_DATA:
-		RX_Buffer[received] = c;
+        case STATE_DATA:
+            RX_Buffer[received] = c;
 
-		if (received == length) {
-			/* This is the CRC byte */
-			checksum = 0;
-			for (i = 1; i <= length; i++) {
-				checksum ^= RX_Buffer[i];
-			}
+            if (received == length) {
+                /* This is the CRC byte */
+                checksum = 0;
+                for (i = 1; i <= length; i++) {
+                    checksum ^= RX_Buffer[i];
+                }
 
-			if (checksum == 0) {
-				/* Valid frame */
-				RX_Buffer[0] = 0x1B;
-			}
+                if (checksum == 0) {
+                    /* Valid frame */
+                    RX_Buffer[0] = 0x1B;
+                }
 
-			nextstate = STATE_IDLE;
-			break;
-		}
+                nextstate = STATE_IDLE;
+                break;
+            }
 
-		nextstate = STATE_DATA;
-		received++;
-		break;
+            nextstate = STATE_DATA;
+            received++;
+            break;
 
-	default:
-		nextstate = STATE_IDLE;
-	}
+        default:
+            nextstate = STATE_IDLE;
+    }
 
-	state = nextstate;
+    state = nextstate;
 
-	return state;
+    return state;
 }
 
 #endif  /* #if DEF_TOUCH_QDEBUG_ENABLE == 1 */

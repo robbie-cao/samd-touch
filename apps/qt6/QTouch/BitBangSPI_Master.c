@@ -85,27 +85,27 @@ static uint8_t BitBangSPI_Send_Byte(uint8_t c);
  *============================================================================*/
 void BitBangSPI_Master_Init(void)
 {
-	struct port_config config_port_pin;
+    struct port_config config_port_pin;
 
-	port_get_config_defaults(&config_port_pin);
+    port_get_config_defaults(&config_port_pin);
 
-	config_port_pin.direction  = PORT_PIN_DIR_OUTPUT;
+    config_port_pin.direction  = PORT_PIN_DIR_OUTPUT;
 
-	port_pin_set_config(CONCAT(PIN_P, SPI_BB_SS, SS_BB), &config_port_pin);
-	port_pin_set_config(CONCAT(PIN_P, SPI_BB_MOSI,
-			MOSI_BB), &config_port_pin);
-	port_pin_set_config(CONCAT(PIN_P, SPI_BB_SCK,
-			SCK_BB), &config_port_pin);
+    port_pin_set_config(CONCAT(PIN_P, SPI_BB_SS, SS_BB), &config_port_pin);
+    port_pin_set_config(CONCAT(PIN_P, SPI_BB_MOSI,
+                MOSI_BB), &config_port_pin);
+    port_pin_set_config(CONCAT(PIN_P, SPI_BB_SCK,
+                SCK_BB), &config_port_pin);
 
-	config_port_pin.direction  = PORT_PIN_DIR_INPUT;
-	config_port_pin.input_pull = PORT_PIN_PULL_UP;
-	port_pin_set_config(CONCAT(PIN_P, SPI_BB_MISO,
-			MISO_BB), &config_port_pin);
+    config_port_pin.direction  = PORT_PIN_DIR_INPUT;
+    config_port_pin.input_pull = PORT_PIN_PULL_UP;
+    port_pin_set_config(CONCAT(PIN_P, SPI_BB_MISO,
+                MISO_BB), &config_port_pin);
 
-	port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SS, SS_BB), 0u);
-	port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MISO, MISO_BB), 1u);
-	port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI, MOSI_BB), 0u);
-	port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SCK, SCK_BB), 0u);
+    port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SS, SS_BB), 0u);
+    port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MISO, MISO_BB), 1u);
+    port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI, MOSI_BB), 0u);
+    port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SCK, SCK_BB), 0u);
 }
 
 /*============================================================================
@@ -122,46 +122,46 @@ void BitBangSPI_Master_Init(void)
  *============================================================================*/
 uint8_t BitBangSPI_Send_Byte(uint8_t c)
 {
-	uint32_t bit;
-	bool i;
-	for (bit = 0u; bit < 8u; bit++) {
-		/* write MOSI on trailing edge of previous clock */
-		if (c & 0x80u) {
-			port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI,
-					MOSI_BB), 1u);
-		} else {
-			port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI,
-					MOSI_BB), 0u);
-		}
+    uint32_t bit;
+    bool i;
+    for (bit = 0u; bit < 8u; bit++) {
+        /* write MOSI on trailing edge of previous clock */
+        if (c & 0x80u) {
+            port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI,
+                        MOSI_BB), 1u);
+        } else {
+            port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI,
+                        MOSI_BB), 0u);
+        }
 
-		c <<= 1u;
+        c <<= 1u;
 
-		/* half a clock cycle before leading/rising edge */
-		//cpu_delay_us(1u); /* SHOULD BE ~3uS. */
-		port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SCK,
-				SCK_BB), 1u);
+        /* half a clock cycle before leading/rising edge */
+        //cpu_delay_us(1u); /* SHOULD BE ~3uS. */
+        port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SCK,
+                    SCK_BB), 1u);
 
-		/* half a clock cycle before trailing/falling edge */
-		//cpu_delay_us(1u); /* SHOULD BE ~3uS. */
+        /* half a clock cycle before trailing/falling edge */
+        //cpu_delay_us(1u); /* SHOULD BE ~3uS. */
 
-		/* read MISO on trailing edge */
-		i
-			= (port_pin_get_input_level(CONCAT(PIN_P, SPI_BB_MISO,
-				MISO_BB)));
-		if (i == true) {
-			c |= (0x01u);
-		} else {
-		}
+        /* read MISO on trailing edge */
+        i
+            = (port_pin_get_input_level(CONCAT(PIN_P, SPI_BB_MISO,
+                            MISO_BB)));
+        if (i == true) {
+            c |= (0x01u);
+        } else {
+        }
 
-		port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SCK,
-				SCK_BB), 0u);
-	}
+        port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_SCK,
+                    SCK_BB), 0u);
+    }
 
-	port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI, MOSI_BB), 0u);
+    port_pin_set_output_level(CONCAT(PIN_P, SPI_BB_MOSI, MOSI_BB), 0u);
 
-	//cpu_delay_us(50u); /* SHOULD BE ~18uS. */
+    //cpu_delay_us(50u); /* SHOULD BE ~18uS. */
 
-	return c;
+    return c;
 }
 
 /*============================================================================
@@ -178,18 +178,18 @@ uint8_t BitBangSPI_Send_Byte(uint8_t c)
  *============================================================================*/
 void BitBangSPI_Send_Message(void)
 {
-	unsigned int i;
-	uint8_t FrameInProgress=0;
+    unsigned int i;
+    uint8_t FrameInProgress=0;
 
-	/* Send our message upstream */
-	for (i = 0; i <= TX_index; i++) {
-		FrameInProgress = RxHandler(BitBangSPI_Send_Byte(TX_Buffer[i]));
-	}
+    /* Send our message upstream */
+    for (i = 0; i <= TX_index; i++) {
+        FrameInProgress = RxHandler(BitBangSPI_Send_Byte(TX_Buffer[i]));
+    }
 
-	/* Do we need to receive even more bytes? */
-	while (FrameInProgress) {
-		FrameInProgress = RxHandler(BitBangSPI_Send_Byte(0));
-	}
+    /* Do we need to receive even more bytes? */
+    while (FrameInProgress) {
+        FrameInProgress = RxHandler(BitBangSPI_Send_Byte(0));
+    }
 }
 
 #endif   /* #if DEF_TOUCH_QDEBUG_ENABLE == 1 */
