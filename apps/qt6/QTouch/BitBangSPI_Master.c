@@ -79,7 +79,7 @@ static uint8_t BitBangSPI_Send_Byte(uint8_t c);
  *  Purpose :   Initialize BitBangSPI Interface
  *  Input   :   n/a
  *  Output  :   n/a
- *  Notes   :	Called from QDebug_Init in QDebug.c
+ *  Notes   :   Called from QDebug_Init in QDebug.c
  *
  *
  *============================================================================*/
@@ -116,7 +116,7 @@ void BitBangSPI_Master_Init(void)
  *  Purpose :   Send and Read one byte using BitBangSPI Interface
  *  Input   :   Data to send to slave
  *  Output  :   Data read from slave
- *  Notes   :	Called from BitBangSPI_Send_Message in this file
+ *  Notes   :   Called from BitBangSPI_Send_Message in this file
  *
  *
  *============================================================================*/
@@ -172,7 +172,7 @@ uint8_t BitBangSPI_Send_Byte(uint8_t c)
  *  Purpose :   Send and Read one frame using BitBangSPI Interface
  *  Input   :   n/a
  *  Output  :   n/a
- *  Notes   :	Called from Send_Message in QDebugTransport.c
+ *  Notes   :   Called from Send_Message in QDebugTransport.c
  *
  *
  *============================================================================*/
