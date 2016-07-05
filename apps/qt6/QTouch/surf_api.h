@@ -1,37 +1,38 @@
 /**********************************************************************
-*   FILE:  surf_api.h
-*   Version Number: $Revision: 16086 $
-*   Last Updated   : $Date: 2015-12-11 05:52:00 +0100 (Fri, 11 Dec 2015) $
-*   Atmel Corporation:  http://www.atmel.com \n
-*   Support email:  touch@atmel.com
-**********************************************************************/
-/*  License
-*   Copyright (c) 2013, Atmel Corporation All rights reserved.
-*
-*   Redistribution and use in source and binary forms, with or without
-*   modification, are permitted provided that the following conditions are met:
-*
-*   1. Redistributions of source code must retain the above copyright notice,
-*   this list of conditions and the following disclaimer.
-*
-*   2. Redistributions in binary form must reproduce the above copyright notice,
-*   this list of conditions and the following disclaimer in the documentation
-*   and/or other materials provided with the distribution.
-*
-*   3. The name of ATMEL may not be used to endorse or promote products derived
-*   from this software without specific prior written permission.
-*
-*   THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
-*   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-*   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
-*   SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
-*   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-*   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-*   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-*   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-*   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-*   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ *   FILE:  surf_api.h
+ *   Version Number: $Revision: 16086 $
+ *   Last Updated   : $Date: 2015-12-11 05:52:00 +0100 (Fri, 11 Dec 2015) $
+ *   Atmel Corporation:  http://www.atmel.com \n
+ *   Support email:  touch@atmel.com
+ **********************************************************************/
+/*
+ * License
+ *   Copyright (c) 2013, Atmel Corporation All rights reserved.
+ *
+ *   Redistribution and use in source and binary forms, with or without
+ *   modification, are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *   3. The name of ATMEL may not be used to endorse or promote products derived
+ *   from this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ *   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ *   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
+ *   SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
+ *   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ *   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 
 #ifndef SURF_API_H_
@@ -40,29 +41,29 @@
 #include "surface.h"
 
 /*
-SURF_GET_TOUCH_STATE (TOUCH_ID)
-To get the state of the particular touch id(whether detect or not) that corresponds to the touch id specified using the TOUCH_ID.
-The macro returns either 0 or 1.
-If the bit value is 0, the touch is not in detect
-If the bit value is 1, the touch is in detect
-*/
-#define SURF_GET_TOUCH_STATE(TOUCH_ID) surf_status.surf_tch_state & (1 << (TOUCH_ID % 8))
+ * SURF_GET_TOUCH_STATE (TOUCH_ID)
+ * To get the state of the particular touch id(whether detect or not) that corresponds to the touch id specified using the TOUCH_ID.
+ * The macro returns either 0 or 1.
+ * If the bit value is 0, the touch is not in detect
+ * If the bit value is 1, the touch is in detect
+ */
+#define SURF_GET_TOUCH_STATE(TOUCH_ID)      surf_status.surf_tch_state & (1 << (TOUCH_ID % 8))
 /*
-SURF_GET_X_POSITION (TOUCH_ID)
-To get the X position for the particular touch id.
-*/
-#define SURF_GET_X_POSITION(TOUCH_ID) surf_status.ptr_surf_tch_status[TOUCH_ID].x_position
+ * SURF_GET_X_POSITION (TOUCH_ID)
+ * To get the X position for the particular touch id.
+ */
+#define SURF_GET_X_POSITION(TOUCH_ID)       surf_status.ptr_surf_tch_status[TOUCH_ID].x_position
 
 /*
-SURF_GET_Y_POSITION (TOUCH_ID)
-To get the Y position for the particular touch id.
-*/
+ * SURF_GET_Y_POSITION (TOUCH_ID)
+ * To get the Y position for the particular touch id.
+ */
 #define SURF_GET_Y_POSITION(TOUCH_ID) surf_status.ptr_surf_tch_status[TOUCH_ID].y_position
 
 /*
-SURF_GET_TOUCH_AREA (TOUCH_ID)
-To get the area for the particular touch id.
-*/
+ * SURF_GET_TOUCH_AREA (TOUCH_ID)
+ * To get the area for the particular touch id.
+ */
 #define SURF_GET_TOUCH_AREA(TOUCH_ID) surf_status.ptr_surf_tch_status[TOUCH_ID].area
 
 
@@ -128,9 +129,9 @@ To get the area for the particular touch id.
                                     ((SURF_MAX_NUM_GRP * SURF_SORTING_GRP_PROP_SIZE) + (SIZE_OF_UINT32*SURF_MAX_NUM_GRP)) + \
                                     (SURF_PAD_BYTE_SIZE))
 
-/*----------------------------------------------------------------------------
-                            type definitions
-----------------------------------------------------------------------------*/
+/*****************************************************************************
+ *                          type definitions
+ *****************************************************************************/
 /* ! Current time type. */
 typedef uint16_t surf_current_time_t;
 
@@ -152,9 +153,9 @@ typedef enum tag_surf_ret_t {
 surf_ret_t;
 
 
-/*----------------------------------------------------------------------------
-*                                Structures
-*  ----------------------------------------------------------------------------*/
+/*****************************************************************************
+ *                                Structures
+ *****************************************************************************/
 typedef struct tag_surf_seg_size_t
 {
     uint8_t row_beg;

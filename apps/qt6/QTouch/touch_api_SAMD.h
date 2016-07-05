@@ -1,37 +1,37 @@
 /**********************************************************************
-*   FILE:  touch_api_samd.h
-*   Version Number: $Revision: 16086 $
-*   Last Updated   : $Date: 2015-12-11 05:52:00 +0100 (Fri, 11 Dec 2015) $
-*   Atmel Corporation:  http://www.atmel.com \n
-*   Support email:  touch@atmel.com
-**********************************************************************/
+ *   FILE:  touch_api_samd.h
+ *   Version Number: $Revision: 16086 $
+ *   Last Updated   : $Date: 2015-12-11 05:52:00 +0100 (Fri, 11 Dec 2015) $
+ *   Atmel Corporation:  http://www.atmel.com \n
+ *   Support email:  touch@atmel.com
+ **********************************************************************/
 /*  License
-*   Copyright (c) 2013, Atmel Corporation All rights reserved.
-*
-*   Redistribution and use in source and binary forms, with or without
-*   modification, are permitted provided that the following conditions are met:
-*
-*   1. Redistributions of source code must retain the above copyright notice,
-*   this list of conditions and the following disclaimer.
-*
-*   2. Redistributions in binary form must reproduce the above copyright notice,
-*   this list of conditions and the following disclaimer in the documentation
-*   and/or other materials provided with the distribution.
-*
-*   3. The name of ATMEL may not be used to endorse or promote products derived
-*   from this software without specific prior written permission.
-*
-*   THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
-*   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-*   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
-*   SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
-*   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-*   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-*   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-*   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-*   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-*   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ *   Copyright (c) 2013, Atmel Corporation All rights reserved.
+ *
+ *   Redistribution and use in source and binary forms, with or without
+ *   modification, are permitted provided that the following conditions are met:
+ *
+ *   1. Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ *   2. Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ *   3. The name of ATMEL may not be used to endorse or promote products derived
+ *   from this software without specific prior written permission.
+ *
+ *   THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ *   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ *   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE EXPRESSLY AND
+ *   SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT,
+ *   INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ *   THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 
 
 #ifndef TOUCH_API_SAMD_H
@@ -78,8 +78,8 @@ extern "C"
 
 #define MAX_LOCKOUT_VAL                         2u
 /*----------------------------------------------------------------------------
-*                           manifest constants
-*  ----------------------------------------------------------------------------*/
+ *                           manifest constants
+ *----------------------------------------------------------------------------*/
 /* Operation mode */
 
 /*! \name Touch Library Acquisition Status bitfields.
@@ -118,7 +118,8 @@ extern uint8_t sensor_detect_threshold[];
 #define GET_SELFCAP_SENSOR_STATE(SENSOR_NUMBER)                 \
     (p_selfcap_measure_data->p_sensor_states[(SENSOR_NUMBER / 8)] & (1 << (SENSOR_NUMBER % 8)))
 /* Mutual capacitance method */
-#define GET_MUTLCAP_SENSOR_STATE(SENSOR_NUMBER)         (p_mutlcap_measure_data->p_sensor_states[(SENSOR_NUMBER / 8)] & (1 << (SENSOR_NUMBER % 8)))
+#define GET_MUTLCAP_SENSOR_STATE(SENSOR_NUMBER)                 \
+    (p_mutlcap_measure_data->p_sensor_states[(SENSOR_NUMBER / 8)] & (1 << (SENSOR_NUMBER % 8)))
 
 /* Mutual capacitance method */
 #define GET_MUTLCAP_SENSOR_NOISE_STATUS(SENSOR_NUMBER)          \
@@ -170,8 +171,8 @@ extern uint8_t sensor_detect_threshold[];
 #define TOUCH_MAX_POS_HYST              (7u)
 
 /*----------------------------------------------------------------------------
-*                          Mutual cap  macros
-*  ----------------------------------------------------------------------------*/
+ *                          Mutual cap  macros
+ *----------------------------------------------------------------------------*/
 #if DEF_TOUCH_MUTLCAP == 1
 #if (DEF_MUTLCAP_NUM_SENSORS == 0u)
 #error 'Number of Sensors cannot be 0.'
@@ -239,8 +240,8 @@ extern uint8_t sensor_detect_threshold[];
 
 
 /*----------------------------------------------------------------------------
-*                           type definitions
-*  ----------------------------------------------------------------------------*/
+ *                           type definitions
+ *----------------------------------------------------------------------------*/
 
 /* ! An unsigned 8-bit number setting a sensor detection threshold. */
 typedef uint8_t threshold_t;
@@ -995,7 +996,7 @@ touch_ret_t touch_mutlcap_sensor_get_delta(
 
 /*----------------------------------------------------------------------------
  *                          Extern Functions
- *  ----------------------------------------------------------------------------*/
+ *----------------------------------------------------------------------------*/
 
 /*! \name Touch Library internal use functions.
 */
