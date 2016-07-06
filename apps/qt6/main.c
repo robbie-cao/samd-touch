@@ -423,17 +423,16 @@ void config_timer_evsys(void)
     }
 
     touch_time.time_to_measure_touch = 1;
-
-
 }
+
 /*! \brief Software Reset the Event System.
 */
 void reset_evsys(void)
 {
-    enum status_code status_ret=STATUS_OK;
-    status_ret=events_detach_user(&events, EVENT_USER);
+    enum status_code status_ret = STATUS_OK;
+    status_ret = events_detach_user(&events, EVENT_USER);
 
-    if (status_ret!=STATUS_OK)
+    if (status_ret != STATUS_OK)
     {
         while (1) {
         }
@@ -465,10 +464,9 @@ void init_evsys_config(void)
         while (1) {
         }
     }
-
 }
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
 
-#endif
 /*! \brief Set timer period.Called from Qdebug .
 */
 void set_timer_period(uint16_t time)
@@ -481,7 +479,6 @@ void set_timer_period(uint16_t time)
 
 int main(void)
 {
-
     /**
      * Initialize and configure system and generic clocks.
      * Use conf_clocks.h to configure system and generic clocks.
