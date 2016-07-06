@@ -66,7 +66,7 @@
 /*Do not Modify this macro used by library for internal purpose*/
 #define DEF_MUTLCAP_NUM_LUMPED_SENSORS  1u
 
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 /*Low Power Sensor Support */
 
 
@@ -119,7 +119,7 @@ uint8_t surf_complete_callback(uint16_t);
 /*! \brief Initialize and enable PTC clock.
 */
 void surface_configure_ptc_clock(void);
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 /*! \brief Configure the Event System for Low Power Mode operation.
 */
 void config_timer_evsys(void);
@@ -184,18 +184,18 @@ volatile uint8_t    qts_process_done = 0u;
 touch_time_t touch_time;
 touch_time_t rtc_time;
 
-uint16_t prev_rtc_period=SURF_ACTIVE_TCH_SCAN_RATE_MS;
-uint16_t next_rtc_period=SURF_NO_TCH_SCAN_RATE_MS;
+uint16_t prev_rtc_period = SURF_ACTIVE_TCH_SCAN_RATE_MS;
+uint16_t next_rtc_period = SURF_NO_TCH_SCAN_RATE_MS;
 
-uint16_t surface_process_status =0;
+uint16_t surface_process_status = 0;
 
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 /*Variables to track low power mode and drifting status(drift mode) during low power mode*/
 uint8_t surface_op_mode=NORMAL_MODE;
 uint8_t prev_mode=NORMAL_MODE;
-uint8_t low_power_drift_pending=0;
+uint8_t low_power_drift_pending = 0;
 uint8_t low_power_state = NOT_RUNNING;
-volatile uint16_t no_activity_counter=0;
+volatile uint16_t no_activity_counter = 0;
 #endif
 
 
@@ -219,19 +219,15 @@ static uint8_t mutlcap_data_blk[PRIV_MUTLCAP_DATA_BLK_SIZE];
  * Mutual Cap Sensor Pins Info.
  */
 #ifdef __ICCARM__
-const uint16_t  mutlcap_xy_nodes[DEF_MUTLCAP_NUM_CHANNELS * 2]  @ "FLASH"  = {DEF_MUTLCAP_NODES} ;
-
-const gain_t mutlcap_gain_per_node[DEF_MUTLCAP_NUM_CHANNELS]  @ "FLASH"
-= {DEF_MUTLCAP_GAIN_PER_NODE};
+const uint16_t  mutlcap_xy_nodes[DEF_MUTLCAP_NUM_CHANNELS * 2]  @ "FLASH" = { DEF_MUTLCAP_NODES };
+const gain_t mutlcap_gain_per_node[DEF_MUTLCAP_NUM_CHANNELS]  @ "FLASH" = { DEF_MUTLCAP_GAIN_PER_NODE };
 uint8_t    sensor_detect_threshold[DEF_MUTLCAP_NUM_CHANNELS]  = { DEF_MUTLCAP_DETECT_THRESHOLD };
 #endif
 
 #ifdef __GNUC__
-const uint16_t  mutlcap_xy_nodes[DEF_MUTLCAP_NUM_CHANNELS * 2]  = {DEF_MUTLCAP_NODES} ;
-
+const uint16_t  mutlcap_xy_nodes[DEF_MUTLCAP_NUM_CHANNELS * 2]  = { DEF_MUTLCAP_NODES };
 const gain_t mutlcap_gain_per_node[DEF_MUTLCAP_NUM_CHANNELS] = { DEF_MUTLCAP_GAIN_PER_NODE };
-
-uint8_t    sensor_detect_threshold[DEF_MUTLCAP_NUM_CHANNELS]   = { DEF_MUTLCAP_DETECT_THRESHOLD };
+uint8_t sensor_detect_threshold[DEF_MUTLCAP_NUM_CHANNELS] = { DEF_MUTLCAP_DETECT_THRESHOLD };
 #endif
 
 freq_hop_sel_t mutlcap_freq_hops[3u] = { DEF_MUTLCAP_HOP_FREQS };
@@ -315,7 +311,7 @@ Notes	:	None
 void qts_start(void)
 {
     surf_ret_t surf_ret;
-    surf_ret=surf_calibrate_all();
+    surf_ret = surf_calibrate_all();
     if (surf_ret != SURF_SUCCESS)
     {
         while (1)
@@ -335,8 +331,7 @@ Notes	:	None
 void qts_init_surface()
 {
     surf_init(&surf_config, &surf_status, &touch_config);
-
-    surf_status.ptr_surf_tch_status= &(surf_tch_status[0]);
+    surf_status.ptr_surf_tch_status = &(surf_tch_status[0]);
 }
 /*==============================================================================
 Name	:	qts_normal_process
@@ -348,50 +343,50 @@ Notes	:	None
 ==============================================================================*/
 void qts_normal_process(void)
 {
-    surf_ret_t surf_ret=SURF_SUCCESS;
-    if (qts_process_done==1)
+    surf_ret_t surf_ret = SURF_SUCCESS;
+    if (qts_process_done == 1)
     {
-        if(surface_app_burst_again)
+        if (surface_app_burst_again)
         {
-            surface_timer_msec=SURF_ACTIVE_TCH_SCAN_RATE_MS;
+            surface_timer_msec = SURF_ACTIVE_TCH_SCAN_RATE_MS;
         }
         else
         {
-            surface_timer_msec=SURF_NO_TCH_SCAN_RATE_MS;
+            surface_timer_msec = SURF_NO_TCH_SCAN_RATE_MS;
         }
 
 
-        if((touch_time.time_to_measure_touch == 1u))
+        if ((touch_time.time_to_measure_touch == 1u))
         {
-            next_rtc_period= surface_timer_msec;
+            next_rtc_period = surface_timer_msec;
 
             touch_time.time_to_measure_touch = 0u;
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==0)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 0)
             if (prev_rtc_period != next_rtc_period)
             {
                 Disable_global_interrupt();
-                rtc_timer_msec=next_rtc_period;
+                rtc_timer_msec = next_rtc_period;
                 enum status_code s1;
-                s1=rtc_count_set_count(&rtc_instance,0);
-                if (s1!=STATUS_OK)
+                s1 = rtc_count_set_count(&rtc_instance,0);
+                if (s1 != STATUS_OK)
                 {
-                    while(1);
+                    while (1);
                 }
-                s1=rtc_count_set_compare(&rtc_instance,next_rtc_period,RTC_COUNT_COMPARE_0);
-                if (s1!=STATUS_OK)
+                s1 = rtc_count_set_compare(&rtc_instance,next_rtc_period,RTC_COUNT_COMPARE_0);
+                if (s1 != STATUS_OK)
                 {
-                    while(1);
+                    while (1);
                 }
                 rtc_count_enable(&rtc_instance);
 
-                prev_rtc_period=next_rtc_period;
+                prev_rtc_period = next_rtc_period;
                 Enable_global_interrupt();
             }
 #endif
-            surf_ret=surf_measure(touch_time.current_time_ms);
-            if (surf_ret==SURF_SUCCESS)
+            surf_ret = surf_measure(touch_time.current_time_ms);
+            if (surf_ret == SURF_SUCCESS)
             {
-                qts_process_done=0;
+                qts_process_done = 0;
             }
             else
             {
@@ -416,22 +411,22 @@ Notes	:	None
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
 void qts_process_lp(void)
 {
-    surf_ret_t surf_ret=SURF_SUCCESS;
-    if(qts_process_done)
+    surf_ret_t surf_ret = SURF_SUCCESS;
+    if (qts_process_done)
     {
-        switch(surface_op_mode)
+        switch (surface_op_mode)
         {
             case DRIFT_MODE:
 
                 if (qts_process_done)
                 {
-                    if(low_power_state==RUNNING)
+                    if (low_power_state == RUNNING)
                     {
                         reset_evsys();
                         surf_low_power_stop();
-                        low_power_state= NOT_RUNNING;
-                        next_rtc_period=DRIFT_PERIOD_MS;
-                        low_power_drift_pending=0;
+                        low_power_state = NOT_RUNNING;
+                        next_rtc_period = DRIFT_PERIOD_MS;
+                        low_power_drift_pending = 0;
                         qts_normal_process();
                     }
                 }
@@ -439,14 +434,16 @@ void qts_process_lp(void)
             case NORMAL_MODE:
                 if (qts_process_done)
                 {
-                    low_power_drift_pending=0;
-                    if (prev_mode==LOW_POWER_MODE)
+                    low_power_drift_pending = 0;
+                    if (prev_mode == LOW_POWER_MODE)
                     {
-                        low_power_state= NOT_RUNNING;
+                        low_power_state = NOT_RUNNING;
                         reset_evsys();
-                        surf_ret=surf_low_power_stop();
-                        if(surf_ret!=SURF_SUCCESS)
-                            while(1);
+                        surf_ret = surf_low_power_stop();
+                        if (surf_ret != SURF_SUCCESS)
+                        {
+                            while (1);
+                        }
                     }
                     qts_normal_process();
                 }
@@ -454,19 +451,19 @@ void qts_process_lp(void)
                 break;
 
             case LOW_POWER_MODE:
-                if ((qts_process_done)&&low_power_state!=RUNNING)
+                if ((qts_process_done)&&low_power_state != RUNNING)
                 {
-                    low_power_state= RUNNING;
+                    low_power_state = RUNNING;
                     config_timer_evsys();
-                    surf_ret=surf_low_power_start();
-                    if(surf_ret==SURF_SUCCESS)
-                        qts_process_done=0;
+                    surf_ret = surf_low_power_start();
+                    if (surf_ret == SURF_SUCCESS)
+                        qts_process_done = 0;
                     else
-                        while(1);
-                    next_rtc_period=DRIFT_PERIOD_MS;
+                        while (1);
+                    next_rtc_period = DRIFT_PERIOD_MS;
 
                     /*enable drift*/
-                    low_power_drift_pending=1;
+                    low_power_drift_pending = 1;
                     surface_timer_msec = DRIFT_PERIOD_MS;
                 }
                 break;
@@ -477,20 +474,20 @@ void qts_process_lp(void)
 
         if (prev_rtc_period != next_rtc_period)
         {
-            rtc_timer_msec=next_rtc_period;
+            rtc_timer_msec = next_rtc_period;
             enum status_code s1;
-            s1=rtc_count_set_count(&rtc_instance,0);
-            if (s1!=STATUS_OK)
+            s1 = rtc_count_set_count(&rtc_instance,0);
+            if (s1 != STATUS_OK)
             {
-                while(1);
+                while (1);
             }
-            s1=rtc_count_set_compare(&rtc_instance,next_rtc_period,0);
-            if (s1!=STATUS_OK)
+            s1 = rtc_count_set_compare(&rtc_instance,next_rtc_period,0);
+            if (s1 != STATUS_OK)
             {
-                while(1);
+                while (1);
             }
             rtc_count_enable(&rtc_instance);
-            prev_rtc_period=next_rtc_period;
+            prev_rtc_period = next_rtc_period;
         }
     }
 
@@ -509,8 +506,8 @@ uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
 
     p_mutlcap_measure_data->measurement_done_touch = 1u;
     qts_process_done = 1u;
-    surface_process_status=qt_surf_acq_status;
-    if(qt_surf_acq_status & TOUCH_BURST_AGAIN)
+    surface_process_status = qt_surf_acq_status;
+    if (qt_surf_acq_status & TOUCH_BURST_AGAIN)
     {
         surface_app_burst_again = 1u;
     }
@@ -520,34 +517,34 @@ uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
     }
 
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
-    prev_mode=surface_op_mode;
-    if (prev_mode==DRIFT_MODE)
+    prev_mode = surface_op_mode;
+    if (prev_mode == DRIFT_MODE)
     {
         if (surface_app_burst_again)
         {
-            surface_op_mode=NORMAL_MODE;
-            no_activity_counter=0;
+            surface_op_mode = NORMAL_MODE;
+            no_activity_counter = 0;
         }
         else
         {
-            surface_op_mode=LOW_POWER_MODE;
+            surface_op_mode = LOW_POWER_MODE;
             no_activity_counter += rtc_timer_msec;
 
             //if previous mode is drift.then we should not wait for no activity time.
             //we should immediately go to low power mode.
         }
     }
-    else if (prev_mode==LOW_POWER_MODE)
+    else if (prev_mode == LOW_POWER_MODE)
     {
         /*a callback could come only when the Low Power Sensor went into detect.*/
-        surface_op_mode=NORMAL_MODE;
+        surface_op_mode = NORMAL_MODE;
         no_activity_counter = 0;
     }
-    else if (prev_mode==NORMAL_MODE)
+    else if (prev_mode == NORMAL_MODE)
     {
         if (surface_app_burst_again)
         {
-            surface_op_mode=NORMAL_MODE;
+            surface_op_mode = NORMAL_MODE;
             no_activity_counter = 0;
         }
         else

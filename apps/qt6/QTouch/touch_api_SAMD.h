@@ -221,7 +221,7 @@ extern uint8_t sensor_detect_threshold[];
                                          (PRIV_MUTLCAP_PAD_BYTE_SIZE)                                                                               \
                                         )
 
-#if   ((DEF_MUTLCAP_NOISE_MEAS_ENABLE != 0u )|| ( DEF_MUTLCAP_FREQ_AUTO_TUNE_ENABLE != 0u))
+#if   ((DEF_MUTLCAP_NOISE_MEAS_ENABLE != 0u) || ( DEF_MUTLCAP_FREQ_AUTO_TUNE_ENABLE != 0u))
 #define PRIV_MUTLCAP_NM_TABLE_INIT  touch_mutlcap_noise_mit_table_init
 #else
 #define PRIV_MUTLCAP_NM_TABLE_INIT  NULL
@@ -650,7 +650,6 @@ typedef struct tag_sensor_t {
     /* ! sliders : Left most channel */
     /* ! NB:only need to_channel for keys in rotors/sliders build */
     uint8_t from_channel;
-
 }
 sensor_t;
 
@@ -665,27 +664,24 @@ typedef struct tag_touch_global_param_t {
     uint8_t             cal_seq_1_count;               /* ! Sensor calibration dummy burst count. */
     uint8_t             cal_seq_2_count;               /* ! Sensor calibration settling burst count. */
     recal_threshold_t   recal_threshold;               /* ! Sensor recalibration threshold. */
-    uint16_t            auto_tune_sig_stability_limit; /* auto tune Stability limit */
-    uint8_t             auto_freq_tune_in_cnt;         /* frequency tune in/out limit*/
-    uint16_t            nm_sig_stability_limit;        /* noise sig stability limit*/
-    uint8_t             nm_noise_limit;                /* noise threshold limit*/
-    nm_sensor_lockout_t nm_enable_sensor_lock_out;     /* global lockout configuration*/
-    uint8_t             nm_lockout_countdown;          /* lockout count down cycles */
+    uint16_t            auto_tune_sig_stability_limit; /* ! Auto tune Stability limit */
+    uint8_t             auto_freq_tune_in_cnt;         /* ! Frequency tune in/out limit*/
+    uint16_t            nm_sig_stability_limit;        /* ! Noise sig stability limit*/
+    uint8_t             nm_noise_limit;                /* ! Noise threshold limit*/
+    nm_sensor_lockout_t nm_enable_sensor_lock_out;     /* ! Global lockout configuration*/
+    uint8_t             nm_lockout_countdown;          /* ! Lockout count down cycles */
 }
 touch_global_param_t;
 
 /* ! Touch Filter Callback data type. */
 typedef struct tag_touch_filter_data_t {
-
-    uint16_t num_channel_signals;/* ! Length of the measured signal values list. */
-
-    uint16_t *p_channel_signals;/* ! Pointer to measured signal values for each channel. */
+    uint16_t num_channel_signals;                      /* ! Length of the measured signal values list. */
+    uint16_t *p_channel_signals;                       /* ! Pointer to measured signal values for each channel. */
 }
 touch_filter_data_t;
 
 /* ! Touch Measured data type. */
 typedef struct tag_touch_measure_data_t {
-
     volatile uint8_t    measurement_done_touch;        /* ! Flag set by touch_xxcap_measure_complete_callback() function when a fresh Touch status is available. */
     touch_acq_status_t  acq_status;                    /* ! Status of Touch measurement. */
     uint16_t            num_channel_signals;           /* ! Length of the measured signal values list. */
@@ -699,32 +695,23 @@ typedef struct tag_touch_measure_data_t {
     uint16_t            num_sensors;                   /* ! Length of the sensors data list. */
     uint16_t *          p_cc_calibration_vals;
     sensor_t *          p_sensors;                     /* ! Pointer to Sensor data. */
-    uint8_t *           p_sensor_noise_status;         /* !Pointer to noise status */
-    uint16_t *          p_nm_ch_noise_val;             /* the noise level or value of each channel*/
-    uint8_t             cc_calib_status_flag;          /* flag indicates cc calib process */
-    uint32_t *          nl_cur_cycle_burst_again_mask; /* mask which indicates sensors requesting burst again */
+    uint8_t *           p_sensor_noise_status;         /* ! Pointer to noise status */
+    uint16_t *          p_nm_ch_noise_val;             /* ! The noise level or value of each channel*/
+    uint8_t             cc_calib_status_flag;          /* ! Flag indicates cc calib process */
+    uint32_t *          nl_cur_cycle_burst_again_mask; /* ! Mask which indicates sensors requesting burst again */
 }
 touch_measure_data_t;
 
-
-
 /* ! Touch sensor configuration type. */
 typedef struct tag_touch_mutlcap_param_t {
-    /* ! Sensor detection threshold. */
-    aks_group_t aks_group;
-    /* ! Sensor detection threshold. */
-    threshold_t detect_threshold;
-    /* ! Sensor detection hysteresis. */
-    hysteresis_t detect_hysteresis;
-    /* ! Sensor position resolution. This is valid only for a Rotor or
-     * Slider. */
-    resolution_t position_resolution;
-    /* ! Sensor position hysteresis. This is valid only for a Rotor or
-     * Slider. */
-    /* ! Range of position_hysteresis value is from 0 to 7. */
-    uint8_t position_hysteresis;
+    aks_group_t     aks_group;              /* ! Sensor detection threshold. */
+    threshold_t     detect_threshold;       /* ! Sensor detection threshold. */
+    hysteresis_t    detect_hysteresis;      /* ! Sensor detection hysteresis. */
+    resolution_t    position_resolution;    /* ! Sensor position resolution. This is valid only for a Rotor or Slider. */
+    uint8_t         position_hysteresis;    /* ! Sensor position hysteresis. This is valid only for a Rotor or Slider. Range of position_hysteresis value is from 0 to 7. */
 }
 touch_mutlcap_param_t;
+
 //! Mutual capacitance sensor acquisition parameter type.
 typedef struct tag_touch_mutlcap_acq_param_t
 {
@@ -739,8 +726,6 @@ typedef struct tag_touch_mutlcap_acq_param_t
     auto_os_t       mutlcap_auto_os;               //! auto oversampling
 }
 touch_mutlcap_acq_param_t;
-
-
 
 
 /* ! Mutual Capacitance configuration input. */
@@ -868,7 +853,7 @@ touch_ret_t touch_mutlcap_sensor_config(
  *
  * \return touch_ret_t: Touch Library Error status.
  */
-touch_ret_t touch_mutlcap_sensors_calibrate(auto_tune_type_t );
+touch_ret_t touch_mutlcap_sensors_calibrate(auto_tune_type_t);
 
 /*! \brief This API can be used to start a Touch measurement.
  *
@@ -882,9 +867,8 @@ touch_ret_t touch_mutlcap_sensors_measure(
         touch_acq_mode_t
         mutlcap_acq_mode,
         uint32_t *ptr_burst_mask,
-        uint8_t
-        (*measure_complete_callback)
-        (void));
+        uint8_t (*measure_complete_callback)(void)
+        );
 
 /*! \brief This API can be used retrieve the delta value corresponding to
  * a given sensor.
@@ -896,7 +880,8 @@ touch_ret_t touch_mutlcap_sensors_measure(
  */
 touch_ret_t touch_mutlcap_sensor_get_delta(
         sensor_id_t sensor_id,
-        touch_delta_t *p_delta);
+        touch_delta_t *p_delta
+        );
 
 
 /* ! @} */

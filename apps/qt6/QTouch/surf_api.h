@@ -130,7 +130,7 @@
                                      (4 * SURF_BM_IND * SURF_NUM_BM_BA_VAR) +                                                   \
                                      (2 * SURF_MAX_NUM_GRP * SURF_GRP_TCH_INFO_SIZE) +                                          \
                                      (SURF_MAX_NUM_GRP * SURF_GLOBAL_GRP_TCH_INFO_SIZE) +                                       \
-                                     ((SURF_MAX_NUM_GRP * SURF_SORTING_GRP_PROP_SIZE) + (SIZE_OF_UINT32*SURF_MAX_NUM_GRP)) +    \
+                                     ((SURF_MAX_NUM_GRP * SURF_SORTING_GRP_PROP_SIZE) + (SIZE_OF_UINT32 * SURF_MAX_NUM_GRP)) +  \
                                      (SURF_PAD_BYTE_SIZE)                                                                       \
                                     )
 
