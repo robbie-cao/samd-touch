@@ -229,14 +229,12 @@ uint8_t    sensor_detect_threshold[DEF_MUTLCAP_NUM_CHANNELS]  = { DEF_MUTLCAP_DE
 #ifdef __GNUC__
 const uint16_t  mutlcap_xy_nodes[DEF_MUTLCAP_NUM_CHANNELS * 2]  = {DEF_MUTLCAP_NODES} ;
 
-const gain_t mutlcap_gain_per_node[DEF_MUTLCAP_NUM_CHANNELS]
-= {DEF_MUTLCAP_GAIN_PER_NODE};
+const gain_t mutlcap_gain_per_node[DEF_MUTLCAP_NUM_CHANNELS] = { DEF_MUTLCAP_GAIN_PER_NODE };
 
 uint8_t    sensor_detect_threshold[DEF_MUTLCAP_NUM_CHANNELS]   = { DEF_MUTLCAP_DETECT_THRESHOLD };
 #endif
 
-freq_hop_sel_t mutlcap_freq_hops[3u]
-= {DEF_MUTLCAP_HOP_FREQS};
+freq_hop_sel_t mutlcap_freq_hops[3u] = { DEF_MUTLCAP_HOP_FREQS };
 
 /**
  * Mutual Cap Configuration structure provided as input to Touch Library.
@@ -253,7 +251,7 @@ static touch_mutlcap_config_t mutlcap_config = {
 
     /* Mutual Cap GLOBAL SENSOR CONFIGURATION INFO. */
     {
-        DEF_MUTLCAP_DI,                     /* uint8_t  di; - Sensor detect integration (DI) limit. */
+        DEF_MUTLCAP_DI,                     /* Sensor detect integration (DI) limit. */
         /* Interchanging Negative and Positive Drift rate, since Signal
          * increases on Touch. */
         DEF_MUTLCAP_ATCH_DRIFT_RATE,        /* Sensor negative drift rate. */
@@ -316,7 +314,6 @@ Notes	:	None
 ==============================================================================*/
 void qts_start(void)
 {
-
     surf_ret_t surf_ret;
     surf_ret=surf_calibrate_all();
     if (surf_ret != SURF_SUCCESS)
@@ -337,11 +334,9 @@ Notes	:	None
 
 void qts_init_surface()
 {
-
-    surf_init(&surf_config,&surf_status,&touch_config);
+    surf_init(&surf_config, &surf_status, &touch_config);
 
     surf_status.ptr_surf_tch_status= &(surf_tch_status[0]);
-
 }
 /*==============================================================================
 Name	:	qts_normal_process
@@ -356,18 +351,13 @@ void qts_normal_process(void)
     surf_ret_t surf_ret=SURF_SUCCESS;
     if (qts_process_done==1)
     {
-
-
-
         if(surface_app_burst_again)
         {
             surface_timer_msec=SURF_ACTIVE_TCH_SCAN_RATE_MS;
-
         }
         else
         {
             surface_timer_msec=SURF_NO_TCH_SCAN_RATE_MS;
-
         }
 
 
@@ -396,7 +386,6 @@ void qts_normal_process(void)
 
                 prev_rtc_period=next_rtc_period;
                 Enable_global_interrupt();
-
             }
 #endif
             surf_ret=surf_measure(touch_time.current_time_ms);
@@ -411,12 +400,7 @@ void qts_normal_process(void)
                     //error
                 }
             }
-
-
         }
-
-
-
     }
 }
 
@@ -450,8 +434,6 @@ void qts_process_lp(void)
                         low_power_drift_pending=0;
                         qts_normal_process();
                     }
-
-
                 }
                 break;
             case NORMAL_MODE:
@@ -467,10 +449,7 @@ void qts_process_lp(void)
                             while(1);
                     }
                     qts_normal_process();
-
-
                 }
-
 
                 break;
 
@@ -486,21 +465,15 @@ void qts_process_lp(void)
                         while(1);
                     next_rtc_period=DRIFT_PERIOD_MS;
 
-
-
                     /*enable drift*/
                     low_power_drift_pending=1;
                     surface_timer_msec = DRIFT_PERIOD_MS;
-
-
                 }
                 break;
-
 
             default:
                 break;
         }
-
 
         if (prev_rtc_period != next_rtc_period)
         {
@@ -519,7 +492,6 @@ void qts_process_lp(void)
             rtc_count_enable(&rtc_instance);
             prev_rtc_period=next_rtc_period;
         }
-
     }
 
 }
@@ -718,8 +690,6 @@ touch_ret_t touch_sensors_config(void)
             while (1) ;
         }
     }
-
-
 
     return (touch_ret);
 }
