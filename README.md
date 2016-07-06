@@ -1,4 +1,4 @@
-# Qtouch on SAMD20/21 with QT6 Xplained board
+# Qtouch on SAMD20/21 with QT6 Xplained Board
 
 ## How to Build
 
@@ -118,4 +118,13 @@ Target: SAM D21J18
 Programming....... done.
 Verification....... done.
 ```
+
+## Resources
+
+- [SAM D21 Xplained Pro Evaluation Kit](http://www.atmel.com/tools/ATSAMD21-XPRO.aspx)
+- [QT6 Xplained Pro](http://www.atmel.com/tools/ATQT6-XPRO.aspx)
+- [Atmel QT6 Xplained Pro User Guide](http://www.atmel.com/Images/Atmel-42394-QT6-Xplained-Pro_User-Guide.pdf)
+- [SAM D ARM Cortex-M0+ Microcontrollers](http://www.atmel.com/products/microcontrollers/arm/sam-d.aspx)
+- [Atmel Software Framework](Atmel Software Framework)
+- [Atmel QTouch Surface Library Peripheral Touch Controller User Guide](http://www.atmel.com/Images/Atmel-42406-QTouch-Surface-Library-Peripheral-Touch-Controller_User-Guide.pdf)
 
