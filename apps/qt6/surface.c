@@ -519,55 +519,46 @@ uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
     p_mutlcap_measure_data->measurement_done_touch = 1u;
     qts_process_done = 1u;
     surface_process_status = qt_surf_acq_status;
-    if (qt_surf_acq_status & TOUCH_BURST_AGAIN)
-    {
+    if (qt_surf_acq_status & TOUCH_BURST_AGAIN) {
         surface_app_burst_again = 1u;
-    }
-    else
-    {
+    } else {
         surface_app_burst_again = 0u;
     }
 
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
     prev_mode = surface_op_mode;
-    if (prev_mode == DRIFT_MODE)
-    {
-        if (surface_app_burst_again)
-        {
-            surface_op_mode = NORMAL_MODE;
-            no_activity_counter = 0;
-        }
-        else
-        {
-            surface_op_mode = LOW_POWER_MODE;
-            no_activity_counter += rtc_timer_msec;
+    switch (prev_mode) {
+        case NORMAL_MODE:
+            if (surface_app_burst_again) {
+                surface_op_mode = NORMAL_MODE;
+                no_activity_counter = 0;
+            } else {
+                no_activity_counter += rtc_timer_msec;
 
-            //if previous mode is drift.then we should not wait for no activity time.
-            //we should immediately go to low power mode.
-        }
-    }
-    else if (prev_mode == LOW_POWER_MODE)
-    {
-        /*a callback could come only when the Low Power Sensor went into detect.*/
-        surface_op_mode = NORMAL_MODE;
-        no_activity_counter = 0;
-    }
-    else if (prev_mode == NORMAL_MODE)
-    {
-        if (surface_app_burst_again)
-        {
-            surface_op_mode = NORMAL_MODE;
-            no_activity_counter = 0;
-        }
-        else
-        {
-            no_activity_counter += rtc_timer_msec;
-
-            if (no_activity_counter >= NO_ACTIVITY_TRIGGER_TIME)
-            {
-                surface_op_mode=LOW_POWER_MODE;
+                if (no_activity_counter >= NO_ACTIVITY_TRIGGER_TIME) {
+                    surface_op_mode = LOW_POWER_MODE;
+                }
             }
-        }
+            break;
+        case LOW_POWER_MODE:
+            /*a callback could come only when the Low Power Sensor went into detect.*/
+            surface_op_mode = NORMAL_MODE;
+            no_activity_counter = 0;
+            break;
+        case DRIFT_MODE:
+            if (surface_app_burst_again) {
+                surface_op_mode = NORMAL_MODE;
+                no_activity_counter = 0;
+            } else {
+                surface_op_mode = LOW_POWER_MODE;
+                no_activity_counter += rtc_timer_msec;
+
+                //if previous mode is drift.then we should not wait for no activity time.
+                //we should immediately go to low power mode.
+            }
+            break;
+        default:
+            break;
     }
 #endif
 
