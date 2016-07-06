@@ -1,6 +1,8 @@
-# Qtouch on SAMD20/21 and QT6 Xplained
+# Qtouch on SAMD20/21 with QT6 Xplained board
 
-## How to Build with `arm-none-eabi-` Toolchain in Cygwin/Linux/MacOS
+## How to Build
+
+> Build with `arm-none-eabi-` toolchain in Cygwin/Linux/MacOS.
 
 ### Build in App Dir
 
