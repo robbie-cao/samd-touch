@@ -58,8 +58,7 @@
 
 /*----------------------------------------------------------------------------
  *                                   macros
- *  ----------------------------------------------------------------------------*/
-
+ *----------------------------------------------------------------------------*/
 
 #define PTC_APBC_BITMASK        (1u << 19u)
 
@@ -69,77 +68,87 @@
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 /*Low Power Sensor Support */
 
-
 /*macros for controlling application mode*/
 #define NORMAL_MODE             0
 #define LOW_POWER_MODE          1
 #define DRIFT_MODE              2
 
-
 /*macros for controlling low power mode running status */
 #define NOT_RUNNING             0
 #define RUNNING                 1
 #define INTERRUPTED             2
-#if DEF_SURF_TCH_DRIFT_PERIOD <= DEF_SURF_ATCH_DRIFT_PERIOD
 
+#if DEF_SURF_TCH_DRIFT_PERIOD <= DEF_SURF_ATCH_DRIFT_PERIOD
 #define DRIFT_PERIOD_MS         (DEF_SURF_TCH_DRIFT_PERIOD * 200u)
 #else
-
 #define DRIFT_PERIOD_MS         (DEF_SURF_ATCH_DRIFT_PERIOD * 200u)
-
 #endif
-
 
 /*Count Delay to trigger Low Power measurement*/
 #define LOW_POWER_WAIT_CNT      20
-#endif
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
+
+
 /*----------------------------------------------------------------------------
  *                               prototypes
- *  ----------------------------------------------------------------------------*/
+ *----------------------------------------------------------------------------*/
 
-/*! \brief configure Sensors based on Mutual Cap Technology
-*/
+/*!
+ * \brief configure Sensors based on Mutual Cap Technology
+ */
 static touch_ret_t touch_sensors_config(void);
-/*! \brief Intialize the touch surface library.
-*/
+/*!
+ * \brief Intialize the touch surface library.
+ */
 void qts_init_surface(void);
-/*! \brief start calibration for Touch Surface.
-*/
+/*!
+ * \brief start calibration for Touch Surface.
+ */
 void qts_start(void);
-/*! \brief To measure the Touch Surface by using surface library in normal mode.
-*/
+/*!
+ * \brief To measure the Touch Surface by using surface library in normal mode.
+ */
 void qts_normal_process(void);
-/*! \brief Configure the different sensors for the Touch Surface.
-*/
+/*!
+ * \brief Configure the different sensors for the Touch Surface.
+ */
 touch_ret_t qts_sensors_config(void);
-/*! \brief Callback function from library to indicate that measurement cycle is complete.
-*/
+/*!
+ * \brief Callback function from library to indicate that measurement cycle is complete.
+ */
 uint8_t surf_complete_callback(uint16_t);
 
-/*! \brief Initialize and enable PTC clock.
-*/
+/*!
+ * \brief Initialize and enable PTC clock.
+ */
 void surface_configure_ptc_clock(void);
+
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
-/*! \brief Configure the Event System for Low Power Mode operation.
-*/
+/*!
+ * \brief Configure the Event System for Low Power Mode operation.
+ */
 void config_timer_evsys(void);
-/*! \brief Reset the Event System.
-*/
+/*!
+ * \brief Reset the Event System.
+ */
 void reset_evsys(void);
-/*! \brief To measure the Touch Surface by using surface library in Low Power mode.
+/*!
+ * \brief To measure the Touch Surface by using surface library in Low Power mode.
  * Using Low Power Sensor.
  */
 void qts_process_lp(void);
 
-#endif
-/*! \name surf_complete_callback function.
-*/
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE  */
+
+/*!
+ * \name surf_complete_callback function.
+ */
 #define SURF_COMPLETE_CALLBACK          (surf_complete_callback)
+
 
 /*----------------------------------------------------------------------------
  *                               global variables
  *----------------------------------------------------------------------------*/
-
 
 surf_seg_size_t surf_seg_size[DEF_SURF_NUM_SEGMENTS] =
 {
@@ -166,7 +175,8 @@ surf_tch_status_t  surf_tch_status[DEF_SURF_MAX_TCH];// allocate memory upto max
  */
 touch_measure_data_t *p_mutlcap_measure_data = NULL;
 
-surf_config_t surf_config = {
+surf_config_t surf_config =
+{
     { DEF_SURF_NUM_CHANNELS,DEF_SURF_NUM_XLINES,DEF_SURF_NUM_YLINES,DEF_SURF_NUM_SLEEP_CHANNELS },
     { DEF_SURF_DPI_X,DEF_SURF_DPI_Y,DEF_SURF_TOT_RES_X,DEF_SURF_TOT_RES_Y,DEF_SURF_SENSOR_SIZE_IN_X,DEF_SURF_SENSOR_SIZE_IN_Y,0 },
     { DEF_SURF_TCH_DRIFT_PERIOD,DEF_SURF_ATCH_DRIFT_PERIOD,SURF_COMPLETE_CALLBACK },
@@ -196,7 +206,7 @@ uint8_t prev_mode=NORMAL_MODE;
 uint8_t low_power_drift_pending = 0;
 uint8_t low_power_state = NOT_RUNNING;
 volatile uint16_t no_activity_counter = 0;
-#endif
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
 
 
 /*----------------------------------------------------------------------------
@@ -206,6 +216,8 @@ extern uint16_t rtc_timer_msec;
 extern struct rtc_module rtc_instance;
 extern void timer_init(void);
 extern uint8_t sensor_state;
+
+
 /*----------------------------------------------------------------------------
  *                               static variables
  *----------------------------------------------------------------------------*/
@@ -301,13 +313,13 @@ touch_config_t touch_config = {
  *----------------------------------------------------------------------------*/
 
 /*==============================================================================
-Name	:	qts_start
---------------------------------------------------------------------------------
-Purpose:   Start calibration for Touch Surface
-Input	: 	None
-Output	:	None
-Notes	:	None
-==============================================================================*/
+ * Name    : qts_start
+ *------------------------------------------------------------------------------
+ * Purpose : Start calibration for Touch Surface
+ * Input   : None
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
 void qts_start(void)
 {
     surf_ret_t surf_ret;
@@ -319,31 +331,33 @@ void qts_start(void)
         }
     }
 }
-/*==============================================================================
-Name	:	qts_init_surface
---------------------------------------------------------------------------------
-Purpose: 	Initialize the touch surface library
-Input	: 	None
-Output	:	None
-Notes	:	None
-==============================================================================*/
 
+/*==============================================================================
+ * Name    : qts_init_surface
+ *------------------------------------------------------------------------------
+ * Purpose : Initialize the touch surface library
+ * Input   : None
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
 void qts_init_surface()
 {
     surf_init(&surf_config, &surf_status, &touch_config);
     surf_status.ptr_surf_tch_status = &(surf_tch_status[0]);
 }
+
 /*==============================================================================
-Name	:	qts_normal_process
---------------------------------------------------------------------------------
-Purpose	:To measure the Touch Surface by using surface library in normal mode.
-Input	: 	None
-Output	:	None
-Notes	:	None
-==============================================================================*/
+ * Name    : qts_normal_process
+ *------------------------------------------------------------------------------
+ * Purpose : To measure the Touch Surface by using surface library in normal mode.
+ * Input   : None
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
 void qts_normal_process(void)
 {
     surf_ret_t surf_ret = SURF_SUCCESS;
+
     if (qts_process_done == 1)
     {
         if (surface_app_burst_again)
@@ -382,7 +396,7 @@ void qts_normal_process(void)
                 prev_rtc_period = next_rtc_period;
                 Enable_global_interrupt();
             }
-#endif
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
             surf_ret = surf_measure(touch_time.current_time_ms);
             if (surf_ret == SURF_SUCCESS)
             {
@@ -399,16 +413,15 @@ void qts_normal_process(void)
     }
 }
 
-
 /*==============================================================================
-Name	:	qts_process_lp
---------------------------------------------------------------------------------
-Purpose	:To process surface library in low power mode using low power sensor.
-Input	: 	None
-Output	:	None
-Notes	:	None
-==============================================================================*/
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+ * Name    : qts_process_lp
+ *------------------------------------------------------------------------------
+ * Purpose : To process surface library in low power mode using low power sensor.
+ * Input   : None
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 void qts_process_lp(void)
 {
     surf_ret_t surf_ret = SURF_SUCCESS;
@@ -492,15 +505,16 @@ void qts_process_lp(void)
     }
 
 }
-#endif
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
+
 /*==============================================================================
-Name	:	surf_complete_callback
---------------------------------------------------------------------------------
-Purpose	:Touch Surface Library will call this function once  measurement cycle is complete.
-Input	: 	qt_surf_acq_status
-Output	:	None
-Notes	:	None
-==============================================================================*/
+ * Name    : surf_complete_callback
+ *------------------------------------------------------------------------------
+ * Purpose : Touch Surface Library will call this function once  measurement cycle is complete.
+ * Input   : qt_surf_acq_status
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
 uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
 {
 
@@ -576,15 +590,15 @@ uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
 
     return surface_app_burst_again;
 }
-/*==============================================================================
-Name	:	surface_configure_ptc_clock
---------------------------------------------------------------------------------
-Purpose	:Configure the clocks required for PTC
-Input	: 	None
-Output	:	None
-Notes	:	None
-==============================================================================*/
 
+/*==============================================================================
+ * Name    : surface_configure_ptc_clock
+ *------------------------------------------------------------------------------
+ * Purpose : Configure the clocks required for PTC
+ * Input   : None
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
 void surface_configure_ptc_clock(void)
 {
     struct system_gclk_chan_config gclk_chan_conf;
@@ -600,20 +614,18 @@ void surface_configure_ptc_clock(void)
 
     system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBC, PTC_APBC_BITMASK);
 }
-/*==============================================================================
-Name	:	qts_sensors_config
---------------------------------------------------------------------------------
-Purpose	:Configure the different sensors for the Touch Surface
-Input	: 	None
-Output	:	None
-Notes	:	None
-==============================================================================*/
 
+/*==============================================================================
+ * Name    : qts_sensors_config
+ *------------------------------------------------------------------------------
+ * Purpose : Configure the different sensors for the Touch Surface
+ * Input   : None
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
 touch_ret_t qts_sensors_config(void)
 {
     touch_ret_t touch_ret;
-
-
 
     /* configure the surface library sensors. */
     touch_ret = touch_sensors_config();
@@ -629,15 +641,15 @@ touch_ret_t qts_sensors_config(void)
 
     return (touch_ret);
 }
+
 /*==============================================================================
-Name	:	touch_sensors_config
---------------------------------------------------------------------------------
-Purpose	:Configure the different sensors based on Mutual Cap Technology
-for Touch Surface
-Input	: 	None
-Output	:	None
-Notes	:	None
-==============================================================================*/
+ * Name    : touch_sensors_config
+ *------------------------------------------------------------------------------
+ * Purpose : Configure the different sensors based on Mutual Cap Technology
+ * Input   : None
+ * Output  : None
+ * Notes   : None
+ *==============================================================================*/
 touch_ret_t touch_sensors_config(void)
 {
     touch_ret_t touch_ret = TOUCH_SUCCESS;
@@ -690,6 +702,4 @@ touch_ret_t touch_sensors_config(void)
 
     return (touch_ret);
 }
-
-
 
