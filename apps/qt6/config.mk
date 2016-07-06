@@ -58,6 +58,7 @@ CSRCS = \
        sam0/drivers/port/port.c                           \
        sam0/drivers/rtc/rtc_sam_d_r/rtc_count.c           \
        sam0/drivers/rtc/rtc_sam_d_r/rtc_count_interrupt.c \
+       sam0/drivers/events/events_sam_d_r/events.c        \
        sam0/drivers/sercom/sercom.c                       \
        sam0/drivers/sercom/sercom_interrupt.c             \
        sam0/drivers/sercom/usart/usart.c                  \
