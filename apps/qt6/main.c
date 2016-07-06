@@ -59,9 +59,9 @@
 #include "hal_if_usart.h"
 #include "log.h"
 
-/**
- * Macros
- */
+/*----------------------------------------------------------------------------
+ *                                   macros
+ *----------------------------------------------------------------------------*/
 
 /* Configure Power Saving Options
  *  And LOw POwer scan interval
@@ -75,65 +75,65 @@
 //#define POWER_OPT_ENABLE
 
 
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 
 /* Event user  */
-#define EVENT_USER   EVSYS_ID_USER_PTC_STCONV
+#define EVENT_USER              EVSYS_ID_USER_PTC_STCONV
 
-#define NORMAL_MODE 0
-#define LOW_POWER_MODE 1
-#define DRIFT_MODE 2
-#define RTC_TO_PTC_EVSYS_CH 1u
+#define NORMAL_MODE             0
+#define LOW_POWER_MODE          1
+#define DRIFT_MODE              2
+#define RTC_TO_PTC_EVSYS_CH     1u
 /*wakeup for smaller drift period*/
 #if DEF_SURF_TCH_DRIFT_PERIOD <= DEF_SURF_ATCH_DRIFT_PERIOD
-
-#define DRIFT_PERIOD_MS (DEF_SURF_TCH_DRIFT_PERIOD * 200u)
+#define DRIFT_PERIOD_MS         (DEF_SURF_TCH_DRIFT_PERIOD * 200u)
 #else
-
-#define DRIFT_PERIOD_MS (DEF_SURF_ATCH_DRIFT_PERIOD * 200u)
-
+#define DRIFT_PERIOD_MS         (DEF_SURF_ATCH_DRIFT_PERIOD * 200u)
 #endif
-#define DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY LOWPOWER_PER7_SCAN_500_MS
-#endif
+
+#define DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY       LOWPOWER_PER7_SCAN_500_MS
+
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
 
 /**
  * RTC Interrupt timing definition
  */
-#define TIME_PERIOD_1MSEC 1u
+#define TIME_PERIOD_1MSEC       1u
 
-/**
- * Variables
- */
 
-extern touch_time_t rtc_time;
+/*----------------------------------------------------------------------------
+ *                                 variables
+ *----------------------------------------------------------------------------*/
+
+extern touch_time_t     rtc_time;
 extern volatile uint8_t qts_process_done;
-extern uint16_t surface_timer_msec;
-struct rtc_module surface_rtc_module;
-volatile uint16_t touch_time_counter = 0u;
-uint16_t rtc_timer_msec=DEF_TOUCH_MEASUREMENT_PERIOD_MS;
-//! [rtc_module_instance]
-struct rtc_module rtc_instance;
+extern uint16_t         surface_timer_msec;
 
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
-extern uint8_t surface_op_mode;
-extern uint8_t prev_mode;
-extern uint8_t low_power_drift_pending;
-struct events_config   events_conf;
+struct rtc_module       surface_rtc_module;
+volatile uint16_t       touch_time_counter = 0u;
+uint16_t                rtc_timer_msec = DEF_TOUCH_MEASUREMENT_PERIOD_MS;
+struct rtc_module       rtc_instance;
+
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
+extern uint8_t          surface_op_mode;
+extern uint8_t          prev_mode;
+extern uint8_t          low_power_drift_pending;
+
+struct events_config    events_conf;
 /* The event channel handle */
-struct events_resource events;
+struct events_resource  events;
 
-#endif
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
 
-/**
- * Prototypes
- */
+
+/*----------------------------------------------------------------------------
+ *                                 prototypes
+ *----------------------------------------------------------------------------*/
 
 /**
  *! \brief Initialize timer
- *
  */
-
-void timer_init( void );
+void timer_init(void);
 
 /*! \brief RTC timer Compare Callback
  *
@@ -141,43 +141,38 @@ void timer_init( void );
 void rtc_compare_callback(void);
 
 /*! \brief Configure the RTC timer callback
- *
  */
 void configure_rtc_callbacks(void);
-/*! \brief to configure the timer for Qdebug
- *
- */
 
+/*! \brief to configure the timer for Qdebug
+ */
 void set_timer_period(uint16_t time);
 
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
-/*! \brief Configure the EVSYS for Low Power Mode
- *
- */
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
+/*! \brief Configure the EVSYS for Low Power Mode */
 void config_timer_evsys(void);
 
 /*! \brief Reset the EVSYS using Software Reset.
- *
  */
 void reset_evsys(void);
 #endif
 
 /*! \brief Configure the RTC timer count after which interrupts comes
- *
  */
 void configure_rtc_count(void);
+
 /*! \brief list of functions for power optimizations.
- *
  */
 /*! \brief Disable Unused Clocks to save power.
  * Note: Disabling Clocks which are used by the application or library might lead to
  * unexpected state of the system.
  */
 void configure_power_manager(void);
+
 /*! \brief Disable Unused Clocks to save power.
- *
  */
 void turn_off_bod33(void);
+
 /*! \brief Disable the Cache.
  *  Note:Disabling Cache will increase the response time.
  *  Disabling Cache might reduce touch surface performance
@@ -185,86 +180,79 @@ void turn_off_bod33(void);
 void disable_cache(void);
 
 
-
 /*! \brief Extern functions
- *
  */
 
 /*! \brief Initialize the Touch Surface Library
- *
  */
 extern void qts_init_surface(void);
+
 /*! \brief Configure the sensors for the Touch Surface
- *
  */
 extern void qts_sensors_config(void);
+
 /*! \brief Start the calibration
- *
  */
 extern void qts_start(void);
 /*! \brief Measure the Touch Surface in normal mode
- *
  */
 extern void qts_normal_process(void);
 /*! \brief Configure the Touch Surface Library PTC Clock settings
- *
  */
 extern void surface_configure_ptc_clock(void);
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 /*! \brief Measure the Touch Surface in low power mode
  * Note:Applicable only if DEF_SURF_NUM_SLEEP_CHANNELS is 1u.
  * Uses Low Power Sensor and Event System.
  */
 extern void qts_process_lp(void);
 void init_evsys_config(void);
-#endif
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
 
 
-/**
- * Function Definitions.
- */
+/*----------------------------------------------------------------------------
+ *                           function definitions
+ *----------------------------------------------------------------------------*/
 /*! \brief Configure the RTC timer compare callback
- *
  */
 void rtc_compare_callback(void)
 {
     rtc_count_clear_compare_match(&rtc_instance,RTC_COUNT_COMPARE_0);
     rtc_time.current_time_ms += rtc_timer_msec;
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
-    if((surface_op_mode == LOW_POWER_MODE) && low_power_drift_pending==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
+    if ((surface_op_mode == LOW_POWER_MODE) && low_power_drift_pending == 1)
     {
         touch_time.time_to_measure_touch = 1u;
-        qts_process_done=1;
-        rtc_time.current_time_ms=0;
+        qts_process_done = 1;
+        rtc_time.current_time_ms = 0;
         touch_time.current_time_ms = touch_time.current_time_ms + surface_timer_msec;
-        surface_op_mode=DRIFT_MODE;
+        surface_op_mode = DRIFT_MODE;
     }
-#endif
-    if (rtc_time.current_time_ms >=surface_timer_msec )
+#endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
+    if (rtc_time.current_time_ms >= surface_timer_msec)
     {
-
         touch_time.time_to_measure_touch = 1u;
-        rtc_time.current_time_ms=0;
+        rtc_time.current_time_ms = 0;
         touch_time.current_time_ms = touch_time.current_time_ms + surface_timer_msec;
     }
-
-
 }
 
 /*! \brief Configure the RTC timer callback
- *
  */
 void configure_rtc_callbacks(void)
 {
-    /* register callback */
-    rtc_count_register_callback(&rtc_instance,
-            rtc_compare_callback, RTC_COUNT_CALLBACK_COMPARE_0);
+    /* Register callback */
+    rtc_count_register_callback(
+            &rtc_instance,
+            rtc_compare_callback,
+            RTC_COUNT_CALLBACK_COMPARE_0
+            );
     /* Enable callback */
     rtc_count_enable_callback(&rtc_instance,RTC_COUNT_CALLBACK_COMPARE_0);
 }
 
 /*! \brief Configure the RTC timer count after which interrupts comes
- *
  */
 void configure_rtc_count(void)
 {
@@ -273,8 +261,10 @@ void configure_rtc_count(void)
     typedef enum rtc_count_prescaler rtc_count_prescaler_t;
 
 #if DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1
-    struct rtc_count_events config_rtc_event
-        = { .generate_event_on_periodic[DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY] = true };
+    struct rtc_count_events config_rtc_event =
+        {
+            .generate_event_on_periodic[DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY] = true
+        };
 #endif
 
     rtc_count_get_config_defaults(&config_rtc_count);
@@ -285,9 +275,9 @@ void configure_rtc_count(void)
 #ifdef FEATURE_RTC_CONTINUOUSLY_UPDATED
     config_rtc_count.continuously_update = true;
 #endif
-    config_rtc_count.clear_on_match =true;
+    config_rtc_count.clear_on_match      = true;
     //! [init_rtc]
-    rtc_count_init(&rtc_instance,RTC,&config_rtc_count);
+    rtc_count_init(&rtc_instance, RTC, &config_rtc_count);
 
 #if DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1
     /* Enable RTC events */
@@ -298,9 +288,8 @@ void configure_rtc_count(void)
 
 
     /*Set timer period */
-
     temp = TIME_PERIOD_1MSEC * rtc_timer_msec;
-    rtc_count_set_compare(&rtc_instance,temp,RTC_COUNT_COMPARE_0);
+    rtc_count_set_compare(&rtc_instance, temp, RTC_COUNT_COMPARE_0);
 
     //! [enable]
     rtc_count_enable(&rtc_instance);
@@ -317,7 +306,6 @@ void timer_init(void)
 
     /* Configure and enable callback */
     configure_rtc_callbacks();
-
 }
 
 /**
@@ -341,7 +329,6 @@ void turn_off_bod33(void)
  */
 void configure_power_manager(void)
 {
-
     system_apb_clock_clear_mask(
             SYSTEM_CLOCK_APB_APBA,
             (PM_APBAMASK_WDT  /*Watch dog timer*/
@@ -355,8 +342,6 @@ void configure_power_manager(void)
                 */
             ));
 
-
-
     system_apb_clock_clear_mask(
             SYSTEM_CLOCK_APB_APBB,
             (PM_APBBMASK_PAC1
@@ -368,9 +353,6 @@ void configure_power_manager(void)
              /* These clocks should remain enabled on this bus
              */
             ));
-
-
-
 
     system_apb_clock_clear_mask(
             SYSTEM_CLOCK_APB_APBC,
@@ -398,7 +380,7 @@ void configure_power_manager(void)
              | PM_APBCMASK_SERCOM2 \
              | PM_APBCMASK_SERCOM1 \
              | PM_APBCMASK_SERCOM0
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==0)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 0)
              | PM_APBCMASK_EVSYS
 #endif
              ));
@@ -406,42 +388,38 @@ void configure_power_manager(void)
 
     system_apb_clock_set_divider(
             SYSTEM_CLOCK_APB_APBA,
-            SYSTEM_MAIN_CLOCK_DIV_4);
-
-
+            SYSTEM_MAIN_CLOCK_DIV_4
+            );
 }
+
 /*! \brief Disable the Cache..
  *  Note:Disabling Cache will increase the response time
  *  Disabling Cache might reduce touch surface performance
- *
  */
 void disable_cache(void)
 {
     NVMCTRL->CTRLB.bit.CACHEDIS = 1;
     //Readmode settings : 0-3
     NVMCTRL->CTRLB.bit.READMODE = 0;
-
 }
 
 
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 /*! \brief Configure the Event System for Low Power measurements
  * Note:Applicable only when DEF_SURF_LOW_POWER_SENSOR_ENABLE macro is defined as 1
  * and DEF_SURF_NUM_SLEEP_CHANNELS is 1u.
- *
  */
 void config_timer_evsys(void)
 {
     PM_APBCMASK_Type evsys_enable_mask;
     evsys_enable_mask.reg = (1u << PM_APBCMASK_EVSYS_Pos);
     PM->APBCMASK.reg |= evsys_enable_mask.reg;
-    enum status_code status_ret=STATUS_OK;
-    status_ret=events_attach_user(&events, EVENT_USER);
+    enum status_code status_ret = STATUS_OK;
+    status_ret = events_attach_user(&events, EVENT_USER);
 
-    if(status_ret!=STATUS_OK)
-    {
-        while(1)
-        {}
+    if (status_ret != STATUS_OK) {
+        while (1) {
+        }
     }
 
     touch_time.time_to_measure_touch = 1;
@@ -455,10 +433,10 @@ void reset_evsys(void)
     enum status_code status_ret=STATUS_OK;
     status_ret=events_detach_user(&events, EVENT_USER);
 
-    if(status_ret!=STATUS_OK)
+    if (status_ret!=STATUS_OK)
     {
-        while(1)
-        {}
+        while (1) {
+        }
     }
 
 }
@@ -472,20 +450,20 @@ void init_evsys_config(void)
     PM->APBCMASK.reg |= evsys_enable_mask.reg;
 
 
-    enum status_code status_ret=STATUS_OK;
+    enum status_code status_ret = STATUS_OK;
 
     /* Get default event channel configuration */
     events_get_config_defaults(&events_conf);
 
     events_conf.path           = EVENTS_PATH_ASYNCHRONOUS;
-    events_conf.generator      = 4+DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY;
+    events_conf.generator      = 4 + DEF_LOWPOWER_SENSOR_EVENT_PERIODICITY;
 
-    status_ret=events_allocate(&events, &events_conf);
+    status_ret = events_allocate(&events, &events_conf);
 
-    if(status_ret!=STATUS_OK)
+    if (status_ret != STATUS_OK)
     {
-        while(1)
-        {}
+        while (1) {
+        }
     }
 
 }
@@ -493,7 +471,7 @@ void init_evsys_config(void)
 #endif
 /*! \brief Set timer period.Called from Qdebug .
 */
-void set_timer_period(uint16_t time )
+void set_timer_period(uint16_t time)
 {
     rtc_count_set_compare(&rtc_instance,time,RTC_COUNT_COMPARE_0);
 
@@ -537,7 +515,7 @@ int main(void)
     qts_sensors_config();
 
     /*initialize event system*/
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
     init_evsys_config();
 #endif
 
@@ -565,27 +543,23 @@ int main(void)
      */
     touch_time.time_to_measure_touch = 1u;
 
-    while (1)
-    {
+    while (1) {
         /**
          * Start touch surface process
          */
 
-#if DEF_SURF_LOW_POWER_SENSOR_ENABLE==1
+#if DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1
         qts_process_lp();
 #else
-        if (qts_process_done==1)
-        {
+        if (qts_process_done == 1) {
             qts_normal_process();
         }
 #endif
-        if ((p_mutlcap_measure_data->measurement_done_touch == 1u)) {
+        if (p_mutlcap_measure_data->measurement_done_touch == 1u) {
             p_mutlcap_measure_data->measurement_done_touch = 0u;
-
         }
 
         system_sleep();
-
-    } //end of while
-}//main
+    }
+}
 
