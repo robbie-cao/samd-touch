@@ -201,8 +201,8 @@ uint16_t surface_process_status = 0;
 
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
 /*Variables to track low power mode and drifting status(drift mode) during low power mode*/
-uint8_t surface_op_mode=NORMAL_MODE;
-uint8_t prev_mode=NORMAL_MODE;
+uint8_t surface_op_mode = NORMAL_MODE;
+uint8_t prev_mode = NORMAL_MODE;
 uint8_t low_power_drift_pending = 0;
 uint8_t low_power_state = NOT_RUNNING;
 volatile uint16_t no_activity_counter = 0;
@@ -425,85 +425,83 @@ void qts_normal_process(void)
 void qts_process_lp(void)
 {
     surf_ret_t surf_ret = SURF_SUCCESS;
-    if (qts_process_done)
-    {
-        switch (surface_op_mode)
-        {
-            case DRIFT_MODE:
 
-                if (qts_process_done)
-                {
-                    if (low_power_state == RUNNING)
-                    {
-                        reset_evsys();
-                        surf_low_power_stop();
-                        low_power_state = NOT_RUNNING;
-                        next_rtc_period = DRIFT_PERIOD_MS;
-                        low_power_drift_pending = 0;
-                        qts_normal_process();
-                    }
-                }
-                break;
-            case NORMAL_MODE:
-                if (qts_process_done)
-                {
-                    low_power_drift_pending = 0;
-                    if (prev_mode == LOW_POWER_MODE)
-                    {
-                        low_power_state = NOT_RUNNING;
-                        reset_evsys();
-                        surf_ret = surf_low_power_stop();
-                        if (surf_ret != SURF_SUCCESS)
-                        {
-                            while (1);
-                        }
-                    }
-                    qts_normal_process();
-                }
-
-                break;
-
-            case LOW_POWER_MODE:
-                if ((qts_process_done)&&low_power_state != RUNNING)
-                {
-                    low_power_state = RUNNING;
-                    config_timer_evsys();
-                    surf_ret = surf_low_power_start();
-                    if (surf_ret == SURF_SUCCESS)
-                        qts_process_done = 0;
-                    else
-                        while (1);
-                    next_rtc_period = DRIFT_PERIOD_MS;
-
-                    /*enable drift*/
-                    low_power_drift_pending = 1;
-                    surface_timer_msec = DRIFT_PERIOD_MS;
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        if (prev_rtc_period != next_rtc_period)
-        {
-            rtc_timer_msec = next_rtc_period;
-            enum status_code s1;
-            s1 = rtc_count_set_count(&rtc_instance,0);
-            if (s1 != STATUS_OK)
-            {
-                while (1);
-            }
-            s1 = rtc_count_set_compare(&rtc_instance,next_rtc_period,0);
-            if (s1 != STATUS_OK)
-            {
-                while (1);
-            }
-            rtc_count_enable(&rtc_instance);
-            prev_rtc_period = next_rtc_period;
-        }
+    if (!qts_process_done) {
+        return ;
     }
 
+    switch (surface_op_mode) {
+        case DRIFT_MODE:
+            if (!qts_process_done) {
+                break;
+            }
+            if (low_power_state == RUNNING) {
+                reset_evsys();
+                surf_low_power_stop();
+                low_power_state = NOT_RUNNING;
+                next_rtc_period = DRIFT_PERIOD_MS;
+                low_power_drift_pending = 0;
+                qts_normal_process();
+            }
+            break;
+
+        case NORMAL_MODE:
+            if (!qts_process_done) {
+                break;
+            }
+            low_power_drift_pending = 0;
+            if (prev_mode == LOW_POWER_MODE)
+            {
+                low_power_state = NOT_RUNNING;
+                reset_evsys();
+                surf_ret = surf_low_power_stop();
+                if (surf_ret != SURF_SUCCESS)
+                {
+                    while (1);
+                }
+            }
+            qts_normal_process();
+            break;
+
+        case LOW_POWER_MODE:
+            if (!qts_process_done) {
+                break;
+            }
+            if (low_power_state != RUNNING) {
+                low_power_state = RUNNING;
+                config_timer_evsys();
+                surf_ret = surf_low_power_start();
+                if (surf_ret == SURF_SUCCESS) {
+                    qts_process_done = 0;
+                } else {
+                    while (1);
+                }
+                next_rtc_period = DRIFT_PERIOD_MS;
+
+                /*enable drift*/
+                low_power_drift_pending = 1;
+                surface_timer_msec = DRIFT_PERIOD_MS;
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    if (prev_rtc_period != next_rtc_period) {
+        rtc_timer_msec = next_rtc_period;
+        enum status_code s1;
+        s1 = rtc_count_set_count(&rtc_instance,0);
+        if (s1 != STATUS_OK) {
+            while (1);
+        }
+        s1 = rtc_count_set_compare(&rtc_instance,next_rtc_period,0);
+        if (s1 != STATUS_OK) {
+            while (1);
+        }
+        rtc_count_enable(&rtc_instance);
+        prev_rtc_period = next_rtc_period;
+    }
 }
 #endif /* DEF_SURF_LOW_POWER_SENSOR_ENABLE */
 
@@ -530,7 +528,7 @@ uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
         surface_app_burst_again = 0u;
     }
 
-#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
+#if (DEF_SURF_LOW_POWER_SENSOR_ENABLE == 1)
     prev_mode = surface_op_mode;
     if (prev_mode == DRIFT_MODE)
     {
@@ -565,7 +563,7 @@ uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
         {
             no_activity_counter += rtc_timer_msec;
 
-            if (no_activity_counter >= NO_ACTIVITY_TRIGGER_TIME )
+            if (no_activity_counter >= NO_ACTIVITY_TRIGGER_TIME)
             {
                 surface_op_mode=LOW_POWER_MODE;
             }
@@ -574,15 +572,13 @@ uint8_t surf_complete_callback(uint16_t qt_surf_acq_status)
 #endif
 
 #if DEF_TOUCH_QDEBUG_ENABLE == 1
-
     /* Send out the Surface debug information data each time when Surface
      *   measurement process is completed .
      *   The Sensor Signal and Sensor Delta values are always sent.
      *   Surface Status change and Sensor Reference change
      *   values can be optionally sent using the masks below.
      */
-    QDebug_SendData( TOUCH_CHANNEL_REF_CHANGE |
-            TOUCH_STATUS_CHANGE );
+    QDebug_SendData(TOUCH_CHANNEL_REF_CHANGE | TOUCH_STATUS_CHANGE);
     /* two-way QDebug communication  */
     /* Process any commands received from QTouch Analyser. */
     QDebug_ProcessCommands();
