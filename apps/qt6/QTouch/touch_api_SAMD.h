@@ -829,21 +829,21 @@ touch_ret_t touch_mutlcap_sensors_init_with_rs_table(
  * \param  detect_threshold: the sensor detection threshold.
  * \param  detect_hysteresis: the sensor detection hysteresis value.
  * \param  position_resolution: the resolution of the reported position value.
- * \param  p_sensor_id: The sensor id value of the configured sensor is updated
- * by the Touch Library.
+ * \param  p_sensor_id: The sensor id value of the configured sensor is updated  by the Touch Library.
  * \note   Range of position_hysteresis value is from 0 to 7.
  * \return touch_ret_t: Touch Library Error status.
  */
 touch_ret_t touch_mutlcap_sensor_config(
-        sensor_type_t sensor_type,
-        channel_t from_channel,
-        channel_t to_channel,
-        aks_group_t aks_group,
-        threshold_t detect_threshold,
-        hysteresis_t detect_hysteresis,
-        resolution_t position_resolution,
-        uint8_t position_hysteresis,
-        sensor_id_t *p_sensor_id);
+        sensor_type_t   sensor_type,
+        channel_t       from_channel,
+        channel_t       to_channel,
+        aks_group_t     aks_group,
+        threshold_t     detect_threshold,
+        hysteresis_t    detect_hysteresis,
+        resolution_t    position_resolution,
+        uint8_t         position_hysteresis,
+        sensor_id_t *   p_sensor_id
+        );
 
 
 /*! \brief This API is used to calibrate the sensors for the first time before
@@ -862,11 +862,9 @@ touch_ret_t touch_mutlcap_sensors_calibrate(auto_tune_type_t);
  */
 
 touch_ret_t touch_mutlcap_sensors_measure(
-        touch_current_time_t
-        current_time_ms,
-        touch_acq_mode_t
-        mutlcap_acq_mode,
-        uint32_t *ptr_burst_mask,
+        touch_current_time_t    current_time_ms,
+        touch_acq_mode_t        mutlcap_acq_mode,
+        uint32_t *              ptr_burst_mask,
         uint8_t (*measure_complete_callback)(void)
         );
 

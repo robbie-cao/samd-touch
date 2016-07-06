@@ -639,29 +639,47 @@ touch_ret_t qts_sensors_config(void)
  *==============================================================================*/
 touch_ret_t touch_sensors_config(void)
 {
+    uint16_t index = 0;
     touch_ret_t touch_ret = TOUCH_SUCCESS;
     sensor_id_t sensor_id;
 
-    for(uint16_t index = 0; index < DEF_SURF_NUM_IND_SENSORS; index++)
-    {
-        touch_ret = touch_mutlcap_sensor_config(SENSOR_TYPE_KEY, index, index, NO_AKS_GROUP, SURF_IND_SEN_DT,HYST_6_25, RES_8_BIT,0,&sensor_id);
-        if (touch_ret != TOUCH_SUCCESS)
-        {
+    for (index = 0; index < DEF_SURF_NUM_IND_SENSORS; index++) {
+        touch_ret = touch_mutlcap_sensor_config(
+                SENSOR_TYPE_KEY,
+                index,
+                index,
+                NO_AKS_GROUP,
+                SURF_IND_SEN_DT,
+                HYST_6_25,
+                RES_8_BIT,
+                0,
+                &sensor_id
+                );
+        if (touch_ret != TOUCH_SUCCESS) {
             while (1) ;
         }
     }
 
-    for(uint16_t index = DEF_SURF_NUM_IND_SENSORS; index < (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS); index++)
-    {
-        touch_ret = touch_mutlcap_sensor_config(SENSOR_TYPE_KEY, index, index, NO_AKS_GROUP, SURF_SLEEP_CHANNELS_DT,HYST_6_25, RES_8_BIT,0,&sensor_id);
-        if (touch_ret != TOUCH_SUCCESS)
-        {
+    for (index = DEF_SURF_NUM_IND_SENSORS; index < (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS); index++) {
+        touch_ret = touch_mutlcap_sensor_config(
+                SENSOR_TYPE_KEY,
+                index,
+                index,
+                NO_AKS_GROUP,
+                SURF_SLEEP_CHANNELS_DT,
+                HYST_6_25,
+                RES_8_BIT,
+                0,
+                &sensor_id
+                );
+        if (touch_ret != TOUCH_SUCCESS) {
             while (1) ;
         }
     }
 
-    for(uint16_t index = (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS); index < (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS); index++)
-    {
+    for (index = (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS);
+            index < (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS);
+            index++) {
         touch_ret = touch_mutlcap_sensor_config(SENSOR_TYPE_KEY, index, index, NO_AKS_GROUP, SURF_SEGMENTS_DT,HYST_6_25, RES_8_BIT,0,&sensor_id);
         if (touch_ret != TOUCH_SUCCESS)
         {
@@ -669,20 +687,40 @@ touch_ret_t touch_sensors_config(void)
         }
     }
 
-    for(uint16_t index = (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS); index < (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS+DEF_SURF_NUM_XLINES); index++)
-    {
-        touch_ret = touch_mutlcap_sensor_config(SENSOR_TYPE_KEY, index, index, NO_AKS_GROUP, SURF_ROW_LINE_DT,HYST_6_25, RES_8_BIT,0,&sensor_id);
-        if (touch_ret != TOUCH_SUCCESS)
-        {
+    for (index = (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS);
+            index < (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS+DEF_SURF_NUM_XLINES);
+            index++) {
+        touch_ret = touch_mutlcap_sensor_config(
+                SENSOR_TYPE_KEY,
+                index,
+                index,
+                NO_AKS_GROUP,
+                SURF_ROW_LINE_DT,
+                HYST_6_25,
+                RES_8_BIT,
+                0,
+                &sensor_id
+                );
+        if (touch_ret != TOUCH_SUCCESS) {
             while (1) ;
         }
     }
 
-    for(uint16_t index = (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS+DEF_SURF_NUM_XLINES); index < DEF_SURF_NUM_CHANNELS; index++)
-    {
-        touch_ret = touch_mutlcap_sensor_config(SENSOR_TYPE_KEY, index, index, NO_AKS_GROUP, SURF_COL_LINE_DT,HYST_6_25, RES_8_BIT,0,&sensor_id);
-        if (touch_ret != TOUCH_SUCCESS)
-        {
+    for (index = (DEF_SURF_NUM_IND_SENSORS + DEF_SURF_NUM_SLEEP_CHANNELS + DEF_SURF_NUM_SEGMENTS+DEF_SURF_NUM_XLINES);
+            index < DEF_SURF_NUM_CHANNELS;
+            index++) {
+        touch_ret = touch_mutlcap_sensor_config(
+                SENSOR_TYPE_KEY,
+                index,
+                index,
+                NO_AKS_GROUP,
+                SURF_COL_LINE_DT,
+                HYST_6_25,
+                RES_8_BIT,
+                0,
+                &sensor_id
+                );
+        if (touch_ret != TOUCH_SUCCESS) {
             while (1) ;
         }
     }
