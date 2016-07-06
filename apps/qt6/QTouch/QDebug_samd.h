@@ -84,11 +84,11 @@ extern "C"
 #define SUBS_SURF_CONFIG                10
 #define SUBS_SURF_STATUS                11
 #define SUBS_SURF_CHANNEL_INFO          12
-    /* ! @} */
+/* ! @} */
 
-    /*! \name PC commands.
-    */
-    /* ! @{ */
+/*! \name PC commands.
+*/
+/* ! @{ */
 
 #define QT_CMD_DUMMY                    0x10
 #define QT_CMD_SET_SUBS                 0x11
@@ -97,11 +97,11 @@ extern "C"
 #define QT_CMD_SET_MEASUREMENT_PERIOD   0x14
 #define QT_CMD_SET_QM_BURST_LENGTHS     0x15
 
-    /* ! @} */
+/* ! @} */
 
-    /*! \name Touch MCU data packets.
-    */
-    /* ! @{ */
+/*! \name Touch MCU data packets.
+*/
+/* ! @{ */
 
 #define QT_DUMMY                        0x20
 #define QT_SIGN_ON                      0x21
@@ -189,7 +189,7 @@ extern "C"
 #define QDEBUG_GLOBAL_PARAM_ATCH_DRIFT_RATE         p_mutlcap_config->global_param.atch_drift_rate
 #define QDEBUG_GLOBAL_PARAM_ATCH_RECAL_DELAY        p_mutlcap_config->global_param.atch_recal_delay
 
-    //SENSOR_CONFIG
+// SENSOR_CONFIG
 #define QDBEUG_SENSOR_CONFIG_DETECT_THRESHOLD(x)    (sensor_detect_threshold[x])
 #define SENSOR_TYPE_AKS_POS_HYST(x)                 (0x00000)
 #define QDEBUG_SENSOR_FROM_CHANNEL(x)               (x)

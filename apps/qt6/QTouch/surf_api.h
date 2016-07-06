@@ -122,7 +122,7 @@
  */
 #define PRIV_SURF_DATA_BLK_SIZE     ((SURF_DELTA_SUM_SIZE * DEF_SURF_NUM_XLINES) +                                              \
                                      (SURF_DELTA_SUM_SIZE * DEF_SURF_NUM_YLINES) +                                              \
-                                     ((SURF_QTS_TCH_PROP_SIZE + SURF_QTS_GRP_TCH_INFO_SIZE)* DEF_SURF_MAX_TCH) +                \
+                                     ((SURF_QTS_TCH_PROP_SIZE + SURF_QTS_GRP_TCH_INFO_SIZE) * DEF_SURF_MAX_TCH) +               \
                                      (SURF_NODE_PROP_SIZE * DEF_SURF_NUM_IND_SENSORS) +                                         \
                                      (SURF_QTS_GRP_PROP_SIZE * SURF_MAX_NUM_GRP) +                                              \
                                      (DEF_SURF_NUM_IND_SENSORS) +                                                               \

@@ -61,37 +61,37 @@
  *  ----------------------------------------------------------------------------*/
 
 
-#define PTC_APBC_BITMASK (1u << 19u)
+#define PTC_APBC_BITMASK        (1u << 19u)
 
 /*Do not Modify this macro used by library for internal purpose*/
-#define DEF_MUTLCAP_NUM_LUMPED_SENSORS 1u
+#define DEF_MUTLCAP_NUM_LUMPED_SENSORS  1u
 
 #if (DEF_SURF_LOW_POWER_SENSOR_ENABLE ==1)
 /*Low Power Sensor Support */
 
 
 /*macros for controlling application mode*/
-#define NORMAL_MODE 0
-#define LOW_POWER_MODE 1
-#define DRIFT_MODE 2
+#define NORMAL_MODE             0
+#define LOW_POWER_MODE          1
+#define DRIFT_MODE              2
 
 
 /*macros for controlling low power mode running status */
-#define NOT_RUNNING 0
-#define RUNNING 1
-#define INTERRUPTED 2
+#define NOT_RUNNING             0
+#define RUNNING                 1
+#define INTERRUPTED             2
 #if DEF_SURF_TCH_DRIFT_PERIOD <= DEF_SURF_ATCH_DRIFT_PERIOD
 
-#define DRIFT_PERIOD_MS (DEF_SURF_TCH_DRIFT_PERIOD * 200u)
+#define DRIFT_PERIOD_MS         (DEF_SURF_TCH_DRIFT_PERIOD * 200u)
 #else
 
-#define DRIFT_PERIOD_MS (DEF_SURF_ATCH_DRIFT_PERIOD * 200u)
+#define DRIFT_PERIOD_MS         (DEF_SURF_ATCH_DRIFT_PERIOD * 200u)
 
 #endif
 
 
 /*Count Delay to trigger Low Power measurement*/
-#define LOW_POWER_WAIT_CNT 20
+#define LOW_POWER_WAIT_CNT      20
 #endif
 /*----------------------------------------------------------------------------
  *                               prototypes
@@ -141,7 +141,18 @@ void qts_process_lp(void);
  *----------------------------------------------------------------------------*/
 
 
-surf_seg_size_t surf_seg_size[DEF_SURF_NUM_SEGMENTS]={ { SURF_SEG0_ROW_START, SURF_SEG0_ROW_END, SURF_SEG0_COL_START,SURF_SEG0_COL_END },{ SURF_SEG1_ROW_START, SURF_SEG1_ROW_END, SURF_SEG1_COL_START,SURF_SEG1_COL_END },{ SURF_SEG2_ROW_START, SURF_SEG2_ROW_END, SURF_SEG2_COL_START,SURF_SEG2_COL_END },{ SURF_SEG3_ROW_START, SURF_SEG3_ROW_END, SURF_SEG3_COL_START,SURF_SEG3_COL_END },{ SURF_SEG4_ROW_START, SURF_SEG4_ROW_END, SURF_SEG4_COL_START,SURF_SEG4_COL_END },{ SURF_SEG5_ROW_START, SURF_SEG5_ROW_END, SURF_SEG5_COL_START,SURF_SEG5_COL_END },{ SURF_SEG6_ROW_START, SURF_SEG6_ROW_END, SURF_SEG6_COL_START,SURF_SEG6_COL_END },{ SURF_SEG7_ROW_START, SURF_SEG7_ROW_END, SURF_SEG7_COL_START,SURF_SEG7_COL_END } };
+surf_seg_size_t surf_seg_size[DEF_SURF_NUM_SEGMENTS] =
+{
+    { SURF_SEG0_ROW_START , SURF_SEG0_ROW_END , SURF_SEG0_COL_START , SURF_SEG0_COL_END } ,
+    { SURF_SEG1_ROW_START , SURF_SEG1_ROW_END , SURF_SEG1_COL_START , SURF_SEG1_COL_END } ,
+    { SURF_SEG2_ROW_START , SURF_SEG2_ROW_END , SURF_SEG2_COL_START , SURF_SEG2_COL_END } ,
+    { SURF_SEG3_ROW_START , SURF_SEG3_ROW_END , SURF_SEG3_COL_START , SURF_SEG3_COL_END } ,
+    { SURF_SEG4_ROW_START , SURF_SEG4_ROW_END , SURF_SEG4_COL_START , SURF_SEG4_COL_END } ,
+    { SURF_SEG5_ROW_START , SURF_SEG5_ROW_END , SURF_SEG5_COL_START , SURF_SEG5_COL_END } ,
+    { SURF_SEG6_ROW_START , SURF_SEG6_ROW_END , SURF_SEG6_COL_START , SURF_SEG6_COL_END } ,
+    { SURF_SEG7_ROW_START , SURF_SEG7_ROW_END , SURF_SEG7_COL_START , SURF_SEG7_COL_END }
+};
+
 surf_status_t surf_status;
 
 uint8_t surf_data_blk[PRIV_SURF_DATA_BLK_SIZE];
@@ -151,22 +162,23 @@ surf_tch_status_t  surf_tch_status[DEF_SURF_MAX_TCH];// allocate memory upto max
 /**
  * Mutual Cap sensors measured data pointer.
  * Note: This pointer is initialized by the QTouch library once the
- * touch_mutlcap_sensors_init API is called. */
+ * touch_mutlcap_sensors_init API is called.
+ */
 touch_measure_data_t *p_mutlcap_measure_data = NULL;
 
 surf_config_t surf_config = {
-    { DEF_SURF_NUM_CHANNELS,DEF_SURF_NUM_XLINES,DEF_SURF_NUM_YLINES,DEF_SURF_NUM_SLEEP_CHANNELS},
-    {DEF_SURF_DPI_X,DEF_SURF_DPI_Y,DEF_SURF_TOT_RES_X,DEF_SURF_TOT_RES_Y,DEF_SURF_SENSOR_SIZE_IN_X,DEF_SURF_SENSOR_SIZE_IN_Y,0},
-    {DEF_SURF_TCH_DRIFT_PERIOD,DEF_SURF_ATCH_DRIFT_PERIOD,SURF_COMPLETE_CALLBACK},
-    {DEF_SURF_MAX_TCH,DEF_SURF_DI,DEF_SURF_MAX_ON_DURATION},
+    { DEF_SURF_NUM_CHANNELS,DEF_SURF_NUM_XLINES,DEF_SURF_NUM_YLINES,DEF_SURF_NUM_SLEEP_CHANNELS },
+    { DEF_SURF_DPI_X,DEF_SURF_DPI_Y,DEF_SURF_TOT_RES_X,DEF_SURF_TOT_RES_Y,DEF_SURF_SENSOR_SIZE_IN_X,DEF_SURF_SENSOR_SIZE_IN_Y,0 },
+    { DEF_SURF_TCH_DRIFT_PERIOD,DEF_SURF_ATCH_DRIFT_PERIOD,SURF_COMPLETE_CALLBACK },
+    { DEF_SURF_MAX_TCH,DEF_SURF_DI,DEF_SURF_MAX_ON_DURATION },
     surf_seg_size,
     surf_data_blk,
     PRIV_SURF_DATA_BLK_SIZE
 };
 
-uint16_t surface_timer_msec=DEF_TOUCH_MEASUREMENT_PERIOD_MS;
-volatile uint8_t surface_app_burst_again = 1u;
-volatile uint8_t qts_process_done = 0u;
+uint16_t            surface_timer_msec = DEF_TOUCH_MEASUREMENT_PERIOD_MS;
+volatile uint8_t    surface_app_burst_again = 1u;
+volatile uint8_t    qts_process_done = 0u;
 
 /* ! QTouch Library Timing info. */
 touch_time_t touch_time;
@@ -234,60 +246,49 @@ freq_hop_sel_t mutlcap_freq_hops[3u]
  * directly in this structure.
  */
 static touch_mutlcap_config_t mutlcap_config = {
-    DEF_MUTLCAP_NUM_CHANNELS,           /* Mutual Cap number of channels. */
-    DEF_MUTLCAP_NUM_SENSORS,            /* Mutual Cap number of sensors. */
+    DEF_MUTLCAP_NUM_CHANNELS,               /* Mutual Cap number of channels. */
+    DEF_MUTLCAP_NUM_SENSORS,                /* Mutual Cap number of sensors. */
     DEF_MUTLCAP_NUM_LUMPED_SENSORS,
-    DEF_MUTLCAP_NUM_ROTORS_SLIDERS,     /* Mutual Cap number of rotors and
-                                         *sliders. */
+    DEF_MUTLCAP_NUM_ROTORS_SLIDERS,         /* Mutual Cap number of rotors and sliders. */
 
     /* Mutual Cap GLOBAL SENSOR CONFIGURATION INFO. */
     {
-        DEF_MUTLCAP_DI,                 /* uint8_t  di; Sensor detect
-                                         *integration (DI) limit. */
+        DEF_MUTLCAP_DI,                     /* uint8_t  di; - Sensor detect integration (DI) limit. */
         /* Interchanging Negative and Positive Drift rate, since Signal
-         *increases on Touch. */
-        DEF_MUTLCAP_ATCH_DRIFT_RATE,    /* uint8_t  neg_drift_rate; Sensor
-                                          *negative drift rate. */
-        DEF_MUTLCAP_TCH_DRIFT_RATE,     /* uint8_t  pos_drift_rate; Sensor
-                                         *positive drift rate. */
-        DEF_MUTLCAP_MAX_ON_DURATION,    /* uint8_t  max_on_duration; Sensor
-                                         *maximum on duration. */
-        DEF_MUTLCAP_DRIFT_HOLD_TIME,    /* uint8_t  drift_hold_time; Sensor
-                                         *drift hold time. */
-        DEF_MUTLCAP_ATCH_RECAL_DELAY,   /* uint8_t  pos_recal_delay;
-                                         *Sensor positive recalibration
-                                         *delay. */
+         * increases on Touch. */
+        DEF_MUTLCAP_ATCH_DRIFT_RATE,        /* Sensor negative drift rate. */
+        DEF_MUTLCAP_TCH_DRIFT_RATE,         /* Sensor positive drift rate. */
+        DEF_MUTLCAP_MAX_ON_DURATION,        /* Sensor maximum on duration. */
+        DEF_MUTLCAP_DRIFT_HOLD_TIME,        /* Sensor drift hold time. */
+        DEF_MUTLCAP_ATCH_RECAL_DELAY,       /* Sensor positive recalibration delay. */
         DEF_MUTLCAP_CAL_SEQ1_COUNT,
         DEF_MUTLCAP_CAL_SEQ2_COUNT,
-        DEF_MUTLCAP_ATCH_RECAL_THRESHOLD, /* recal_threshold_t
-                                           *recal_threshold; Sensor
-                                           *recalibration threshold. */
+        DEF_MUTLCAP_ATCH_RECAL_THRESHOLD,   /*  Sensor recalibration threshold. */
 
         DEF_MUTLCAP_FREQ_AUTO_TUNE_SIGNAL_STABILITY_LIMIT,
         DEF_MUTLCAP_FREQ_AUTO_TUNE_IN_CNT,
-        DEF_MUTLCAP_NOISE_MEAS_SIGNAL_STABILITY_LIMIT,/* signal stability */
+        DEF_MUTLCAP_NOISE_MEAS_SIGNAL_STABILITY_LIMIT,  /* Signal stability */
         DEF_MUTLCAP_NOISE_LIMIT,
         DEF_MUTLCAP_LOCKOUT_SEL,
         DEF_MUTLCAP_LOCKOUT_CNTDOWN,
     },
     {
-        mutlcap_gain_per_node,          /* Mutual Cap channel gain setting. */
-        DEF_MUTLCAP_FREQ_MODE,          /* Mutual Cap noise counter measure
-                                         *enable/disable. */
-        DEF_MUTLCAP_CLK_PRESCALE,       /* mutual Capacitance PTC clock prescale */
-        DEF_MUTLCAP_SENSE_RESISTOR,     /* mutual Cap sense resistor value */
+        mutlcap_gain_per_node,              /* Mutual Cap channel gain setting. */
+        DEF_MUTLCAP_FREQ_MODE,              /* Mutual Cap noise counter measure enable/disable. */
+        DEF_MUTLCAP_CLK_PRESCALE,           /* Mutual Capacitance PTC clock prescale */
+        DEF_MUTLCAP_SENSE_RESISTOR,         /* Mutual Cap sense resistor value */
         DEF_MUTLCAP_CC_CAL_CLK_PRESCALE,
         DEF_MUTLCAP_CC_CAL_SENSE_RESISTOR,
-        mutlcap_freq_hops,              /* mutual cap hopping freqencies */
-        DEF_MUTLCAP_FILTER_LEVEL,       /* Mutual Cap filter level setting. */
-        DEF_MUTLCAP_AUTO_OS,            /* Mutual Cap auto oversamples setting. */
+        mutlcap_freq_hops,                  /* Mutual cap hopping freqencies */
+        DEF_MUTLCAP_FILTER_LEVEL,           /* Mutual Cap filter level setting. */
+        DEF_MUTLCAP_AUTO_OS,                /* Mutual Cap auto oversamples setting. */
     },
-    mutlcap_data_blk,                   /* Mutual Cap data block index. */
-    PRIV_MUTLCAP_DATA_BLK_SIZE,         /* Mutual Cap data block size. */
-    mutlcap_xy_nodes,                   /* Mutual Cap channel nodes. */
+    mutlcap_data_blk,                       /* Mutual Cap data block index. */
+    PRIV_MUTLCAP_DATA_BLK_SIZE,             /* Mutual Cap data block size. */
+    mutlcap_xy_nodes,                       /* Mutual Cap channel nodes. */
     DEF_MUTLCAP_QUICK_REBURST_ENABLE,
     MODE_ALL,
-    DEF_MUTLCAP_FILTER_CALLBACK,        /* Mutual Cap filter callback function pointer. */
+    DEF_MUTLCAP_FILTER_CALLBACK,            /* Mutual Cap filter callback function pointer. */
     DEF_MUTLCAP_FREQ_AUTO_TUNE_ENABLE,
     DEF_MUTLCAP_NOISE_MEAS_ENABLE,
     DEF_MUTLCAP_NOISE_MEAS_BUFFER_CNT
@@ -297,10 +298,10 @@ static touch_mutlcap_config_t mutlcap_config = {
  * Touch Library input configuration structure.
  */
 touch_config_t touch_config = {
-    &mutlcap_config,                /* Pointer to Mutual Cap configuration
-                                     *structure. */
+    &mutlcap_config,                /* Pointer to Mutual Cap configuration structure. */
     DEF_TOUCH_PTC_ISR_LVL,          /* PTC interrupt level. */
 };
+
 /*----------------------------------------------------------------------------
  *                             Function Definitions
  *----------------------------------------------------------------------------*/
