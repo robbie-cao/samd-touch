@@ -178,7 +178,7 @@
  * Applicable only when DEF_SURF_NUM_SLEEP_CHANNELS is equal to 1.
  */
 
-#define DEF_SURF_LOW_POWER_SENSOR_ENABLE    (0)
+#define DEF_SURF_LOW_POWER_SENSOR_ENABLE    (1)
 
 /* ! @} */
 

@@ -52,6 +52,7 @@
  * Atmel Software Framework (ASF).
  */
 #include <asf.h>
+#include "events.h"
 #include "surface.h"
 #include "touch.h"
 #include "touch_api_SAMD.h"
