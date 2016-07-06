@@ -134,44 +134,35 @@
                                      (SURF_PAD_BYTE_SIZE)                                                                       \
                                     )
 
-/*****************************************************************************
+/*----------------------------------------------------------------------------
  *                          type definitions
- *****************************************************************************/
+ *----------------------------------------------------------------------------*/
 /* ! Current time type. */
 typedef uint16_t surf_current_time_t;
 
 
 /* ! Surface Library error codes. */
 typedef enum tag_surf_ret_t {
-    /* ! Successful completion of operation. */
-    SURF_SUCCESS,
-    /* ! Invalid input parameter. */
-    SURF_INVALID_INPUT_PARAM,
-    /* ! Operation not allowed in the current Surface Library state. */
-    SURF_INVALID_LIB_STATE,
-    /* ! Channel number parameter exceeded total number of channels
-     * configured. */
-    SURF_INVALID_CHANNEL_NUM,
-    /* ! Invalid Sensor number parameter. */
-    SURF_INVALID_SENSOR_ID
+    SURF_SUCCESS,                   /* ! Successful completion of operation. */
+    SURF_INVALID_INPUT_PARAM,       /* ! Invalid input parameter. */
+    SURF_INVALID_LIB_STATE,         /* ! Operation not allowed in the current Surface Library state. */
+    SURF_INVALID_CHANNEL_NUM,       /* ! Channel number parameter exceeded total number of channels configured. */
+    SURF_INVALID_SENSOR_ID          /* ! Invalid Sensor number parameter. */
 }
 surf_ret_t;
 
 
-/*****************************************************************************
- *                                Structures
- *****************************************************************************/
+/*----------------------------------------------------------------------------
+ *                                structures
+ *----------------------------------------------------------------------------*/
 typedef struct tag_surf_seg_size_t
 {
     uint8_t row_beg;
     uint8_t row_end;
     uint8_t col_beg;
     uint8_t col_end;
-
 }
 surf_seg_size_t;
-
-////////////////////////////Touch Surface Status Information End////////////////////
 
 typedef struct tag_surf_global_param_t {
     uint8_t tch_drift_period;
@@ -180,8 +171,6 @@ typedef struct tag_surf_global_param_t {
 }
 surf_global_param_t;
 
-
-//////Touch Config Information //////////
 typedef struct tag_surf_tch_config_t {
     uint8_t num_touches;
     uint8_t tch_di;
@@ -211,10 +200,9 @@ surf_tch_status_t;
 
 typedef struct tag_surf_status_t {
     uint8_t             num_active_touches;
-    uint8_t             surf_tch_state;//each bit mask represent ON/OFF for each touch
-    surf_tch_status_t * ptr_surf_tch_status;//index is touch id.
+    uint8_t             surf_tch_state;         // Each bit mask represent ON/OFF for each touch
+    surf_tch_status_t * ptr_surf_tch_status;    // Index is touch id.
     uint32_t *          ptr_surf_cyc_burst_mask;
-
 }
 surf_status_t;
 
@@ -231,7 +219,7 @@ typedef struct tag_surf_config_t {
     surf_hw_config_t    surf_hw_config;
     surf_pos_prop_t     surf_pos_prop;
     surf_global_param_t surf_global_param;
-    surf_tch_config_t   surf_tch_config;//num_touches,di,mod
+    surf_tch_config_t   surf_tch_config;        // num_touches, di, mod
     surf_seg_size_t *   ptr_surf_seg_size;
     uint8_t *           ptr_surf_data_block;
     uint16_t            surf_data_block_size;
@@ -240,12 +228,9 @@ surf_config_t;
 
 /* ! Surface library version information type. */
 typedef struct tag_surf_libver_info_t {
-    /* ! Chip ID */
-    uint32_t chip_id;
-    /* ! Product ID */
-    uint8_t  product_id;
-    /* ! Touch Library version. */
-    uint16_t fw_version;
+    uint32_t chip_id;       /* ! Chip ID */
+    uint8_t  product_id;    /* ! Product ID */
+    uint16_t fw_version;    /* ! Touch Library version. */
 }
 surf_libver_info_t;
 
@@ -253,7 +238,6 @@ surf_libver_info_t;
 /*----------------------------------------------------------------------------
  *                                APIs
  *----------------------------------------------------------------------------*/
-
 
 /*! \brief This API can be used to initialize the different parameters of the touch surface
  *
