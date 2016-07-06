@@ -40,31 +40,30 @@
 #include "touch_api_SAMD.h"
 #include "surface.h"
 
+#define SURF_GET_NUM_TOUCHES()              surf_status.num_active_touches
+
 /*
- * SURF_GET_TOUCH_STATE (TOUCH_ID)
  * To get the state of the particular touch id(whether detect or not) that corresponds to the touch id specified using the TOUCH_ID.
  * The macro returns either 0 or 1.
  * If the bit value is 0, the touch is not in detect
  * If the bit value is 1, the touch is in detect
  */
 #define SURF_GET_TOUCH_STATE(TOUCH_ID)      surf_status.surf_tch_state & (1 << (TOUCH_ID % 8))
+
 /*
- * SURF_GET_X_POSITION (TOUCH_ID)
  * To get the X position for the particular touch id.
  */
 #define SURF_GET_X_POSITION(TOUCH_ID)       surf_status.ptr_surf_tch_status[TOUCH_ID].x_position
 
 /*
- * SURF_GET_Y_POSITION (TOUCH_ID)
  * To get the Y position for the particular touch id.
  */
-#define SURF_GET_Y_POSITION(TOUCH_ID) surf_status.ptr_surf_tch_status[TOUCH_ID].y_position
+#define SURF_GET_Y_POSITION(TOUCH_ID)       surf_status.ptr_surf_tch_status[TOUCH_ID].y_position
 
 /*
- * SURF_GET_TOUCH_AREA (TOUCH_ID)
  * To get the area for the particular touch id.
  */
-#define SURF_GET_TOUCH_AREA(TOUCH_ID) surf_status.ptr_surf_tch_status[TOUCH_ID].area
+#define SURF_GET_TOUCH_AREA(TOUCH_ID)       surf_status.ptr_surf_tch_status[TOUCH_ID].area
 
 
 /* Below MACROS should not be modified */

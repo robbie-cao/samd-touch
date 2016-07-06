@@ -165,7 +165,7 @@ surf_seg_size_t surf_seg_size[DEF_SURF_NUM_SEGMENTS] =
 surf_status_t surf_status;
 
 uint8_t surf_data_blk[PRIV_SURF_DATA_BLK_SIZE];
-surf_tch_status_t  surf_tch_status[DEF_SURF_MAX_TCH];// allocate memory upto max no of touches.
+surf_tch_status_t  surf_tch_status[DEF_SURF_MAX_TCH];
 
 
 /**
