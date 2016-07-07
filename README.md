@@ -1,4 +1,6 @@
-# Qtouch on SAMD20/21 with QT6 Xplained Board
+# Touch on Atmel SAMD20/21 and QT6 Xplained Board
+
+A touchpad solution on Atmel SAMD20/21 and QT6 Xplained board based on ASF(Atmel Software Framework) and QTouch Surface Library.
 
 ## How to Build
 
