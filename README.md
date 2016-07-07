@@ -2,10 +2,10 @@
 
 A touchpad solution on Atmel SAMD20/21 and QT6 Xplained board based on ASF(Atmel Software Framework) and QTouch Surface Library.
 
-- The Atmel®SAM D20/D21 Xplained Pro evaluation kit is ideal for evaluating and prototyping with the Atmel SAM D20/D21 ARM®Cortex®-M0+ based microcontrollers.
+- The Atmel SAM D20/D21 Xplained Pro evaluation kit is ideal for evaluating and prototyping with the Atmel SAM D20/D21 ARM Cortex-M0+ based microcontrollers.
 - The QT6 Xplained Pro is a QTouch Surface extension board for Xplained Pro boards that demonstrates the Peripheral Touch Controller (PTC) as a high performance touch-surface controller.
-- The Atmel® Software Framework (ASF) is a MCU software library providing a large collection of embedded software for Atmel flash MCUs: megaAVR, AVR XMEGA, AVR UC3 and SAM devices.
-- Atmel®QTouch Surface Library makes it simple for developers to embed capacitive-touch surface functionality into general-purpose Atmel | SMART SAM D20/D21 microcontroller applications.
+- The Atmel Software Framework (ASF) is a MCU software library providing a large collection of embedded software for Atmel flash MCUs: megaAVR, AVR XMEGA, AVR UC3 and SAM devices.
+- Atmel QTouch Surface Library makes it simple for developers to embed capacitive-touch surface functionality into general-purpose Atmel SAM D20/D21 microcontroller applications.
 
 ## How to Build
 
